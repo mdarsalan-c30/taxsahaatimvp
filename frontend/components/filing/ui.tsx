@@ -229,12 +229,16 @@ export function TextInput({
   placeholder,
   type = "text",
   maxLength,
+  onFocus,
+  onBlur,
 }: {
   value?: string;
   onChange?: (v: string) => void;
   placeholder?: string;
   type?: string;
   maxLength?: number;
+  onFocus?: () => void;
+  onBlur?: () => void;
 }) {
   return (
     <input
@@ -243,6 +247,8 @@ export function TextInput({
       onChange={(e) => onChange?.(e.target.value)}
       placeholder={placeholder}
       maxLength={maxLength}
+      onFocus={onFocus}
+      onBlur={onBlur}
       className="w-full rounded-xl border border-slate-200/80 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
     />
   );

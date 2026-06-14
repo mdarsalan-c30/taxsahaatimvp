@@ -165,6 +165,8 @@ export interface DraftState {
       appendAsEmployer?: boolean;
     }
   ) => void;
+  activeField: string | null;
+  setActiveField: (field: string | null) => void;
   reset: () => void;
   resetEligibilityStep: () => void;
   resetOnboardingProfile: () => void;
@@ -233,6 +235,7 @@ const initialState = {
   engineRecommendationCount: 0,
   questionAnswers: {} as Record<string, unknown>,
   computeHistory: [] as ComputeHistoryEntry[],
+  activeField: null as string | null,
   enginePhase: "inputs" as EnginePhase,
 };
 
@@ -245,6 +248,7 @@ export const useDraftStore = create<DraftState>()(
     (set) => ({
       ...initialState,
 
+      setActiveField: (activeField) => set({ activeField }),
       setName: (name) => set({ name }),
       setFilingMode: (filingMode) => set({ filingMode }),
       setFilingPath: (filingPath) => set({ filingPath }),

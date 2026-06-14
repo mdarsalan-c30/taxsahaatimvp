@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { FieldLabel, TextInput } from "./ui";
-import { HelpCircle, Languages } from "lucide-react";
+import { HelpCircle, Languages, Sparkles } from "lucide-react";
+import { useDraftStore } from "@/lib/store/draft";
+import { FIELD_GUIDANCE } from "./ActiveAiCompanion";
 
 export function PlainEnglishField({
   govLabel,
@@ -15,6 +17,7 @@ export function PlainEnglishField({
   type = "text",
   maxLength,
   children,
+  fieldId,
 }: {
   govLabel: string;
   simpleLabel: string;
@@ -26,9 +29,13 @@ export function PlainEnglishField({
   type?: string;
   maxLength?: number;
   children?: React.ReactNode;
+  fieldId?: string;
 }) {
   const [showGov, setShowGov] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
+  const setActiveField = useDraftStore((s) => s.setActiveField);
+
+  const activeId = fieldId ?? simpleLabel.toLowerCase().replace(/[^a-z0-9]/g, "_");
 
   return (
     <div className="mb-5">
@@ -71,11 +78,28 @@ export function PlainEnglishField({
           placeholder={placeholder}
           type={type}
           maxLength={maxLength}
+          onFocus={() => setActiveField?.(activeId)}
+          onBlur={() => setActiveField?.(null)}
         />
       )}
 
       {helper && (
         <p className="mt-2 text-xs leading-relaxed text-slate-500">{helper}</p>
+      )}
+
+      {/* Genie hint popup below input field when focused */}
+      {useDraftStore((s) => s.activeField) === activeId && FIELD_GUIDANCE[activeId] && (
+        <div className="mt-2 rounded-xl bg-blue-50/60 border border-blue-100/60 p-3 flex items-start gap-2.5 shadow-sm animate-in fade-in slide-in-from-top-1 duration-200">
+          <Sparkles className="size-4 text-blue-600 shrink-0 mt-0.5 animate-bounce" />
+          <div className="space-y-0.5">
+            <p className="text-[10px] font-bold text-blue-900 uppercase tracking-wider flex items-center gap-1">
+              Genie Hint <span className="inline-block animate-ping size-1 h-1 rounded-full bg-blue-600" />
+            </p>
+            <p className="text-xs text-slate-700 leading-relaxed">
+              {FIELD_GUIDANCE[activeId].tip}
+            </p>
+          </div>
+        </div>
       )}
     </div>
   );

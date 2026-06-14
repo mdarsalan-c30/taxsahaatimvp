@@ -9,6 +9,7 @@ import { formatINR } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { getIncomeSectionStatuses, statusDotClass } from "@/lib/filing/navStatus";
 import { ProfileNavLink } from "@/components/marketing/ProfileNavLink";
+import { ActiveAiCompanion } from "./ActiveAiCompanion";
 import {
   UserCheck,
   UploadCloud,
@@ -533,17 +534,9 @@ export function FilingLayout({
 
           {/* Context helper rail */}
           {!isCompanionLayout && (
-            <aside className="hidden xl:block w-full shrink-0 self-start">
-              <div className="sticky top-24 border border-slate-100 bg-white rounded-2xl p-5 shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="flex size-5 items-center justify-center rounded bg-blue-50 text-blue-600">
-                    <Sparkles className="size-3" />
-                  </span>
-                  <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-800">
-                    Filing Guide
-                  </h4>
-                </div>
-                <p className="text-sm leading-relaxed text-slate-500">{mirrorText}</p>
+            <aside className="hidden xl:block w-full shrink-0 self-start xl:sticky xl:top-20 xl:h-[calc(100vh-6rem)] xl:overflow-y-auto">
+              <div className="h-full border border-slate-100 bg-white rounded-2xl shadow-sm overflow-hidden">
+                <ActiveAiCompanion />
               </div>
             </aside>
           )}
