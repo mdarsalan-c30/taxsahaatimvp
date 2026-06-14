@@ -11,7 +11,7 @@ async function proxyToPythonServerless(
   payload: string
 ): Promise<NextResponse> {
   const origin = new URL(request.url).origin;
-  const res = await fetch(`${origin}/api/py-compute`, {
+  const res = await fetch(`${origin}/_/backend/api/py-compute`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: payload,

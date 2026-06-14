@@ -1,13 +1,13 @@
 {
-  "headers": [
-    {
-      "source": "/file/(.*)",
-      "headers": [
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex, nofollow"
-        }
-      ]
+  "experimentalServices": {
+    "frontend": {
+      "root": "frontend",
+      "routePrefix": "/",
+      "framework": "nextjs"
+    },
+    "backend": {
+      "root": "backend",
+      "routePrefix": "/_/backend"
     }
-  ]
+  }
 }
