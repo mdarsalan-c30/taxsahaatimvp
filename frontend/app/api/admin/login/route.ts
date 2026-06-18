@@ -3,8 +3,8 @@ import {
   ADMIN_SESSION_COOKIE,
   adminCookieOptions,
   createAdminSessionToken,
-  verifyCredentials,
 } from "@/lib/admin/auth";
+import { verifyAdminCredentials } from "@/lib/admin/users";
 
 export async function POST(request: NextRequest) {
   try {
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const user = verifyCredentials(body.email, body.password);
+    const user = await verifyAdminCredentials(body.email, body.password);
     if (!user) {
       return NextResponse.json(
         { error: "Invalid email or password" },

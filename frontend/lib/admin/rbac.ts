@@ -1,30 +1,47 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
-import type { AdminRole } from "@/lib/db/types";
 import {
   ADMIN_SESSION_COOKIE,
   readAdminSession,
   type AdminSession,
 } from "./auth";
+import {
+  DEFAULT_ROLE_PERMISSIONS,
+  PERMISSION_KEYS,
+  type Permission,
+} from "./permissions";
+import { resolveRolePermissions } from "./users";
 
-/** Privileged admin actions, mapped to the roles allowed to perform them (§6). */
-export const PERMISSIONS = {
-  viewDashboard: ["ceo", "ops", "engineering"],
-  createCoupon: ["ceo", "ops"],
-  revokeCoupon: ["ceo", "ops"],
-  editPricing: ["ceo"],
-  refundPayment: ["ceo"],
-  manageCrm: ["ceo", "ops"],
-  verifyCa: ["ceo", "ops"],
-  deleteUserData: ["ceo", "ops"],
-  editContent: ["ceo", "content"],
-  viewAudit: ["ceo", "engineering"],
-} as const satisfies Record<string, readonly AdminRole[]>;
+export type { Permission } from "./permissions";
 
-export type Permission = keyof typeof PERMISSIONS;
+/**
+ * Back-compat default matrix: permission → built-in roles allowed by default.
+ * Derived from the role defaults in permissions.ts. The live, editable matrix is
+ * resolved from the store via `canAsync` / `resolveRolePermissions`.
+ */
+export const PERMISSIONS: Record<Permission, string[]> = Object.fromEntries(
+  PERMISSION_KEYS.map((perm) => [
+    perm,
+    Object.entries(DEFAULT_ROLE_PERMISSIONS)
+      .filter(([, perms]) => perms.includes(perm))
+      .map(([role]) => role),
+  ])
+) as Record<Permission, string[]>;
 
-export function can(role: AdminRole, permission: Permission): boolean {
-  return (PERMISSIONS[permission] as readonly AdminRole[]).includes(role);
+/** Synchronous check against built-in defaults (no store overrides). */
+export function can(role: string, permission: Permission): boolean {
+  return (DEFAULT_ROLE_PERMISSIONS[role] ?? []).includes(permission);
+}
+
+/** Store-aware check: honors edited matrices and custom roles. */
+export async function canAsync(
+  role: string,
+  permission: Permission
+): Promise<boolean> {
+  const map = await resolveRolePermissions();
+  return (map[role] ?? DEFAULT_ROLE_PERMISSIONS[role] ?? []).includes(
+    permission
+  );
 }
 
 /** Server-component / server-action session read. Returns null if unauthenticated. */
@@ -48,7 +65,7 @@ export async function requireAdmin(
   if (!session) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
-  if (permission && !can(session.role, permission)) {
+  if (permission && !(await canAsync(session.role, permission))) {
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
   return session;

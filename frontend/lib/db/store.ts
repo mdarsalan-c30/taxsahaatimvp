@@ -19,6 +19,8 @@ import type { AdminCollection, AdminData, PricingConfigRow } from "./types";
 
 function emptyData(): AdminData {
   return {
+    adminUsers: [],
+    adminRoles: [],
     auditLogs: [],
     pricingConfig: [],
     pricingRevisions: [],
@@ -121,6 +123,20 @@ export async function update<K extends AdminCollection>(
   rows[idx] = { ...rows[idx], ...patch };
   await persist();
   return rows[idx] as AdminData[K][number];
+}
+
+/** Remove the first row matching `id`. Returns true if a row was deleted. */
+export async function remove<K extends AdminCollection>(
+  collection: K,
+  id: string
+): Promise<boolean> {
+  const data = await load();
+  const rows = data[collection] as Array<{ id: string }>;
+  const idx = rows.findIndex((r) => r.id === id);
+  if (idx === -1) return false;
+  rows.splice(idx, 1);
+  await persist();
+  return true;
 }
 
 /** Replace an entire collection (used for bulk seed/import). */

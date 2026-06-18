@@ -1,4 +1,4 @@
-import { getAdminSession, can } from "@/lib/admin/rbac";
+import { getAdminSession, canAsync } from "@/lib/admin/rbac";
 import { listPayments, paymentSummary } from "@/lib/admin/payments";
 import { Card, PageHeader } from "../../_components/ui";
 import { PaymentsTable } from "./PaymentsTable";
@@ -7,7 +7,9 @@ export const dynamic = "force-dynamic";
 
 export default async function PaymentsPage() {
   const session = await getAdminSession();
-  const canRefund = session ? can(session.role, "refundPayment") : false;
+  const canRefund = session
+    ? await canAsync(session.role, "refundPayment")
+    : false;
 
   const [payments, summary] = await Promise.all([
     listPayments(),

@@ -1,7 +1,40 @@
 import type { PlanId } from "@/lib/filing/types";
 
+/**
+ * Built-in admin roles. Custom roles (created via Settings ▸ Team) are also
+ * valid role keys, so most code treats a role as a free-form `string` and
+ * resolves its permission set from the role config (see lib/admin/users.ts).
+ */
 export type AdminRole = "ceo" | "ops" | "engineering" | "content";
 export type Lane = "b2c" | "b2b" | "both";
+
+export type AdminUserStatus = "active" | "disabled";
+
+/** A self-serve admin account managed from the Team screen (store-backed). */
+export interface AdminUserRow {
+  id: string;
+  email: string;
+  passwordHash: string;
+  role: string;
+  status: AdminUserStatus;
+  createdBy?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/**
+ * A role definition with its permission set. Built-in roles seed from
+ * lib/admin/permissions.ts; rows here override built-ins or add custom roles.
+ */
+export interface AdminRoleRow {
+  id: string;
+  key: string;
+  label: string;
+  builtin: boolean;
+  permissions: string[];
+  createdAt: string;
+  updatedAt: string;
+}
 
 export interface AuditLog {
   id: string;
@@ -178,6 +211,8 @@ export interface Tenant {
 
 /** Every collection the admin store manages. */
 export interface AdminData {
+  adminUsers: AdminUserRow[];
+  adminRoles: AdminRoleRow[];
   auditLogs: AuditLog[];
   pricingConfig: PricingConfigRow[];
   pricingRevisions: PricingRevision[];

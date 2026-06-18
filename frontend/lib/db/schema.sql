@@ -4,13 +4,30 @@
 -- DATABASE_URL is provisioned. Tenant rule: B2B rows carry tenant_id, B2C rows null.
 
 -- ── Admin & audit ────────────────────────────────────────────────────────────
+-- `role` references admin_roles.key (built-in or custom); no enum check so the
+-- self-serve Team screen can create custom roles. Disabled users cannot log in.
 create table if not exists admin_users (
   id            text primary key,
   email         text unique not null,
   password_hash text not null,
-  role          text not null check (role in ('ceo','ops','engineering','content')),
+  role          text not null,
+  status        text not null default 'active' check (status in ('active','disabled')),
   twofa_enabled boolean not null default false,
-  created_at    timestamptz not null default now()
+  created_by    text,
+  created_at    timestamptz not null default now(),
+  updated_at    timestamptz not null default now()
+);
+
+-- Role definitions + editable permission matrix. Built-in roles are seeded from
+-- lib/admin/permissions.ts; rows here override built-ins or add custom roles.
+create table if not exists admin_roles (
+  id          text primary key,
+  key         text unique not null,
+  label       text not null,
+  builtin     boolean not null default false,
+  permissions jsonb not null default '[]'::jsonb,
+  created_at  timestamptz not null default now(),
+  updated_at  timestamptz not null default now()
 );
 
 create table if not exists audit_logs (

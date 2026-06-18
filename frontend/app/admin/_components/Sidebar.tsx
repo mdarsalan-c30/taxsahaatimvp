@@ -36,7 +36,7 @@ const NAV: NavGroup[] = [
     heading: "System",
     items: [
       { href: "/admin/compliance", label: "Compliance" },
-      { href: "/admin/settings", label: "Settings" },
+      { href: "/admin/settings", label: "Team & roles" },
     ],
   },
 ];

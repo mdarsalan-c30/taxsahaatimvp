@@ -1,5 +1,4 @@
 import crypto from "crypto";
-import type { AdminRole } from "@/lib/db/types";
 
 export const ADMIN_SESSION_COOKIE = "ts_admin_session";
 /** Admin session lifetime — 12 hours. */
@@ -8,16 +7,15 @@ export const ADMIN_SESSION_MAX_AGE_SEC = 60 * 60 * 12;
 export interface AdminUser {
   email: string;
   passwordHash: string;
-  role: AdminRole;
+  role: string;
 }
 
 export interface AdminSession {
   email: string;
-  role: AdminRole;
+  /** Built-in or custom role key; permissions are resolved from the role config. */
+  role: string;
   exp: number;
 }
-
-const VALID_ROLES: AdminRole[] = ["ceo", "ops", "engineering", "content"];
 
 export function hashPassword(password: string): string {
   return crypto.createHash("sha256").update(password).digest("hex");
@@ -49,7 +47,8 @@ export function getAdminUsers(): AdminUser[] {
         (u) =>
           typeof u.email === "string" &&
           typeof u.passwordHash === "string" &&
-          VALID_ROLES.includes(u.role)
+          typeof u.role === "string" &&
+          u.role.length > 0
       );
     } catch {
       // fall through to bootstrap
@@ -94,7 +93,10 @@ function sign(encodedPayload: string): string {
     .digest("base64url");
 }
 
-export function createAdminSessionToken(user: AdminUser): string {
+export function createAdminSessionToken(user: {
+  email: string;
+  role: string;
+}): string {
   const payload: AdminSession = {
     email: user.email,
     role: user.role,
@@ -119,7 +121,8 @@ export function readAdminSession(token: string | undefined): AdminSession | null
     if (
       !session ||
       typeof session.email !== "string" ||
-      !VALID_ROLES.includes(session.role) ||
+      typeof session.role !== "string" ||
+      session.role.length === 0 ||
       typeof session.exp !== "number" ||
       session.exp < Date.now()
     ) {
