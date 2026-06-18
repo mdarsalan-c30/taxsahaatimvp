@@ -5,6 +5,7 @@ import { trackEvent } from "@/lib/analytics";
 import type { PlanId } from "@/lib/payments/plans";
 import { getPlan } from "@/lib/payments/plans";
 import { getEffectivePrice, getPlanPriceLabel } from "@/lib/marketing/pricing";
+import { getBrowserSessionId } from "@/lib/store/sessionInit";
 
 declare global {
   interface Window {
@@ -46,6 +47,7 @@ interface CreateOrderResponse {
 
 interface RazorpayButtonProps {
   planId: PlanId;
+  couponCode?: string;
   onSuccess?: (result: {
     orderId: string;
     paymentId: string;
@@ -74,6 +76,7 @@ function loadRazorpayScript(): Promise<void> {
 
 export default function RazorpayButton({
   planId,
+  couponCode,
   onSuccess,
   onError,
   className = "",
@@ -93,6 +96,8 @@ export default function RazorpayButton({
         body: JSON.stringify({
           ...response,
           planId,
+          sessionId: getBrowserSessionId(),
+          couponCode,
         }),
       });
       const data = await verifyRes.json();
@@ -101,7 +106,7 @@ export default function RazorpayButton({
       }
       return data;
     },
-    [planId]
+    [planId, couponCode]
   );
 
   const handleMockPayment = useCallback(
@@ -131,7 +136,7 @@ export default function RazorpayButton({
         method: "POST",
         credentials: "same-origin",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ planId }),
+        body: JSON.stringify({ planId, couponCode }),
       });
       const order = (await orderRes.json()) as CreateOrderResponse & {
         error?: string;
@@ -197,6 +202,7 @@ export default function RazorpayButton({
     planId,
     priceLabel,
     verifyPayment,
+    couponCode,
   ]);
 
   const label =

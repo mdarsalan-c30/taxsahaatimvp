@@ -1,16 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getEffectivePrice } from "@/lib/marketing/pricing";
 import type { PlanId } from "@/lib/payments/plans";
 import {
   createRazorpayOrder,
   hasRazorpayKeys,
 } from "@/lib/payments/razorpay";
+import { getPublishedPrice } from "@/lib/pricing/config";
+import { validateCoupon } from "@/lib/admin/coupons";
 
 const VALID_PLANS: PlanId[] = ["free", "diy", "ai_smart", "ca"];
 
 export async function POST(request: NextRequest) {
   try {
-    const body = (await request.json()) as { planId?: string };
+    const body = (await request.json()) as {
+      planId?: string;
+      couponCode?: string;
+    };
     const raw = body.planId as string;
     const planId = (raw === "ca_review" ? "ca" : raw) as PlanId;
 
@@ -21,7 +25,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const effectivePrice = getEffectivePrice(planId);
+    let effectivePrice = await getPublishedPrice(planId);
+
+    // Amount-off coupons reduce the Razorpay order amount.
+    if (body.couponCode) {
+      const result = await validateCoupon(body.couponCode, planId);
+      if (result.valid && result.coupon?.discount === "amount") {
+        effectivePrice = Math.max(0, effectivePrice - (result.coupon.amountOff ?? 0));
+      }
+    }
 
     if (effectivePrice === 0) {
       return NextResponse.json({

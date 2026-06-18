@@ -4,6 +4,7 @@ node_modules
 .DS_Store
 .vercel
 data/session_logs.jsonl
+frontend/data/admin-store.json
 test-results
 *.tsbuildinfo
 .env.prod.check

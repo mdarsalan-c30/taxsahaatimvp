@@ -8,6 +8,31 @@ import {
   type AnalyticsProvider,
   QueuedAnalyticsProvider,
 } from "./provider";
+import { getBrowserSessionId } from "@/lib/store/sessionInit";
+
+/** Best-effort server beacon so the admin dashboard can compute native KPIs. */
+function beaconToAdmin(name: string, props?: AnalyticsEventProps): void {
+  if (typeof window === "undefined") return;
+  try {
+    const body = JSON.stringify({
+      sessionId: getBrowserSessionId(),
+      eventName: name,
+      payload: props,
+    });
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon("/api/track", new Blob([body], { type: "application/json" }));
+    } else {
+      void fetch("/api/track", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body,
+        keepalive: true,
+      });
+    }
+  } catch {
+    // Never block the funnel on telemetry.
+  }
+}
 
 export type { AnalyticsEventName, AnalyticsEventProps, QueuedAnalyticsEvent };
 export type { AnalyticsProvider };
@@ -45,6 +70,7 @@ export function trackEvent(
     console.log("[analytics]", name, props ?? {});
   }
 
+  beaconToAdmin(name, props);
   provider.track(name, props);
 }
 
