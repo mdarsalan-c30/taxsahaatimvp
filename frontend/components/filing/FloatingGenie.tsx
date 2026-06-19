@@ -125,32 +125,7 @@ export function FloatingGenie({
   const [hydrated, setHydrated] = useState(false);
   const [activeTab, setActiveTab] = useState<"guide" | "calculator">("guide");
 
-  useEffect(() => {
-    const dismissed = localStorage.getItem(GENIE_DISMISSED_KEY) === "1";
-    setIsOpen(!dismissed);
-    setHydrated(true);
-  }, []);
-
-  const closeGenie = () => {
-    localStorage.setItem(GENIE_DISMISSED_KEY, "1");
-    setIsOpen(false);
-  };
-
-  const openGenie = () => {
-    localStorage.removeItem(GENIE_DISMISSED_KEY);
-    setIsOpen(true);
-  };
-
-  const anchorClass =
-    placement === "panel"
-      ? "absolute bottom-3 right-3 z-30 w-[min(100%,20rem)]"
-      : "fixed bottom-6 right-6 z-40 max-w-sm w-[calc(100vw-3rem)]";
-
-  if (!hydrated) {
-    return null;
-  }
-
-  // HRA Calculator inputs
+  // HRA Calculator inputs (must stay before any conditional return — Rules of Hooks)
   const [hraSalary, setHraSalary] = useState(
     income.grossSalary ? String(Math.round(income.grossSalary * 0.5)) : "0"
   );
@@ -175,6 +150,12 @@ export function FloatingGenie({
   const [homeLoanPrincipal, setHomeLoanPrincipal] = useState("0");
   const [tuitionFees, setTuitionFees] = useState("0");
   const [sum80C, setSum80C] = useState(0);
+
+  useEffect(() => {
+    const dismissed = localStorage.getItem(GENIE_DISMISSED_KEY) === "1";
+    setIsOpen(!dismissed);
+    setHydrated(true);
+  }, []);
 
   // Set default tabs and sync calculator states on field change
   useEffect(() => {
@@ -220,6 +201,25 @@ export function FloatingGenie({
       (Number(tuitionFees) || 0);
     setSum80C(Math.min(150000, total));
   }, [epf, ppf, elss, lic, homeLoanPrincipal, tuitionFees]);
+
+  const closeGenie = () => {
+    localStorage.setItem(GENIE_DISMISSED_KEY, "1");
+    setIsOpen(false);
+  };
+
+  const openGenie = () => {
+    localStorage.removeItem(GENIE_DISMISSED_KEY);
+    setIsOpen(true);
+  };
+
+  const anchorClass =
+    placement === "panel"
+      ? "absolute bottom-3 right-3 z-30 w-[min(100%,20rem)]"
+      : "fixed bottom-6 right-6 z-40 max-w-sm w-[calc(100vw-3rem)]";
+
+  if (!hydrated) {
+    return null;
+  }
 
   const handleApplyHra = () => {
     if (hraResult) {
