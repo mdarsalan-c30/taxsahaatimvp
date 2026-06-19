@@ -74,7 +74,7 @@ export function PersonaCarousel({
       role="group"
       aria-roledescription="carousel"
       aria-label={label}
-      className="relative mt-8"
+      className="relative mt-4"
     >
       <div className="mb-3 flex items-center justify-end gap-2">
         <button

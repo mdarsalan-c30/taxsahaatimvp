@@ -34,7 +34,7 @@ export function ItrTypeQuiz() {
   const result = resultKey ? ITR_TYPE_QUIZ.results[resultKey] : null;
 
   return (
-    <div className="card-premium p-5">
+    <div className="landing-card p-4 sm:p-5">
       <div className="flex items-start gap-2">
         <ClipboardList className="mt-0.5 size-5 shrink-0 text-primary" />
         <div>
@@ -43,9 +43,9 @@ export function ItrTypeQuiz() {
         </div>
       </div>
 
-      <div className="mt-4 space-y-4">
+      <div className="mt-4 grid gap-4 md:grid-cols-2">
         {ITR_TYPE_QUIZ.questions.map((question) => (
-          <fieldset key={question.id}>
+          <fieldset key={question.id} className="min-w-0">
             <legend className="text-sm font-medium text-foreground">{question.prompt}</legend>
             <div className="mt-2 flex flex-wrap gap-2">
               {question.options.map((option) => {
@@ -63,10 +63,10 @@ export function ItrTypeQuiz() {
                       }));
                     }}
                     className={cn(
-                      "rounded-lg border px-3 py-2 text-left text-xs font-medium transition sm:text-sm",
+                      "rounded-lg border-2 px-3 py-2 text-left text-xs font-medium transition sm:text-sm",
                       selected
                         ? "border-primary bg-primary/10 text-primary"
-                        : "border-border/70 bg-white text-foreground hover:bg-muted/40"
+                        : "border-gray-200 bg-white text-foreground shadow-sm hover:border-gray-300 hover:bg-muted/40"
                     )}
                   >
                     {option.label}

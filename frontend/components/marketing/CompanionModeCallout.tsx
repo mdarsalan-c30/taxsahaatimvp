@@ -5,7 +5,7 @@ import {
 } from "@/lib/copy/companion";
 import { cn } from "@/lib/utils";
 
-type CompanionModeCalloutVariant = "steps" | "disclaimer";
+type CompanionModeCalloutVariant = "steps" | "disclaimer" | "cta-only";
 
 interface CompanionModeCalloutProps {
   variant?: CompanionModeCalloutVariant;
@@ -26,6 +26,17 @@ export function CompanionModeCallout({
       >
         {COMPANION_ITD_DISCLAIMER}
       </p>
+    );
+  }
+
+  if (variant === "cta-only") {
+    return (
+      <div className={cn("space-y-2", className)}>
+        <HeroNameForm showForm16Cta={false} showDisclaimer={false} className="mx-0 max-w-none" />
+        <p className="text-center text-[10px] leading-snug text-muted-foreground lg:text-left">
+          {COMPANION_ITD_DISCLAIMER}
+        </p>
+      </div>
     );
   }
 

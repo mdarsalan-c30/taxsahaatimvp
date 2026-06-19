@@ -40,7 +40,7 @@ const CAROUSEL_ITEMS: PersonaCarouselItem[] = (() => {
 
 export function IndianUseCases() {
   return (
-    <section className="section-compact border-b border-border/40 px-4 sm:px-6 lg:px-8">
+    <section className="section-compact-tight border-b border-border/40 px-4 sm:px-6 lg:px-8">
       <div className={cn("mx-auto w-full min-w-0", CONTENT_MAX)}>
         <ScrollReveal className="text-center">
           <p className={cn("font-semibold uppercase tracking-[0.14em] text-primary", TYPOGRAPHY_SCALE.caption)}>

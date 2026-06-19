@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { TESTIMONIALS, TESTIMONIAL_DISCLOSURE } from "@/lib/content/testimonials";
-import { ASSESSMENT_YEAR } from "@/lib/constants";
 import { TYPOGRAPHY_SCALE } from "@/lib/design/layout";
 import { Star, CheckCircle2 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -54,7 +53,7 @@ function CompactReviewCard({
   return (
     <article
       className={cn(
-        "flex h-full w-[min(100%,17.5rem)] shrink-0 snap-start flex-col rounded-lg border bg-card p-3 shadow-sm sm:w-[16.5rem]",
+        "flex h-36 w-72 shrink-0 snap-start flex-col rounded-lg border bg-card p-3 shadow-sm sm:w-72",
         active ? "border-primary/40 ring-1 ring-primary/20" : "border-border/80"
       )}
     >
@@ -114,7 +113,7 @@ export function ReviewsCarousel() {
   }, [index]);
 
   return (
-    <section id="trust" className="section-compact overflow-hidden">
+    <section id="trust" className="section-compact-tight overflow-hidden px-4 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
           <div>
@@ -126,7 +125,7 @@ export function ReviewsCarousel() {
             </h2>
           </div>
           <p className="text-tier-feature sm:max-w-xs sm:text-right">
-            {TESTIMONIAL_DISCLOSURE} · {ASSESSMENT_YEAR}
+            {TESTIMONIAL_DISCLOSURE}
             <CheckCircle2 className="ml-1 inline size-3 text-primary" aria-hidden />
           </p>
         </div>

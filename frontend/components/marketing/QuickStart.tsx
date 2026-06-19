@@ -106,9 +106,9 @@ function DashboardMock() {
 
 export function QuickStart() {
   return (
-    <section className="section-dark py-20 md:py-28">
+    <section className="section-dark py-12 md:py-16">
       <div className="mx-auto max-w-6xl px-4">
-        <div className="grid items-start gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="grid items-start gap-8 lg:grid-cols-2 lg:gap-10">
           <div>
             <p className="text-sm font-semibold uppercase tracking-widest text-blue-400">
               {IMPORT_STRIP.eyebrow}
@@ -134,14 +134,14 @@ export function QuickStart() {
             </div>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="grid h-full gap-3 sm:grid-cols-2">
             {QUICK_START_CONNECTORS.map((connector) => {
               const Icon = ICONS[connector.id] ?? FileText;
               return (
                 <Link
                   key={connector.id}
                   href={connector.href}
-                  className="group card-premium-dark flex flex-col p-5 transition-all hover:border-blue-500/30 hover:bg-white/[0.06]"
+                  className="group card-premium-dark flex h-full flex-col p-4 transition-all hover:border-blue-500/30 hover:bg-white/[0.06]"
                 >
                   <div className="mb-4 flex size-11 items-center justify-center rounded-2xl bg-blue-600/20 text-blue-400 transition-colors group-hover:bg-blue-600/30">
                     <Icon className="size-5" />

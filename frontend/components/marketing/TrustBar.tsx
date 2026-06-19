@@ -62,6 +62,7 @@ export function TrustBar({
       <UniformBadgeGrid
         items={badges}
         variant={isDark ? "dark" : "light"}
+        layout={isHero ? "hero" : "default"}
         className="w-full"
       />
     </div>

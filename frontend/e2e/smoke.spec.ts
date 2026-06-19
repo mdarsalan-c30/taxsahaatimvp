@@ -6,10 +6,10 @@ test.describe("smoke: salaried happy path", () => {
   test("landing loads with hero and primary CTA", async ({ page }) => {
     await page.goto("/");
     await expect(
-      page.getByRole("heading", { name: /Last-minute ITR/i })
+      page.getByRole("heading", { name: /Running out of time/i })
     ).toBeVisible();
     await expect(
-      page.getByRole("main").getByRole("button", { name: /Start my return/i })
+      page.getByRole("main").getByRole("button", { name: /Start my free estimate/i })
     ).toBeVisible();
     await expect(
       page.getByRole("main").getByLabel(/your name/i)
