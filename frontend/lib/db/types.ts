@@ -112,6 +112,8 @@ export interface CompanionGrant {
   sessionId: string;
   source: "payment" | "coupon" | "admin";
   plan?: string;
+  /** Browser-extension unlock code (optional). */
+  passkey?: string;
   expiresAt?: string | null;
   ts: string;
 }
