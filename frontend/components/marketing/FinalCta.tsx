@@ -17,10 +17,10 @@ export function FinalCta() {
         )}
       >
         <div className="text-center sm:text-left">
-          <h2 className="text-base font-semibold text-foreground sm:text-lg">
+          <h2 className="text-sm font-semibold text-foreground sm:text-base">
             {FINAL_CTA.headline}
           </h2>
-          <p className="mt-0.5 max-w-xl text-xs text-muted-foreground line-clamp-2 sm:text-sm">
+          <p className="mt-0.5 max-w-xl text-xs text-muted-foreground line-clamp-1 sm:text-sm">
             {FINAL_CTA.subhead}
           </p>
         </div>

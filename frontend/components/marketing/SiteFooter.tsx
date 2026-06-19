@@ -20,10 +20,10 @@ function FooterLinkColumn({
 }) {
   return (
     <div>
-      <p className="text-xs font-semibold uppercase tracking-wide text-foreground">
+      <p className="text-[10px] font-semibold uppercase tracking-wide text-foreground">
         {title}
       </p>
-      <ul className="mt-1 space-y-0.5 text-tier-legal">
+      <ul className="mt-0.5 flex flex-col gap-0.5 text-tier-legal lg:flex-row lg:flex-wrap lg:gap-x-2.5 lg:gap-y-0.5">
         {links.map((link) => (
           <li key={link.href}>
             <Link href={link.href} className="transition-colors hover:text-primary">
@@ -48,16 +48,16 @@ export function SiteFooter() {
       >
         <CompactGrid cols={4}>
           <div className="col-span-2 lg:col-span-1">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5">
               <span className="flex size-5 items-center justify-center rounded-md bg-primary text-primary-foreground">
                 <FileText className="size-2.5" />
               </span>
               <p className="text-xs font-bold">{SITE_NAME}</p>
             </div>
-            <p className="mt-1 line-clamp-2 text-tier-legal">{FOOTER_TAGLINE}</p>
+            <p className="mt-0.5 line-clamp-1 text-tier-legal">{FOOTER_TAGLINE}</p>
             <a
               href={`mailto:${SUPPORT_EMAIL}`}
-              className="mt-1 inline-flex items-center gap-1 text-tier-legal text-primary hover:underline"
+              className="mt-0.5 inline-flex items-center gap-1 text-tier-legal text-primary hover:underline"
             >
               <Mail className="size-3" />
               {SUPPORT_EMAIL}
@@ -80,7 +80,6 @@ export function SiteFooter() {
               { href: "/reviews", label: "Reviews" },
               { href: "/chat", label: "Support chat" },
               { href: "/profile", label: "Profile" },
-              { href: "/file/onboarding/eligibility?step=about-you", label: "Start filing" },
             ]}
           />
 

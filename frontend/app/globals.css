@@ -131,7 +131,7 @@
 }
 
 .section-cta-band {
-  padding-block: clamp(1rem, 0.75rem + 0.5vw, 1.25rem);
+  padding-block: clamp(0.75rem, 0.5rem + 0.5vw, 1rem);
 }
 
 .landing-card {
