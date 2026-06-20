@@ -110,7 +110,7 @@ export function ItrAnalyticsPanel({
     lastParseResult !== null;
 
   return (
-    <aside className="flex w-full flex-col self-start rounded-xl border border-zinc-200 bg-white shadow-sm lg:sticky lg:top-14 lg:max-h-[calc(100vh-4rem)] lg:overflow-hidden">
+    <aside className="flex w-full min-w-0 flex-col self-start rounded-xl border border-zinc-200 bg-white shadow-sm lg:sticky lg:top-14 lg:max-h-[min(32rem,calc(100vh-5rem))] lg:overflow-hidden 2xl:max-h-[calc(100vh-5rem)]">
       <div className="shrink-0 border-b border-zinc-200 px-4 py-3">
         <div className="flex items-center justify-between gap-2">
           <h2 className="text-sm font-semibold text-zinc-900">

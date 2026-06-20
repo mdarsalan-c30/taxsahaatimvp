@@ -21,7 +21,7 @@ export function WhyUsSection() {
           </p>
         </ScrollReveal>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
           {WHY_US.pillars.map((pillar, i) => (
             <ScrollReveal key={pillar.id} delay={(1 + i) as 0 | 1 | 2 | 3 | 4}>
               <article className="card-premium h-full p-5">
@@ -32,7 +32,7 @@ export function WhyUsSection() {
           ))}
         </div>
 
-        <ScrollReveal delay={2} className="mt-5 text-center">
+        <ScrollReveal delay={2} className="mt-6 text-center">
           <Link
             href="/file/import/documents?source=form16"
             className="inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"

@@ -3,9 +3,10 @@ import {
   UniformBadgeGrid,
   type UniformBadgeItem,
 } from "@/components/ui/UniformBadgeGrid";
+import { HERO_TRUST_BADGES } from "@/lib/copy/marketing";
 import { cn } from "@/lib/utils";
 
-const TRUST_BADGES: UniformBadgeItem[] = [
+const DEFAULT_TRUST_BADGES: UniformBadgeItem[] = [
   {
     iconNode: <span className="text-[10px] font-semibold text-foreground">₹</span>,
     label: "Salary-first calculations",
@@ -15,8 +16,17 @@ const TRUST_BADGES: UniformBadgeItem[] = [
   { icon: Hand, label: "No auto-submit" },
 ];
 
+const HERO_BADGES: UniformBadgeItem[] = HERO_TRUST_BADGES.map((badge) => ({
+  iconNode: (
+    <span className="text-sm leading-none" aria-hidden>
+      {badge.icon}
+    </span>
+  ),
+  label: badge.label,
+}));
+
 interface TrustBarProps {
-  variant?: "light" | "dark" | "compact";
+  variant?: "light" | "dark" | "compact" | "hero";
   showBetaBadge?: boolean;
   className?: string;
 }
@@ -27,10 +37,12 @@ export function TrustBar({
   className,
 }: TrustBarProps) {
   const isDark = variant === "dark";
+  const isHero = variant === "hero";
+  const badges = isHero ? HERO_BADGES : DEFAULT_TRUST_BADGES;
 
   return (
     <div className={cn("flex flex-col gap-3", className)}>
-      {showBetaBadge && (
+      {showBetaBadge && !isHero && (
         <div
           className={cn(
             "flex flex-wrap items-center gap-x-4 gap-y-1 text-sm font-medium",
@@ -48,7 +60,7 @@ export function TrustBar({
       )}
 
       <UniformBadgeGrid
-        items={TRUST_BADGES}
+        items={badges}
         variant={isDark ? "dark" : "light"}
         className="w-full"
       />

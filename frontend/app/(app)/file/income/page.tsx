@@ -10,7 +10,8 @@ import {
 } from "@/components/filing/ui";
 import { WhyWeAskHint } from "@/components/filing/WhyWeAskHint";
 import { WHY_WE_ASK } from "@/lib/copy/trust";
-import { Landmark, Briefcase, Percent, ShieldCheck } from "lucide-react";
+import { FILING_INCOME } from "@/lib/copy/filing";
+import { Landmark, Briefcase, ShieldCheck } from "lucide-react";
 
 export default function IncomePage() {
   const { income, setIncome } = useDraftStore();
@@ -24,8 +25,8 @@ export default function IncomePage() {
       <div className="space-y-6">
         {/* Title & Subtitle */}
         <ScreenTitle
-          title="Salary & Income Details"
-          subtitle="Confirm your earnings and TDS. We've pre-filled this from your Form 16."
+          title={FILING_INCOME.title}
+          subtitle={FILING_INCOME.subtitle}
         />
 
         <WhyWeAskHint className="mb-2">{WHY_WE_ASK.salaryConfirm}</WhyWeAskHint>
@@ -109,8 +110,7 @@ export default function IncomePage() {
         <div className="flex gap-3 bg-emerald-50/50 border border-emerald-100/60 rounded-xl p-4 text-xs text-emerald-800 leading-normal">
           <ShieldCheck className="size-4.5 shrink-0 text-emerald-600 mt-0.5" />
           <p>
-            Your numbers are computed in real-time by our deterministic Indian Tax Engine. 
-            Mismatches with government logs are automatically audited before checkout.
+            {FILING_INCOME.auditBanner}
           </p>
         </div>
 

@@ -52,9 +52,7 @@ export function OptimizationTips({
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <TrendingUp className="size-4 shrink-0 text-blue-700" aria-hidden />
-          <strong className="text-sm text-slate-900">
-            Tax summary
-          </strong>
+          <strong className="text-sm text-slate-900">Your Smart Tax Summary</strong>
         </div>
         {headlineAmount !== null && (
           <p className="text-sm text-slate-700">
@@ -76,11 +74,11 @@ export function OptimizationTips({
         <>
           <div className="mt-3 flex items-center gap-1.5">
             <Lightbulb className="size-3.5 shrink-0 text-amber-600" aria-hidden />
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-              {tips.length === 1 ? "Lawful tip" : `Top ${tips.length} lawful tips`}
+            <p className="text-xs font-semibold text-slate-700">
+              💡 Your Personal Tax Savings Plan
               {potentialSaving > 0 && (
-                <span className="ml-1 normal-case text-emerald-700">
-                  · up to {formatINR(potentialSaving)} more
+                <span className="ml-1 font-normal text-emerald-700">
+                  (Save up to {formatINR(potentialSaving)} more)
                 </span>
               )}
             </p>
@@ -113,8 +111,9 @@ export function OptimizationTips({
               </li>
             ))}
           </ul>
-          <p className="mt-2 text-xs text-slate-400">
-            Lawful, proof-backed suggestions only. We never guarantee a refund.
+          <p className="mt-2 text-xs text-slate-500">
+            We only suggest 100% legal deductions. Please ensure you have the receipts or
+            proof to back them up!
           </p>
         </>
       )}

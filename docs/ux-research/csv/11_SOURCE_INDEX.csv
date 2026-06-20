@@ -1,0 +1,25 @@
+File_path,Title,Category,Last_updated,One_line_summary,Priority_for_designer
+docs/DESIGN_SYSTEM.md,Design System,Design,2026,"Tokens, components, states, motion - the visual source of truth",Must_read
+itr-filing-wireframes/USER_FLOWS.md,Wireframe User Flows,IA/Flows,2026,Mermaid flows + nav rules + prototype links,Must_read
+docs/research/USER_PAINPOINTS_2026.md,User Pain Points,Research,2026,9 themes synthesized from qna.tax mapped to our routes,Must_read
+docs/UX_IMPROVEMENT_PLAN.md,UX Improvement Plan,IA/Flows,2026,Prioritized UX fixes + proposed simplified funnel,Must_read
+docs/FUNNEL_AUDIT_AND_SIMPLIFICATION.md,Funnel Audit,IA/Flows,2026,Screen-by-screen audit; ~20 -> 11-13 screen proposal,Must_read
+docs/COMPETITOR_ANALYSIS.md,Competitor Analysis,Competitor,2026,ClearTax/Quicko/TurboTax/H&R deep dive + patterns to steal,Must_read
+docs/competitor-audit/GAP_MATRIX_2026.md,Gap Matrix,Competitor,2026,Feature/severity matrix vs Quicko & ClearTax with decisions,Reference
+docs/competitor-audit/QUICKO_FILING_JOURNAL.md,Quicko Filing Journal,Competitor,2026,Step-by-step Quicko journey to the auth wall,Reference
+docs/competitor-audit/CLEARTAX_FILING_JOURNAL.md,ClearTax Filing Journal,Competitor,2026,Step-by-step ClearTax journey to the paywall,Reference
+docs/research/SIMILAR_PLATFORMS.md,Similar Platforms,Competitor,2026,Landscape + premium UI references + borrow/avoid,Reference
+docs/case-studies/CASE_STUDIES_2026.md,Case Studies,Personas,2026,8 taxpayer personas with journeys and must-show screens,Must_read
+e2e/fixtures/personas.ts,Persona Fixtures,Personas,2026,Programmatic persona/draft data for tests + simulations,Reference
+lib/copy/competitorInspired.ts,Competitor-Inspired Copy,Copy,2026,"Why-Us pillars, import strip, persona carousel copy",Reference
+lib/copy/companion.ts,Companion Copy,Copy,2026,Companion-safe disclaimers and how-it-works copy (compliance rules),Must_read
+lib/filing/journey.ts,Journey Steps,IA/Flows,2026,"A-F macro steps, process routes, path->step mapping",Reference
+app/sitemap.ts,Sitemap,IA/Flows,2026,Static + dynamic route generation - what is indexed,Reference
+components/marketing/FeedbackScreen.tsx,Feedback Screen,Feedback,2026,In-product 1-5 star + 280-char feedback form spec,Reference
+docs/MCKINSEY_ENGAGEMENT/06_ANALYTICS_EVENTS.md,Analytics Events,Feedback,2026,PostHog companion event catalog (footprint/field events),Reference
+docs/DESIGN_REFERENCE_APPLE_QUICKO.md,Apple x Quicko Reference,Design,2026,North-star aesthetic blend,Reference
+docs/UI_AUDIT.md,UI Audit,Design,2026,Current UI debt catalogue + fixes,Reference
+docs/FILING_EXPERIENCE_REDESIGN.md,Filing Experience Redesign,Design,2026,Target redesigned filing flow,Reference
+docs/brand/BRAND_NAMING_2026.md,Brand Naming,Brand,2026,"Name candidates, collisions, domain analysis",Archive
+itr-filing-wireframes/prototype/index.html,HTML Prototype,Wireframe,2026,Interactive happy/mismatch flow prototype,Must_read
+docs/ux-research/_forum_research_raw.json,Forum Research Raw,Research,2026,Agent-scraped forum quotes (source for Forum_Research tab),Reference

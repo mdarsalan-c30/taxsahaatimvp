@@ -1,0 +1,19 @@
+Flow_ID,Flow_name,Persona,Step_order,Route,Decision_point,Blocker_or_gate,Current_vs_proposed,Source_doc
+F1,Standard happy path,CS-1 Aditi (salaried),1,/,-,-,Current (~20 screens),itr-filing-wireframes/USER_FLOWS.md
+F1,Standard happy path,CS-1 Aditi,2,/file/onboarding,ITR form detection,-,Current,lib/filing/journey.ts
+F1,Standard happy path,CS-1 Aditi,3,/file/import,Form 16 uploaded?,soft gate,Current,FUNNEL_AUDIT_AND_SIMPLIFICATION.md
+F1,Standard happy path,CS-1 Aditi,4,/file/regime,Old vs new,-,Current,lib/filing/journey.ts
+F1,Standard happy path,CS-1 Aditi,5,/file/review,Numbers correct?,-,Current,FUNNEL_AUDIT_AND_SIMPLIFICATION.md
+F1,Standard happy path,CS-1 Aditi,6,/file/checkout/plans,Pay?,HARD gate (pay after value),Current,FUNNEL_AUDIT_AND_SIMPLIFICATION.md
+F1,Standard happy path,CS-1 Aditi,7,/file/companion,Follow portal steps,-,Current,lib/engine/portalSections.ts
+F2,Mismatch block,CS-3 Meera (AIS mismatch),1,/file/import,AIS line not in Form 16?,HARD STOP at mismatch,Current - the wedge,itr-filing-wireframes/USER_FLOWS.md
+F2,Mismatch block,CS-3 Meera,2,/file/import/mismatch,Resolve each mismatch,must resolve before continue,Current,lib/filing/reconciliation.ts
+F2,Mismatch block,CS-3 Meera,3,/file/review,Confirm reconciled figures,-,Current,FUNNEL_AUDIT_AND_SIMPLIFICATION.md
+F3,Wrong form prevention,CS-4 Vikram (CG),1,/file/onboarding,Capital gains present?,route to ITR-2 (block ITR-1),Current,itr-filing-wireframes/USER_FLOWS.md
+F3,Wrong form prevention,CS-5 Sana (F&O),1,/file/onboarding,F&O/business present?,route to ITR-3,Current,itr-filing-wireframes/USER_FLOWS.md
+F4,Form 16 fast path,CS-1 Aditi,1,/file/import,"Single clean Form 16, no AIS delta",skip mismatch step,Current optimization,FUNNEL_AUDIT_AND_SIMPLIFICATION.md
+F5,Proposed 11-screen salaried path,CS-1 Aditi,1-11,Landing -> upload -> instant reconcile -> regime -> review -> pay -> companion,collapse redundant screens,"merge profiler+import, cut cabrain/everify thin routes",PROPOSED (target 11-13 vs current ~20),FUNNEL_AUDIT_AND_SIMPLIFICATION.md; UX_IMPROVEMENT_PLAN.md
+F6,Content -> filing,Marketing personas,1,/learn/[slug] or /blogs/[slug],CTA clicked?,-,Current,app/sitemap.ts; lib/content/*
+F6,Content -> filing,Marketing personas,2,/file/onboarding,enter funnel,-,Current,lib/filing/journey.ts
+F7,Post-pay companion lifecycle,All paid,1,/file/companion,Copy each field to portal,-,Current - moat,lib/engine/portalSections.ts
+F7,Post-pay companion lifecycle,All paid,2,/file/everify (guide),E-verify on portal,user acts on incometax.gov.in,Current (thin route),itr-filing-wireframes/USER_FLOWS.md

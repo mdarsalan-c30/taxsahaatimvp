@@ -501,7 +501,7 @@ export function PortalFootprintWizard({
           {pasteFields.length > 0 && (
             <div className="mt-2">
               <p className="text-[10px] font-semibold uppercase tracking-wide text-emerald-700">
-                What to paste
+                Copy this exactly:
               </p>
               <ul className="mt-1 list-disc space-y-0.5 pl-4 text-xs text-slate-700">
                 {pasteFields.map((field) => (
@@ -513,7 +513,7 @@ export function PortalFootprintWizard({
           {verifyFields.length > 0 && (
             <div className="mt-2">
               <p className="text-[10px] font-semibold uppercase tracking-wide text-blue-700">
-                What to verify
+                Double-check this:
               </p>
               <ul className="mt-1 list-disc space-y-0.5 pl-4 text-xs text-slate-700">
                 {verifyFields.map((field) => (
@@ -597,7 +597,7 @@ export function PortalFootprintWizard({
           className="w-full sm:w-auto"
         >
           <ChevronLeft className="mr-1 size-4" />
-          Previous screen
+          ← Back
         </Button>
         <Button
           variant="primary"
@@ -607,8 +607,7 @@ export function PortalFootprintWizard({
           disabled={!canGoNext}
           className="w-full sm:w-auto"
         >
-          Next screen
-          <ChevronRight className="ml-1 size-4" />
+          Next Step →
         </Button>
       </div>
     </section>

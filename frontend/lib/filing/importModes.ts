@@ -6,7 +6,7 @@ export const IMPORT_START_MODES: Record<
 > = {
   form16: {
     title: "Upload Form 16",
-    description: "~5 min · PDF from employer",
+    description: "Fastest: Drop your PDF here and we'll read it in seconds.",
   },
   itd: {
     title: "Import from ITD",
@@ -15,8 +15,8 @@ export const IMPORT_START_MODES: Record<
   },
   manual: {
     title: "Start with estimates",
-    description: "~2 min · Rough salary & deductions",
-    small: "No documents needed — refine later",
+    description: "Just testing the waters? Enter a few numbers manually.",
+    small: "~2 min · Refine with documents anytime",
   },
 };
 

@@ -1,0 +1,13 @@
+Reference,Type,What_to_steal,What_to_avoid,File_path,Figma_or_prototype
+LastMinute ITR Design System,Design_system,"Tokens, type scale, color, spacing, buttons, cards, tables, forms, empty/error/success, progress, AI assistant components, motion guidelines","Listed anti-patterns in the doc (e.g., unmotivated motion, density without rhythm)",docs/DESIGN_SYSTEM.md,n/a
+Apple x Quicko north star,Design_system,Apple calm + Quicko fintech credibility blend; restraint + clarity,Over-decoration; hype,docs/DESIGN_REFERENCE_APPLE_QUICKO.md,n/a
+UI Audit,Design_system,Catalogued current UI debt + fixes to apply,Repeating the audited mistakes,docs/UI_AUDIT.md,n/a
+Filing Experience Redesign,Design_system,Target redesigned filing flow visual language,-,docs/FILING_EXPERIENCE_REDESIGN.md,n/a
+shadcn/ui config,Design_system,Component primitives + theming base,Generic look if untokened,components.json / components/ui/*,n/a
+TurboTax,Competitor_UX,One question per screen interview; filing-ready % before pay,Late paywall; refund-max hype,docs/COMPETITOR_ANALYSIS.md,n/a
+Quicko filing journal,Competitor_UX,Broker import; expandable income nav; ITD autofill,Treating mismatch as a minor step,docs/competitor-audit/QUICKO_FILING_JOURNAL.md,n/a
+ClearTax filing journal,Competitor_UX,Form 16 visual hero; multi-Form-16 merge,Tier upsell maze; pay before mismatch,docs/competitor-audit/CLEARTAX_FILING_JOURNAL.md,n/a
+Stripe / Mercury / Ramp,Global_pattern,Incremental onboarding; inline doc-parse feedback; contextual trust cards; AI reasoning transparency,Dev-jargon; non-tax assumptions,docs/DESIGN_SYSTEM.md (references),stripe.com / mercury.com / ramp.com
+Linear,Global_pattern,Purposeful motion; density with rhythm; status affordances,Motion for its own sake,docs/DESIGN_SYSTEM.md,linear.app
+Wireframe prototype repo,Wireframe,"Interactive HTML flows (happy / mismatch), mobile + desktop viewports",-,itr-filing-wireframes/prototype/index.html,?flow=happy|mismatch&viewport=mobile|desktop
+Wireframe USER_FLOWS,Wireframe,Mermaid flow diagrams + navigation rules + Figma links,-,itr-filing-wireframes/USER_FLOWS.md,Figma links in doc

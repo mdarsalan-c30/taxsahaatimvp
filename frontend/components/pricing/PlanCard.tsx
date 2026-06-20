@@ -47,7 +47,7 @@ export function PlanCard({
   const cardClassName = cn(
     isCheckout
       ? "flex h-full flex-col rounded-xl border p-4 text-left transition-colors sm:p-5"
-      : "card-premium flex flex-col p-4 transition-transform hover:-translate-y-0.5",
+      : "landing-card flex h-full flex-col transition-shadow hover:shadow-md",
     isCheckout &&
       (selected
         ? "border-blue-500 ring-1 ring-blue-200 bg-blue-50/30"
@@ -88,7 +88,7 @@ export function PlanCard({
       <div
         className={cn(
           "flex items-center",
-          isCheckout ? "flex-col items-start" : "items-center justify-between"
+          isCheckout ? "flex-col items-start" : "flex-col items-start"
         )}
       >
         {isCheckout ? (
@@ -98,8 +98,8 @@ export function PlanCard({
           </>
         ) : (
           <>
+            <div className="min-h-[1.75rem]">{badge}</div>
             <h3 className="text-lg font-bold">{plan.name}</h3>
-            {badge}
           </>
         )}
       </div>
@@ -111,7 +111,7 @@ export function PlanCard({
       <div
         className={cn(
           "font-bold tabular-nums text-slate-900",
-          isCheckout ? "mt-1 text-2xl" : "mt-2 text-3xl font-extrabold tracking-tight"
+          isCheckout ? "mt-1 text-2xl" : "mt-3 text-3xl font-extrabold tracking-tight"
         )}
       >
         {displayPricing.showOffer && displayPricing.original !== undefined ? (
@@ -130,7 +130,7 @@ export function PlanCard({
         className={cn(
           isCheckout
             ? "mt-2 flex-1 text-sm text-slate-600"
-            : "mt-3 flex-1 space-y-1.5"
+            : "mt-3 flex-1 space-y-2"
         )}
       >
         {plan.features.map((feature) => (
@@ -170,7 +170,7 @@ export function PlanCard({
       {!isCheckout && isComingSoon && (
         <Link
           href="/reviews"
-          className="mt-4 inline-flex items-center justify-center rounded-xl border border-amber-200 bg-amber-50 px-4 py-2.5 text-sm font-semibold text-amber-900 transition-colors hover:bg-amber-100"
+          className="mt-6 inline-flex items-center justify-center rounded-xl border border-amber-200 bg-amber-50 px-4 py-2.5 text-sm font-semibold text-amber-900 transition-colors hover:bg-amber-100"
         >
           Join waitlist →
         </Link>

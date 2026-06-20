@@ -18,7 +18,7 @@ export function HowItWorks() {
             {HOW_IT_WORKS.headline}
           </h2>
         </ScrollReveal>
-        <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ol className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {HOW_IT_WORKS.steps.map((step, i) => (
             <ScrollReveal key={step.step} delay={1}>
               <li className="card-premium h-full p-5">

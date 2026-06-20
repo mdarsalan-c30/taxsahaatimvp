@@ -1,0 +1,21 @@
+Zone,Route,Screen_name,Indexed,Journey_step_A-F,Primary_CTA,Nav_parent,Status,Notes
+Marketing,/,Landing / Home,Yes,Pre-A,Start / Upload Form 16,Top nav,Live,"Hero, RegimeCompareCard, persona carousel, pricing, testimonials"
+Marketing,/learn,Learn index,Yes,Pre-A,Read article,Top nav,Live,SEO blog hub (LearnArticle objects); mirrored at /blogs
+Marketing,/learn/[slug],Learn article,Yes,Pre-A,Start filing,Learn,Live,Content -> filing funnel entry
+Marketing,/blogs/[slug],Blog article (mirror),Yes,Pre-A,Start filing,Learn,Live,Mirror route of /learn/[slug]
+Marketing,/tools,Tools hub,Yes,Pre-A,Use tool,Top nav,Live,"ITR-type quiz, regime calculator entry points"
+Marketing,/help,Help center,Yes,Pre-A,Search help,Footer,Live,Help articles; sitemap-driven
+Marketing,/glossary,Glossary,Yes,Pre-A,-,Footer,Live,Term definitions for SEO + in-product linking
+Filing,/file/onboarding,Profiler / onboarding,No,A,Continue,Funnel,Live,Profiler routes ITR-1/2/3/4; persona detection
+Filing,/file/import,Import / upload,No,B,Upload Form 16 / connect,Funnel,Live,Form 16 upload + connector strip (import value = 'first charge')
+Filing,/file/import/mismatch,Mismatch resolve,No,B,Resolve,Funnel,Live,AIS vs Form 16 reconciliation - the wedge
+Filing,/file/regime,Regime compare,No,C,Choose regime,Funnel,Live,Old vs new computed both ways
+Filing,/file/review,Review / reconcile dashboard,No,D,Continue to pay,Funnel,Live,Three-doc reconcile; taxes tab; regime inline
+Filing,/file/checkout/plans,Plans / pay,No,E,Pay,Funnel,Live,Value-before-pay gate (pay after review)
+Filing,/file/companion,Portal Footprint Wizard,No,F,Copy to portal,Funnel,Live,Screen-by-screen incometax.gov.in guide; copy-ready fields - the moat
+Filing,/file/cabrain,CA Brain,No,C/D,-,Funnel,Orphan/Review,Funnel audit flags as candidate to merge/cut; advanced reasoning surface
+Filing,/file/everify,E-verify guide,No,Post-F,E-verify on portal,Funnel,Redirect/Thin,Funnel audit flags as dead/thin route; user e-verifies on portal
+Filing,/file/house-property,House property,No,C,Continue,Funnel,Live,HP schedule support (CS-7)
+Filing,/file/other,Other income / disclosures,No,C,Continue,Funnel,Live,"Gifts, other sources, misc heads"
+API,/api/feedback,Feedback endpoint,No,n/a,-,n/a,Live,Receives FeedbackScreen submissions
+API,/sitemap.xml,Sitemap,Yes,n/a,-,n/a,Live,Static + dynamic (articles/blogs/glossary/help). Source: app/sitemap.ts

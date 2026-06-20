@@ -2,7 +2,6 @@
 
 import { Suspense, useMemo } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useShallow } from "zustand/react/shallow";
 import { useDraftStore } from "@/lib/store/draft";
@@ -22,6 +21,7 @@ import {
   parseReviewTab,
   type ReviewTab,
 } from "@/lib/filing/routes";
+import { FILING_REVIEW } from "@/lib/copy/filing";
 import {
   getReviewTabStatuses,
   statusDotClass,
@@ -224,10 +224,10 @@ function ImportTab() {
   if (connectedConnectors.length === 0) {
     return (
       <EmptyState
-        title="No documents imported yet"
-        body="Upload your Form 16 and AIS so we can pre-fill salary and TDS, then cross-check against the tax department's records."
+        title={FILING_REVIEW.emptyImportTitle}
+        body={FILING_REVIEW.emptyImportBody}
         ctaHref="/file/import/documents"
-        ctaLabel="Import documents"
+        ctaLabel={FILING_REVIEW.uploadDocumentsCta}
       />
     );
   }
@@ -577,7 +577,7 @@ function SummaryTab({
         title="Summary not ready"
         body="Once we have your income and deductions, you'll see a regime comparison and your filing summary here."
         ctaHref="/file/import/documents"
-        ctaLabel="Import documents"
+        ctaLabel={FILING_REVIEW.uploadDocumentsCta}
       />
     );
   }
@@ -713,25 +713,18 @@ function ReconcileHero({
     [connectedConnectors, income.grossSalary, income.tds, income.fdInterest, mismatchResolved]
   );
 
-  const rc = result?.regime_comparison;
-  const slab = rc?.[selectedRegime];
+  const slab = result?.regime_comparison[selectedRegime];
   const netPayable = slab?.net_payable ?? 0;
   const isRefund = netPayable < 0;
   const hasResult = Boolean(result && slab);
   const openItems = rowSummary.attention + rowSummary.missing;
-  const regimeSavings =
-    rc && rc.tax_saving > 0
-      ? `${rc.recommended_regime === "old" ? "Old" : "New"} regime saves ${formatINR(
-          rc.tax_saving
-        )} on your numbers.`
-      : null;
 
   return (
     <Card className="overflow-hidden bg-gradient-to-br from-white to-slate-50/80">
       <div className="grid gap-4 sm:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] sm:items-center">
         <div>
           <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">
-            {selectedRegime === "new" ? "New regime" : "Old regime"} · estimate
+            {FILING_REVIEW.estimateLabel(selectedRegime)}
           </p>
           {hasResult ? (
             <p
@@ -739,7 +732,7 @@ function ReconcileHero({
                 isRefund ? "text-emerald-700" : "text-slate-900"
               }`}
             >
-              {isRefund ? "Estimated refund " : "Estimated tax to pay "}
+              {isRefund ? "Refund " : ""}
               {formatINR(Math.abs(netPayable))}
             </p>
           ) : (
@@ -747,42 +740,29 @@ function ReconcileHero({
               Add income to see your estimate
             </p>
           )}
-          {regimeSavings && (
-            <p className="mt-1 text-sm font-medium text-emerald-700">{regimeSavings}</p>
-          )}
           <p className="mt-1 text-xs text-slate-500">
-            An estimate, not a promise — the CPC (Centralised Processing Centre) decides
-            your final refund after you file and e-verify on incometax.gov.in.
+            {FILING_REVIEW.estimateDisclaimer}
           </p>
         </div>
         <div className="rounded-2xl border border-slate-200 bg-white/80 p-3.5">
           <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-            Reconciliation
+            Your checklist
           </p>
           <p className="mt-1 text-sm text-slate-700">
             {openItems === 0 ? (
               <span className="font-semibold text-emerald-700">
-                All checked lines reconcile.
+                {FILING_REVIEW.allClear}
               </span>
             ) : (
-              <>
-                <span className="font-semibold text-amber-700">{openItems}</span> line
-                {openItems === 1 ? "" : "s"} need a look before you file.
-              </>
+              <span className="font-semibold text-amber-700">
+                {FILING_REVIEW.actionRequired(openItems)}
+              </span>
             )}
           </p>
-          <p className="mt-1 text-xs text-slate-500">
-            {rowSummary.matched} matched · {rowSummary.attention} attention ·{" "}
-            {rowSummary.missing} to add
-          </p>
           {openItems > 0 && (
-            <Link
-              href="/file/import/mismatch"
-              className="mt-2 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:underline"
-            >
-              Fix mismatches
-              <ArrowRight className="size-3.5" aria-hidden />
-            </Link>
+            <p className="mt-1 text-xs text-slate-500">
+              {FILING_REVIEW.actionRequiredSubtext}
+            </p>
           )}
         </div>
       </div>
@@ -823,7 +803,10 @@ function ReviewDashboard() {
 
   return (
     <FilingLayout mirrorText="This dashboard is your reconcile-and-review hub. Confirm imports, income, and deductions, then compare regimes before you file on the portal.">
-      <ScreenTitle title="Your filing snapshot" />
+      <ScreenTitle
+        title={FILING_REVIEW.title}
+        subtitle={FILING_REVIEW.subtitle}
+      />
 
       <ReconcileHero result={effectiveResult} selectedRegime={selectedRegime} />
 
@@ -893,7 +876,7 @@ export default function ReviewPage() {
     <Suspense
       fallback={
         <FilingLayout>
-          <ScreenTitle title="Your filing snapshot" subtitle="Loading your draft…" />
+          <ScreenTitle title={FILING_REVIEW.title} subtitle={FILING_REVIEW.loadingSubtitle} />
           <SkeletonRows />
         </FilingLayout>
       }

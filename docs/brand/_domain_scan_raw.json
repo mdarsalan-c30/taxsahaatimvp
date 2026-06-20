@@ -1,0 +1,186 @@
+[
+  {
+    "name": "taxsaathi",
+    "com": "TAKEN",
+    "in": "TAKEN",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "taxsathi",
+    "com": "TAKEN",
+    "in": "TAKEN",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "taxsahaati",
+    "com": "LIKELY_FREE",
+    "in": "LIKELY_FREE",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "taxsaathi",
+    "com": "TAKEN",
+    "in": "TAKEN",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "lastminuteitr",
+    "com": "LIKELY_FREE",
+    "in": "LIKELY_FREE",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "lastminute-itr",
+    "com": "LIKELY_FREE",
+    "in": "LIKELY_FREE",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "lastminute",
+    "com": "TAKEN",
+    "in": "TAKEN",
+    "co": "UNKNOWN",
+    "app": "TAKEN",
+    "ai": "TAKEN"
+  },
+  {
+    "name": "sahiitr",
+    "com": "LIKELY_FREE",
+    "in": "LIKELY_FREE",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "itrpath",
+    "com": "LIKELY_FREE",
+    "in": "LIKELY_FREE",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "form16guide",
+    "com": "LIKELY_FREE",
+    "in": "LIKELY_FREE",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "reconcileitr",
+    "com": "LIKELY_FREE",
+    "in": "LIKELY_FREE",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "taxsamajh",
+    "com": "LIKELY_FREE",
+    "in": "LIKELY_FREE",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "karfile",
+    "com": "TAKEN",
+    "in": "LIKELY_FREE",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "deadlineitr",
+    "com": "LIKELY_FREE",
+    "in": "LIKELY_FREE",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "itrguide",
+    "com": "TAKEN",
+    "in": "LIKELY_FREE",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "taxcompass",
+    "com": "TAKEN",
+    "in": "TAKEN",
+    "co": "LIKELY_FREE",
+    "app": "TAKEN",
+    "ai": "TAKEN"
+  },
+  {
+    "name": "filingbuddy",
+    "com": "TAKEN",
+    "in": "TAKEN",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "taxclarity",
+    "com": "TAKEN",
+    "in": "TAKEN",
+    "co": "LIKELY_FREE",
+    "app": "TAKEN",
+    "ai": "TAKEN"
+  },
+  {
+    "name": "taxprep",
+    "com": "TAKEN",
+    "in": "ERROR",
+    "co": "TAKEN",
+    "app": "TAKEN",
+    "ai": "TAKEN"
+  },
+  {
+    "name": "etaxsaathi",
+    "com": "TAKEN",
+    "in": "LIKELY_FREE",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "taxdost",
+    "com": "TAKEN",
+    "in": "TAKEN",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "UNKNOWN"
+  },
+  {
+    "name": "itrready",
+    "com": "LIKELY_FREE",
+    "in": "LIKELY_FREE",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  },
+  {
+    "name": "portalitr",
+    "com": "LIKELY_FREE",
+    "in": "LIKELY_FREE",
+    "co": "LIKELY_FREE",
+    "app": "LIKELY_FREE",
+    "ai": "LIKELY_FREE"
+  }
+]

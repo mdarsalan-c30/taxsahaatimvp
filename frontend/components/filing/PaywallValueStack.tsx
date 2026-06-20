@@ -10,7 +10,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { COMPANION_ITD_DISCLAIMER } from "@/lib/copy/companion";
-import { FILING_COMPANION } from "@/lib/copy/filing";
+import { CHECKOUT_PLANS, FILING_COMPANION } from "@/lib/copy/filing";
 import type { PlanId } from "@/lib/filing/types";
 import { PLANS } from "@/lib/payments/plans";
 import { getDisplayPricing, formatPlanPriceLabel } from "@/lib/marketing/pricing";
@@ -163,8 +163,7 @@ export function PaywallValueStack({
         </p>
         <p className="mt-1 text-sm text-slate-600">{plan.description}</p>
         <p className="mt-2 text-xs text-slate-500">
-          Fraction of typical CA consultation cost · lawful optimization only · no
-          government submission from this app
+          {CHECKOUT_PLANS.planValueNote}
         </p>
         <p className="mt-2 text-xs text-slate-500">{COMPANION_ITD_DISCLAIMER}</p>
       </div>

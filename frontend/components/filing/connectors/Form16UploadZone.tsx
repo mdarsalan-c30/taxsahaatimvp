@@ -108,7 +108,9 @@ export function Form16UploadZone({
   return (
     <div
       className={`card-premium flex flex-col p-4 sm:p-5 ${
-        highlighted ? "ring-2 ring-primary/20 border-primary/30 sm:col-span-2" : ""
+        highlighted
+          ? "ring-2 ring-primary/20 border-primary/30 sm:col-span-2 2xl:col-span-3"
+          : ""
       }`}
     >
       <div className="mb-2 flex items-start justify-between gap-2">

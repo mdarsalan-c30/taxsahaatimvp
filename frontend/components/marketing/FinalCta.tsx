@@ -12,10 +12,10 @@ export function FinalCta() {
           <h2 className={cn("font-semibold text-foreground", TYPOGRAPHY_SCALE.headline)}>
             {FINAL_CTA.headline}
           </h2>
-          <p className={cn("mx-auto mt-2 max-w-xl text-muted-foreground", TYPOGRAPHY_SCALE.body)}>
+          <p className={cn("mx-auto mt-3 max-w-xl text-muted-foreground", TYPOGRAPHY_SCALE.body)}>
             {FINAL_CTA.subhead}
           </p>
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link
               href={HERO_CTAS.startFiling.href}
               className="inline-flex min-h-11 items-center justify-center rounded-xl bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"

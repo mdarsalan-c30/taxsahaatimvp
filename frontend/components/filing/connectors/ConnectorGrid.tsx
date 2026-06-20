@@ -9,6 +9,7 @@ import { buildEligibilityForm16Url } from "@/lib/filing/routes";
 import { useDraftStore, type FieldConfidence } from "@/lib/store/draft";
 import type { ParseMode } from "@/lib/parsers/form16";
 import { Form16UploadZone } from "@/components/filing/connectors/Form16UploadZone";
+import { FILING_WORKSPACE } from "@/lib/design/layout";
 
 export type ConnectorStatus = "connected" | "manual" | "coming_soon";
 
@@ -335,7 +336,7 @@ export default function ConnectorGrid({
         <h3 className="mb-3 text-tier-feature font-semibold uppercase tracking-wide text-slate-500">
           Start here
         </h3>
-        <div className="filing-card-grid">
+        <div className={FILING_WORKSPACE.cardGrid}>
           <Form16UploadZone
             uploading={uploading === "form16"}
             isConnected={connected.has("form16")}
@@ -358,7 +359,7 @@ export default function ConnectorGrid({
         <h3 className="mb-3 text-tier-feature font-semibold uppercase tracking-wide text-slate-500">
           Also recommended
         </h3>
-        <div className="filing-card-grid">
+        <div className={FILING_WORKSPACE.cardGrid}>
           {SECONDARY_CONNECTORS.map((connector) => (
             <ConnectorCard
               key={connector.id}

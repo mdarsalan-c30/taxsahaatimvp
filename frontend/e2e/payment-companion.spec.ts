@@ -89,7 +89,7 @@ test.describe("smoke: payment to companion", () => {
     ).toBeVisible({ timeout: 30_000 });
 
     await expect(
-      page.getByText("Companion mode · Manual filing on ITD portal")
+      page.getByText("Personal filing guide")
     ).toBeVisible();
   });
 });

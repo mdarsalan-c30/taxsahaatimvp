@@ -1,15 +1,31 @@
 /** Shared companion-mode copy — matches SiteFooter compliance tone. */
 
-import { HOW_IT_WORKS } from "@/lib/content/homepage";
-
 export const COMPANION_HERO_SUBTITLE =
   "We prepare your return and guide you screen-by-screen on incometax.gov.in — you file and submit yourself. We never auto-submit to the Income Tax Department.";
 
 export const COMPANION_ITD_DISCLAIMER =
   "Independently operated — not affiliated with the Income Tax Department.";
 
-/** Single source of truth — shared with the homepage HowItWorks section. */
-export const COMPANION_HOW_IT_WORKS = HOW_IT_WORKS.steps;
+export const COMPANION_HOW_IT_WORKS = [
+  {
+    step: "1",
+    title: "Upload & Optimize",
+    detail:
+      "Upload your Form 16. We instantly scan AIS/26AS to prevent notices and calculate your most profitable tax regime.",
+  },
+  {
+    step: "2",
+    title: "Get Your Filing Guide",
+    detail:
+      "Unlock your personalized companion guide. It acts as your personal CA, showing you precisely what to type and where.",
+  },
+  {
+    step: "3",
+    title: "File with Confidence",
+    detail:
+      "Open incometax.gov.in side-by-side with our guide. You stay in total control, hit submit, and e-verify securely.",
+  },
+] as const;
 
 export const COMPANION_PAYWALL_HEADLINE =
   "Pay to unlock your personalized portal filing guide";

@@ -1,0 +1,13 @@
+Section,Detail
+Product one-liner,"LastMinute ITR is an ITR companion, not an e-filer. We reconcile Form 16 / AIS / 26AS, compare old vs new regime, and guide the taxpayer screen-by-screen on incometax.gov.in. The user always files and e-verifies themselves."
+Compliance copy rules,"No 'we file for you', no 'guaranteed refund', no ITD affiliation. Source: lib/copy/companion.ts."
+How to read this pack,"11 tabs. Each tab has consistent, filterable columns. One idea per row. Severity = P0/P1/P2; Frequency/Relevance = High/Med/Low."
+Column legend - Severity,P0 = core to wedge / wrong-filing risk; P1 = high-value clarity; P2 = nice-to-have / SEO.
+Column legend - Status,Strong = well covered; Partial = exists but thin; Not_built = gap; Orphan/Redirect = dead route.
+WHAT EXISTS,"Competitor analysis (rich), secondary user pain synthesis from qna.tax, full IA + funnel audit, 8 personas, strong design system, competitor filing-journal teardowns."
+GAP - no interviews,No primary user interviews conducted. Only a planned '30 users + 5 CAs' note. See Interviews tab + recommended script.
+GAP - no survey data,"Feedback form is in-product only (1-5 stars, 280 chars). No analyzed survey/response dataset exists yet. See Surveys_Feedback tab."
+GAP - competitor auth wall,Quicko/ClearTax filing journals stop at the login/OTP wall. In-app pixel detail not captured. Forum quotes are the best proxy for real user voice.
+Must-read sources,"docs/DESIGN_SYSTEM.md, itr-filing-wireframes/USER_FLOWS.md, docs/research/USER_PAINPOINTS_2026.md, docs/UX_IMPROVEMENT_PLAN.md, docs/FUNNEL_AUDIT_AND_SIMPLIFICATION.md."
+Wireframe prototype,itr-filing-wireframes/prototype/index.html (?flow=happy | ?flow=mismatch | ?viewport=mobile|desktop).
+MVP build,Live MVP at taxsahaatimvp-exkv.vercel.app. Routes live under /file/*.

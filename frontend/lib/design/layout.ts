@@ -11,3 +11,11 @@ export const TYPOGRAPHY_SCALE = {
   caption: "text-[length:var(--text-caption)] leading-[1.5] tracking-[0.002em]",
   micro: "text-[length:var(--text-micro)] leading-[1.4] tracking-[0.01em]",
 } as const;
+
+/** Filing workspace — wider content beside nav + Genie (kept after layout rollback). */
+export const FILING_WORKSPACE = {
+  grid: "filing-workspace-grid",
+  content: "filing-workspace-content",
+  importLayout: "filing-import-layout",
+  cardGrid: "filing-workspace-card-grid",
+} as const;

@@ -14,6 +14,7 @@ const NAV_ITEMS = [
   { href: "/file", label: "File" },
   { href: "/file/import/documents?source=form16", label: "Import" },
   { href: "/#pricing", label: "Pricing" },
+  { href: "/for-professionals", label: "For Tax Professionals" },
 ] as const;
 
 const RESOURCE_ITEMS = [
@@ -23,8 +24,6 @@ const RESOURCE_ITEMS = [
   { href: "/glossary", label: "Glossary" },
   { href: "/blogs", label: "Blogs" },
 ] as const;
-
-const PRIMARY_NAV_ITEMS = NAV_ITEMS;
 
 const MOBILE_EXTRA_ITEMS = [
   { href: "/reviews", label: "Reviews" },
@@ -81,29 +80,13 @@ export function SiteHeader() {
           />
         </nav>
 
-        <nav
-          className="hidden min-w-0 items-center gap-0.5 sm:flex lg:hidden"
-          aria-label="Main compact"
-        >
-          {PRIMARY_NAV_ITEMS.map((item) => (
-            <Link key={item.href} href={item.href} className={NAV_LINK_CLASS}>
-              {item.label}
-            </Link>
-          ))}
-          <NavMenu
-            label="Resources"
-            items={RESOURCE_ITEMS}
-            triggerClassName={NAV_LINK_CLASS}
-          />
-        </nav>
-
         <div className="flex shrink-0 items-center gap-1 sm:gap-1.5">
           <ProfileNavLink className="hidden sm:flex" />
           <Sheet>
             <SheetTrigger
               className={cn(
                 buttonVariants({ variant: "ghost", size: "icon-sm" }),
-                "sm:hidden"
+                "lg:hidden"
               )}
               aria-label="Open menu"
             >
@@ -149,7 +132,7 @@ export function SiteHeader() {
             href="/file/import/documents?source=form16"
             className={cn(
               buttonVariants({ size: "sm" }),
-              "h-8 rounded-lg px-3 text-[13px] font-semibold shadow-sm max-[380px]:hidden sm:px-4 lg:h-9 lg:px-5 lg:text-sm"
+              "h-8 max-w-[42vw] truncate rounded-lg px-2.5 text-[12px] font-semibold shadow-sm sm:max-w-none sm:px-4 sm:text-[13px] lg:h-9 lg:px-5 lg:text-sm"
             )}
           >
             <span className="hidden sm:inline">Upload </span>Form 16

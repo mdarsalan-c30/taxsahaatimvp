@@ -246,7 +246,7 @@ function CompanionContent() {
                 subtitle={FILING_COMPANION.subtitle}
                 badge={
                   <span className="mb-3 inline-flex rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-primary">
-                    Companion mode · Manual filing on ITD portal
+                    Personal filing guide
                   </span>
                 }
               />

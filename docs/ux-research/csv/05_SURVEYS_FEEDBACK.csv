@@ -1,0 +1,8 @@
+Instrument,Type,Location_in_app,Fields,Validation_rules,API_route,Public_reviews_page,Data_available,Notes
+FeedbackScreen,in_app,Marketing / post-flow CTA -> FeedbackScreen,"rating (1-5 stars), message (textarea)",message max 280 chars; rating required to enable submit,POST /api/feedback,n/a,No,Submissions go to /api/feedback; no analyzed/exported dataset exists yet. Source: components/marketing/FeedbackScreen.tsx
+companion_footprint_step_viewed,in_app (analytics),Portal Footprint Wizard steps,"step_id, step_index, total_steps, persona",event fires on step view,PostHog capture,n/a,Partial (event defined),Tells which portal steps users dwell on / drop. Source: docs/MCKINSEY_ENGAGEMENT/06_ANALYTICS_EVENTS.md
+companion_field_action,in_app (analytics),Companion field rows,"field_id, action (copy/expand/help)",fires on field interaction,PostHog capture,n/a,Partial (event defined),Signals which copy-ready fields are used most.
+companion_field_copy,in_app (analytics),Copy-to-clipboard buttons,"field_id, value_type",fires on copy,PostHog capture,n/a,Partial (event defined),Direct proxy for portal walkthrough value delivered.
+companion_field_confusion,in_app (analytics),Field help / confusion control,"field_id, reason",fires on confusion tap,PostHog capture,n/a,Partial (event defined),Flags fields needing clearer copy - feed straight into redesign.
+User interview survey,none,Not built,n/a,n/a,n/a,n/a,No,GAP: no structured survey instrument and no interview responses exist. Designer should build one (see Interviews tab).
+Public reviews / testimonials,planned,Landing testimonials section (copy only),n/a,n/a,n/a,"Landing testimonials (static copy, not user-submitted)",No,"Testimonials are marketing copy, not a live review dataset."

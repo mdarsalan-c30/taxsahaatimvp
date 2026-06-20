@@ -4,15 +4,18 @@ import { CountdownOffer } from "@/components/marketing/CountdownOffer";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 import { PRICING_SECTION } from "@/lib/copy/marketing";
 import { OFFER_HELPER_COPY } from "@/lib/marketing/offer";
+import { getDisplayPricing, formatPlanPriceLabel } from "@/lib/marketing/pricing";
 import { ASSESSMENT_YEAR, PRICING_PLANS } from "@/lib/constants";
 import { CONTENT_MAX, TYPOGRAPHY_SCALE } from "@/lib/design/layout";
 import { cn } from "@/lib/utils";
 
 export function PricingSection() {
+  const aiSmartPricing = getDisplayPricing("ai_smart");
+
   return (
     <section
       id="pricing"
-      className="section-compact overflow-hidden border-y border-border/60 bg-muted/20 px-4 sm:px-6 lg:px-8"
+      className="section-shell overflow-hidden border-y border-border/60 bg-muted/20 px-4 sm:px-6 lg:px-8"
     >
       <div className={`mx-auto w-full min-w-0 ${CONTENT_MAX}`}>
         <ScrollReveal className="text-center" delay={1}>
@@ -24,19 +27,43 @@ export function PricingSection() {
           >
             {PRICING_SECTION.eyebrow}
           </p>
-          <h2 className={cn("mt-2 font-semibold text-foreground", TYPOGRAPHY_SCALE.headline)}>
+          <h2 className={cn("mt-3 font-semibold text-foreground", TYPOGRAPHY_SCALE.headline)}>
             {PRICING_SECTION.headline}
           </h2>
-          <p className={cn("mx-auto mt-2 max-w-2xl text-muted-foreground", TYPOGRAPHY_SCALE.body)}>
+          <p className={cn("mx-auto mt-3 max-w-2xl text-muted-foreground", TYPOGRAPHY_SCALE.body)}>
             {PRICING_SECTION.subhead} · {ASSESSMENT_YEAR}
           </p>
         </ScrollReveal>
 
-        <ScrollReveal className="mt-3 flex justify-center" delay={2}>
+        <ScrollReveal className="mt-4 flex justify-center" delay={2}>
           <CountdownOffer />
         </ScrollReveal>
 
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:mt-7 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
+        <ScrollReveal
+          className="mx-auto mt-6 flex max-w-3xl flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-full border border-border/70 bg-white/80 px-4 py-2.5 shadow-sm"
+          delay={2}
+        >
+          <span className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+            AI Smart launch
+          </span>
+          <span className="h-1 w-1 rounded-full bg-muted-foreground/40" aria-hidden />
+          <span className="text-sm font-medium text-foreground">
+            {aiSmartPricing.showOffer && aiSmartPricing.original !== undefined ? (
+              <>
+                {formatPlanPriceLabel(aiSmartPricing.current)}{" "}
+                <span className="text-muted-foreground line-through">
+                  {formatPlanPriceLabel(aiSmartPricing.original)}
+                </span>
+              </>
+            ) : (
+              <>AI Smart {formatPlanPriceLabel(aiSmartPricing.current)}</>
+            )}
+          </span>
+          <span className="h-1 w-1 rounded-full bg-muted-foreground/40" aria-hidden />
+          <span className="text-sm font-medium text-foreground">Secure Razorpay checkout</span>
+        </ScrollReveal>
+
+        <div className="mt-10 grid grid-cols-1 gap-4 sm:mt-12 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
           {PRICING_PLANS.map((plan) => (
             <ScrollReveal key={plan.id} delay={3}>
               <PlanCard
@@ -54,7 +81,7 @@ export function PricingSection() {
         </div>
 
         <ScrollReveal
-          className="text-tier-legal mx-auto mt-3 max-w-3xl space-y-1.5 text-center"
+          className="text-tier-legal mx-auto mt-6 max-w-3xl space-y-2 text-center"
           delay={4}
         >
           <p>{OFFER_HELPER_COPY}</p>

@@ -13,6 +13,7 @@ import type {
   PortalPersonalizationOverlay,
   PortalSopSkipCondition,
 } from "@/lib/filing/portalSop";
+import { FILING_COMPANION } from "@/lib/copy/filing";
 
 export interface PortalGuideParams {
   form: PortalForm;
@@ -73,9 +74,7 @@ export function buildPersonalizationOverlay(
   }
 
   if (!draft.mismatchResolved) {
-    personalizedTips.push(
-      "Resolve import mismatches in your filing summary before copying values — mismatched fields are flagged in the checklist."
-    );
+    personalizedTips.push(FILING_COMPANION.mismatchWarning);
   }
 
   if (options?.computeResult?.regime_comparison && regime == null) {

@@ -6,10 +6,10 @@ test.describe("smoke: salaried happy path", () => {
   test("landing loads with hero and primary CTA", async ({ page }) => {
     await page.goto("/");
     await expect(
-      page.getByRole("heading", { name: /Last-minute ITR/i })
+      page.getByRole("heading", { name: /Running out of time/i })
     ).toBeVisible();
     await expect(
-      page.getByRole("main").getByRole("button", { name: /Start my return/i })
+      page.getByRole("main").getByRole("button", { name: /Start my free estimate/i })
     ).toBeVisible();
     await expect(
       page.getByRole("main").getByLabel(/your name/i)
@@ -27,7 +27,7 @@ test.describe("smoke: salaried happy path", () => {
   test("import documents mode cards switch start paths", async ({ page }) => {
     await page.goto("/file/import/documents");
     await expect(
-      page.getByRole("heading", { name: /How do you want to start/i })
+      page.getByRole("heading", { name: /Let's get your data in/i })
     ).toBeVisible();
 
     await page.getByRole("button", { name: /Start with estimates/i }).click();
@@ -56,7 +56,7 @@ test.describe("smoke: salaried happy path", () => {
     await page.getByPlaceholder("e.g. 12,00,000").fill("1500000");
     await page.getByRole("button", { name: /See my tax estimate/i }).click();
     await expect(
-      page.getByRole("heading", { name: /Old vs new tax regime/i })
+      page.getByRole("heading", { name: /Your Smart Tax Summary/i })
     ).toBeVisible();
   });
 
@@ -175,7 +175,7 @@ test.describe("smoke: salaried happy path", () => {
 
     await page.goto("/file/regime");
     await expect(
-      page.getByRole("heading", { name: /Old vs new tax regime/i })
+      page.getByRole("heading", { name: /Your Smart Tax Summary/i })
     ).toBeVisible();
 
     await expect(page.getByText(/Calculating your best tax regime/i)).toBeHidden({
@@ -210,7 +210,7 @@ test.describe("smoke: salaried happy path", () => {
 
     await page.goto("/file/checkout/plans");
     await expect(
-      page.getByRole("heading", { name: /Choose plan/i })
+      page.getByRole("heading", { name: /Ready to file\? Unlock your guide/i })
     ).toBeVisible();
 
     const valueStack = page.getByLabel(/Your earned value before checkout/i);

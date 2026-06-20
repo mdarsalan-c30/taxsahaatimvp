@@ -19,7 +19,7 @@ export function ScreenTitle({
         {title}
       </h1>
       {subtitle && (
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:mt-2.5">
+        <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground sm:mt-2.5">
           {subtitle}
         </p>
       )}

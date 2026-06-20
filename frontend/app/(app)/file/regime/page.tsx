@@ -74,7 +74,7 @@ export default function RegimePage() {
       activeNavSection="regime"
       mirrorText="Old regime lets you claim 80C, 80D, and HRA. New regime uses lower slabs but fewer deductions. You pick once per year."
     >
-      <RiskBadge variant="green">Tax analysis</RiskBadge>
+      <RiskBadge variant="green">Smart summary</RiskBadge>
 
       <ScreenTitle
         title={FILING_REGIME.title}
@@ -82,7 +82,9 @@ export default function RegimePage() {
           loading
             ? FILING_REGIME.subtitleLoading
             : rc
-              ? FILING_REGIME.subtitleResult(recommended, formatINR(savings))
+              ? savings > 0
+                ? FILING_REGIME.subtitleResult(recommended, formatINR(savings))
+                : `Both regimes result in the same tax outcome for your profile. We still recommend the ${recommended === "new" ? "New" : "Old"} Regime based on your draft.`
               : FILING_REGIME.subtitleFallback
         }
       />
@@ -153,7 +155,7 @@ export default function RegimePage() {
         )
       )}
 
-      <div className="filing-card-grid mb-4">
+      <div className="filing-workspace-card-grid mb-4">
         {loading ? (
           <>
             <RegimeCardSkeleton />
@@ -281,9 +283,9 @@ function RegimeOption({
       )}
     >
       {recommended && (
-        <span className="absolute -top-2.5 right-4 inline-flex items-center gap-1 rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
+        <span className="absolute -top-2.5 right-4 inline-flex items-center gap-1 rounded-full bg-emerald-600 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white shadow-sm">
           {recommended ? <TrendingDown className="size-3" /> : <CheckCircle2 className="size-3" />}
-          Cheaper
+          Recommended
         </span>
       )}
       <h4 className="font-bold text-slate-900">{title}</h4>

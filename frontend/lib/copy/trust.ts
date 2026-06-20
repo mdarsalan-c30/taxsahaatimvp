@@ -28,11 +28,11 @@ export const WHY_WE_ASK = {
   profileIncome:
     "Income type decides which ITR form the law requires — wrong form triggers notices.",
   salaryConfirm:
-    "Salary and TDS must match Form 16 and Form 26AS — mismatches delay refunds.",
+    "We'll match salary and TDS against government records before you file — mismatches are the #1 cause of refund delays.",
   deductions:
     "Deductions reduce tax only in the old regime and only with proof — the portal validates totals.",
   regime:
     "You choose old or new regime once per year — it changes every deduction and slab downstream.",
   import:
-    "Documents pre-fill your draft — you still verify every figure before filing on the portal.",
+    "Upload what you have now — you can always add AIS or other documents later.",
 } as const;

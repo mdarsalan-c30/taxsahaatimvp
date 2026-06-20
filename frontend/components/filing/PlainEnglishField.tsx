@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { FieldLabel, TextInput } from "./ui";
-import { HelpCircle, Languages, Sparkles } from "lucide-react";
+import { HelpCircle, Info, Sparkles } from "lucide-react";
 import { useDraftStore } from "@/lib/store/draft";
 import { FIELD_GUIDANCE } from "./ActiveAiCompanion";
 
@@ -31,8 +31,8 @@ export function PlainEnglishField({
   children?: React.ReactNode;
   fieldId?: string;
 }) {
-  const [showGov, setShowGov] = useState(false);
-  const [showTooltip, setShowTooltip] = useState(false);
+  const [showGovTooltip, setShowGovTooltip] = useState(false);
+  const [showGlossaryTooltip, setShowGlossaryTooltip] = useState(false);
   const setActiveField = useDraftStore((s) => s.setActiveField);
 
   const activeId = fieldId ?? simpleLabel.toLowerCase().replace(/[^a-z0-9]/g, "_");
@@ -40,20 +40,21 @@ export function PlainEnglishField({
   return (
     <div className="mb-5">
       <div className="mb-2 flex items-center justify-between gap-2">
-        <FieldLabel>{showGov ? govLabel : simpleLabel}</FieldLabel>
-        <div className="flex items-center gap-2">
+        <FieldLabel>{simpleLabel}</FieldLabel>
+        <div className="flex items-center gap-1">
           <button
             type="button"
-            onClick={() => setShowGov(!showGov)}
-            className="inline-flex items-center gap-1 rounded-lg px-2 py-1 text-xs font-medium text-primary transition-colors hover:bg-primary/5"
+            onClick={() => setShowGovTooltip((prev) => !prev)}
+            className="inline-flex size-7 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-blue-50 hover:text-primary"
+            aria-label={`Government portal name for ${simpleLabel}`}
+            title={`On the Income Tax portal, this is called: ${govLabel}`}
           >
-            <Languages className="size-3" />
-            {showGov ? "Simple" : "Gov term"}
+            <Info className="size-4" />
           </button>
           {glossaryTerm && (
             <button
               type="button"
-              onClick={() => setShowTooltip(!showTooltip)}
+              onClick={() => setShowGlossaryTooltip((prev) => !prev)}
               className="inline-flex size-7 items-center justify-center rounded-lg text-slate-400 transition-colors hover:bg-blue-50 hover:text-primary"
               aria-label={`What is ${glossaryTerm}?`}
             >
@@ -63,7 +64,14 @@ export function PlainEnglishField({
         </div>
       </div>
 
-      {showTooltip && glossaryTerm && (
+      {showGovTooltip && (
+        <div className="field-tooltip mb-2">
+          On the Income Tax portal, this is called:{" "}
+          <strong className="font-semibold">{govLabel}</strong>
+        </div>
+      )}
+
+      {showGlossaryTooltip && glossaryTerm && (
         <div className="field-tooltip mb-2">
           <strong className="font-semibold">{glossaryTerm}</strong> — This is the official
           term used on incometax.gov.in. We show it in plain English by default so you
@@ -86,15 +94,15 @@ export function PlainEnglishField({
         <p className="mt-2 text-xs leading-relaxed text-slate-500">{helper}</p>
       )}
 
-      {/* Genie hint popup below input field when focused */}
       {useDraftStore((s) => s.activeField) === activeId && FIELD_GUIDANCE[activeId] && (
-        <div className="mt-2 rounded-xl bg-blue-50/60 border border-blue-100/60 p-3 flex items-start gap-2.5 shadow-sm animate-in fade-in slide-in-from-top-1 duration-200">
-          <Sparkles className="size-4 text-blue-600 shrink-0 mt-0.5 animate-bounce" />
+        <div className="mt-2 flex items-start gap-2.5 rounded-xl border border-blue-100/60 bg-blue-50/60 p-3 shadow-sm animate-in fade-in slide-in-from-top-1 duration-200">
+          <Sparkles className="mt-0.5 size-4 shrink-0 animate-bounce text-blue-600" />
           <div className="space-y-0.5">
-            <p className="text-[10px] font-bold text-blue-900 uppercase tracking-wider flex items-center gap-1">
-              Genie Hint <span className="inline-block animate-ping size-1 h-1 rounded-full bg-blue-600" />
+            <p className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-blue-900">
+              Genie Hint{" "}
+              <span className="inline-block size-1 h-1 animate-ping rounded-full bg-blue-600" />
             </p>
-            <p className="text-xs text-slate-700 leading-relaxed">
+            <p className="text-xs leading-relaxed text-slate-700">
               {FIELD_GUIDANCE[activeId].tip}
             </p>
           </div>

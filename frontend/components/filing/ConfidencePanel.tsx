@@ -208,39 +208,58 @@ export function ConfidencePanel({
                 />
               </div>
             ) : null}
-            <p className="mt-1 text-sm text-slate-700">
-              <strong className="tabular-nums">{Math.round(score)}%</strong> complete
-              {!isCompact && (
-                <>
-                  {" "}
-                  ·{" "}
-                  {confidence.filing_ready ? "Filing-ready" : "Not filing-ready"}
-                </>
-              )}
-            </p>
-            {isCompact && confidence.missing_documents.length > 0 && (
-              <p className="mt-1 text-xs text-slate-500">
-                {confidence.missing_documents.length} doc
-                {confidence.missing_documents.length > 1 ? "s" : ""} remaining
+            {!confidence.filing_ready && isCompact ? (
+              <p className="mt-2 text-sm text-slate-700">
+                Let&apos;s get this filing-ready. You just need to upload{" "}
+                <strong className="tabular-nums">
+                  {confidence.missing_documents.length}
+                </strong>{" "}
+                more document
+                {confidence.missing_documents.length === 1 ? "" : "s"}.
+              </p>
+            ) : (
+              <p className="mt-1 text-sm text-slate-700">
+                <strong className="tabular-nums">{Math.round(score)}%</strong> complete
+                {!isCompact && (
+                  <>
+                    {" "}
+                    ·{" "}
+                    {confidence.filing_ready ? "Filing-ready" : "Not filing-ready"}
+                  </>
+                )}
               </p>
             )}
+            {isCompact &&
+              confidence.filing_ready &&
+              confidence.missing_documents.length === 0 && (
+                <p className="mt-1 text-xs text-emerald-700">Looking good — filing-ready.</p>
+              )}
+            {isCompact &&
+              !confidence.filing_ready &&
+              confidence.missing_documents.length > 0 && (
+                <p className="mt-1 text-xs text-slate-500">
+                  {Math.round(score)}% complete so far
+                </p>
+              )}
           </div>
         </div>
         <RiskBadge variant={confidence.filing_ready ? "green" : "yellow"}>
           {confidence.filing_ready
             ? "Filing-ready"
-            : confidence.is_estimate_mode
-              ? "Estimate mode"
-              : "Not filing-ready"}
+            : isCompact
+              ? "Almost there"
+              : confidence.is_estimate_mode
+                ? "Estimate mode"
+                : "Not filing-ready"}
         </RiskBadge>
       </div>
 
-      {confidence.is_estimate_mode && (
+      {confidence.is_estimate_mode && !isCompact && (
         <div className="mt-3 flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2.5 text-sm text-amber-900">
           <AlertTriangle className="mt-0.5 size-4 shrink-0" />
           <p>
-            <strong>Estimate mode</strong> — not filing-ready. Switch to Exact and
-            upload all documents before you file on the portal.
+            You&apos;re in estimate mode for now. Upload your documents when ready and
+            we&apos;ll get you filing-ready before you pay or file.
           </p>
         </div>
       )}

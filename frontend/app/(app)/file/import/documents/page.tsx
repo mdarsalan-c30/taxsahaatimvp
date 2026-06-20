@@ -32,6 +32,7 @@ import {
   FORM16_FAST_PATH_SOURCE,
   isForm16FastPath,
 } from "@/lib/filing/routes";
+import { FILING_WORKSPACE } from "@/lib/design/layout";
 import {
   getImportContinueHref,
   IMPORT_START_MODES,
@@ -243,7 +244,7 @@ function DocumentsContent() {
 
       {!form16FastPath && (
         <>
-          <CardGrid className="mb-4 sm:grid-cols-1">
+          <CardGrid className="mb-4 sm:grid-cols-1 lg:grid-cols-3">
             {(Object.keys(IMPORT_START_MODES) as ImportStartMode[]).map((mode) => {
               const config = IMPORT_START_MODES[mode];
               return (
@@ -295,8 +296,8 @@ function DocumentsContent() {
       )}
 
       {(form16FastPath || importMode === "form16") && (
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(320px,400px)] lg:items-start">
-          <div className="min-w-0">
+        <div className={FILING_WORKSPACE.importLayout}>
+          <div className="min-w-0 space-y-4">
             {addEmployerMode && (
               <Banner variant="info">
                 <strong>Adding another Form 16 (job change).</strong> Upload the
