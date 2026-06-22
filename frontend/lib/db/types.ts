@@ -212,6 +212,14 @@ export interface Tenant {
   createdAt: string;
 }
 
+export interface B2CUser {
+  id: string;
+  name: string;
+  email: string;
+  passwordHash: string;
+  createdAt: string;
+}
+
 /** Every collection the admin store manages. */
 export interface AdminData {
   adminUsers: AdminUserRow[];
@@ -231,6 +239,7 @@ export interface AdminData {
   deletionRequests: DeletionRequest[];
   supportTickets: SupportTicket[];
   tenants: Tenant[];
+  b2cUsers: B2CUser[];
 }
 
 export type AdminCollection = keyof AdminData;

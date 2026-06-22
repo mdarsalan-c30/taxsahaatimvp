@@ -51,7 +51,7 @@ export function PricingSection() {
                   </span>
                 )}
                 {/* Coming soon badge */}
-                {plan.id === "ca_review" && (
+                {plan.id === "ca" && (
                   <span
                     className="mb-3 inline-block w-fit rounded-[6px] px-2 py-0.5 text-[10.5px] font-bold"
                     style={{ background: "#FFF7E6", color: "#92670F" }}
@@ -71,7 +71,7 @@ export function PricingSection() {
                   ctaLabel={
                     plan.id === "free"
                       ? "Start free"
-                      : plan.id === "ca_review"
+                      : plan.id === "ca"
                       ? "Join waitlist"
                       : "Choose plan"
                   }

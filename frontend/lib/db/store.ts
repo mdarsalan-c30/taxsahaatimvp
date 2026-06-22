@@ -36,6 +36,7 @@ function emptyData(): AdminData {
     deletionRequests: [],
     supportTickets: [],
     tenants: [],
+    b2cUsers: [],
   };
 }
 

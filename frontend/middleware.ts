@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ADMIN_SESSION_COOKIE } from "@/lib/admin/auth";
+const ADMIN_SESSION_COOKIE = "ts_admin_session";
 
 /**
  * Edge gate for the admin area: redirect to login when the session cookie is

@@ -116,51 +116,39 @@ export function HeroSection() {
                   yourself, directly on incometax.gov.in.
                 </p>
 
-                <div className="mb-9 flex flex-wrap items-center gap-4.5">
-                  <Link
-                    href="/file/import/documents?source=form16"
-                    className="btn-pill-primary"
-                  >
-                    Upload Form 16
-                    <svg
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      aria-hidden
-                    >
-                      <path
-                        d="M3 8h10M9 4l4 4-4 4"
-                        stroke="white"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
+                <form
+                  className="mb-9 flex max-w-sm flex-col gap-3"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const formData = new FormData(e.currentTarget);
+                    const name = formData.get("name") as string;
+                    // Since it's B2C filing, send to register with name query param
+                    window.location.href = `/auth/register?name=${encodeURIComponent(name)}`;
+                  }}
+                >
+                  <div>
+                    <label htmlFor="b2c-name" className="sr-only">
+                      What should we call you?
+                    </label>
+                    <input
+                      id="b2c-name"
+                      name="name"
+                      type="text"
+                      required
+                      placeholder="What should we call you? (e.g. Rahul)"
+                      className="w-full rounded-[10px] border border-[#E6E8EC] px-4 py-3 text-[15px] outline-none transition-colors focus:border-[#1D4ED8] focus:ring-1 focus:ring-[#1D4ED8]"
+                    />
+                  </div>
+                  <button type="submit" className="btn-pill-primary w-full justify-center">
+                    Proceed to file
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
+                      <path d="M3 8h10M9 4l4 4-4 4" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                  </Link>
-                  <Link
-                    href="/#how-it-works"
-                    className="group inline-flex items-center gap-1.5 text-[15px] font-semibold text-[#1D4ED8] hover:underline"
-                  >
-                    See how it works
-                    <svg
-                      width="14"
-                      height="14"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      aria-hidden
-                      className="transition-transform group-hover:translate-x-0.5"
-                    >
-                      <path
-                        d="M3 8h10M9 4l4 4-4 4"
-                        stroke="#1D4ED8"
-                        strokeWidth="1.6"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </Link>
-                </div>
+                  </button>
+                  <p className="text-center text-[12.5px] text-[#6B7280]">
+                    Already have an account? <Link href="/auth/login" className="font-semibold text-[#1D4ED8] hover:underline">Log in</Link>
+                  </p>
+                </form>
 
                 <div className="mb-3.5 flex flex-wrap gap-2.5">
                   {[
