@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { trackEvent } from "@/lib/analytics";
 import { useDraftStore } from "@/lib/store/draft";
@@ -22,13 +22,17 @@ import {
   Button,
   FilingActions,
   ScreenTitle,
+  Card,
 } from "@/components/filing/ui";
+import { usePaymentSession } from "@/lib/hooks/usePaymentSession";
+import { getBrowserSessionId } from "@/lib/store/sessionInit";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { triggerConfetti } from "@/components/filing/Confetti";
 
 export default function PlansPage() {
   return (
@@ -47,7 +51,48 @@ function PlansContent() {
     recommendedForm,
     mismatchResolved,
     mismatchProceedWithExplanation,
+    setPaymentVerified,
   } = useDraftStore();
+  const { refresh: refreshPaymentSession } = usePaymentSession();
+
+  const [couponCode, setCouponCode] = useState("");
+  const [applyingCoupon, setApplyingCoupon] = useState(false);
+  const [couponSuccess, setCouponSuccess] = useState<string | null>(null);
+  const [couponError, setCouponError] = useState<string | null>(null);
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) return;
+    setApplyingCoupon(true);
+    setCouponError(null);
+    setCouponSuccess(null);
+    try {
+      const sessionId = getBrowserSessionId();
+      const res = await fetch("/api/coupons/redeem", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: couponCode.trim(), planId: plan, sessionId }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error ?? "Failed to apply coupon");
+      }
+      if (data.unlocked) {
+        setCouponSuccess("Coupon applied successfully! Unlocking guide...");
+        setPaymentVerified(plan);
+        await refreshPaymentSession();
+        triggerConfetti();
+        setTimeout(() => {
+          router.push("/file/companion?unlocked=1");
+        }, 1500);
+      } else {
+        setCouponError("Coupon applied but did not unlock filing companion.");
+      }
+    } catch (err) {
+      setCouponError(err instanceof Error ? err.message : "Invalid coupon code");
+    } finally {
+      setApplyingCoupon(false);
+    }
+  };
   const { loading, confidence, regimeSavings, engineUnavailable } =
     useDraftTaxCompute();
 
@@ -155,6 +200,30 @@ function PlansContent() {
           />
         ))}
       </div>
+
+      <Card className="mb-4">
+        <h3 className="text-sm font-semibold text-slate-900 mb-2">Have a coupon code?</h3>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            placeholder="Enter coupon code"
+            value={couponCode}
+            onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+            className="flex-1 min-h-11 px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary uppercase font-mono bg-white text-slate-800"
+            disabled={applyingCoupon}
+          />
+          <Button
+            variant="secondary"
+            className="min-h-11 px-4 text-xs font-semibold shrink-0"
+            onClick={handleApplyCoupon}
+            disabled={applyingCoupon}
+          >
+            {applyingCoupon ? "Applying..." : "Apply Coupon"}
+          </Button>
+        </div>
+        {couponError && <p className="text-xs text-red-600 mt-1">{couponError}</p>}
+        {couponSuccess && <p className="text-xs text-green-600 mt-1">{couponSuccess}</p>}
+      </Card>
 
       <p className="text-xs text-slate-500 mb-6">
         Who this plan is for: resident salaried · {recommendedForm} · no capital gains

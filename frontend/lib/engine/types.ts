@@ -115,6 +115,7 @@ export interface UserInput {
   residential_status?: ResidentialStatus;
   assessment_year?: string;
   mode?: FilingMode;
+  late_filing?: boolean;
   salary?: SalaryInput;
   house_property?: HousePropertyInput;
   other_income?: OtherIncomeInput;
@@ -183,6 +184,7 @@ export interface SlabTaxResult {
   total_tax: number;
   tds_and_advance_tax: number;
   net_payable: number;
+  late_filing_fee?: number;
 }
 
 export interface RegimeComparisonResult {

@@ -114,8 +114,19 @@ export function FloatingGenie() {
   const setIncome = useDraftStore((s) => s.setIncome);
   const setDeductions = useDraftStore((s) => s.setDeductions);
 
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<"guide" | "calculator">("guide");
+
+  useEffect(() => {
+    const saved = localStorage.getItem("genie_open");
+    if (saved === "true") {
+      setIsOpen(true);
+    } else if (saved === "false") {
+      setIsOpen(false);
+    } else {
+      setIsOpen(false);
+    }
+  }, []);
 
   // Drag-and-drop states
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -194,6 +205,7 @@ export function FloatingGenie() {
   const handleButtonRelease = () => {
     if (!dragMoved) {
       setIsOpen(true);
+      localStorage.setItem("genie_open", "true");
     }
   };
 
@@ -297,8 +309,8 @@ export function FloatingGenie() {
         onTouchStart={handleTouchStart}
         onMouseUp={handleButtonRelease}
         onTouchEnd={handleButtonRelease}
-        style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
-        className="fixed bottom-6 right-6 lg:right-[22.5rem] z-40 flex size-12 items-center justify-center rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-xl shadow-blue-500/30 hover:scale-105 active:scale-95 transition-all select-none cursor-grab active:cursor-grabbing"
+        style={{ transform: `translate(${position.x}px, calc(-50% + ${position.y}px))` }}
+        className="fixed top-1/2 right-6 z-40 flex size-12 items-center justify-center rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-xl shadow-blue-500/30 hover:scale-105 active:scale-95 transition-all select-none cursor-grab active:cursor-grabbing"
         aria-label="Open Tax Genie"
       >
         <Sparkles className="size-5 text-white animate-pulse" />
@@ -309,8 +321,8 @@ export function FloatingGenie() {
 
   return (
     <div
-      style={{ transform: `translate(${position.x}px, ${position.y}px)` }}
-      className="fixed bottom-6 right-6 lg:right-[22.5rem] z-40 max-w-sm w-[calc(100vw-3rem)] rounded-2xl border border-slate-100 bg-white shadow-2xl overflow-hidden transition-all duration-300 animate-in fade-in slide-in-from-bottom-5"
+      style={{ transform: `translate(${position.x}px, calc(-50% + ${position.y}px))` }}
+      className="fixed top-1/2 right-6 z-40 max-w-sm w-[calc(100vw-3rem)] rounded-2xl border border-slate-100 bg-white shadow-2xl overflow-hidden transition-all duration-300 animate-in fade-in slide-in-from-right-5"
     >
       {/* Header */}
       <div
@@ -331,6 +343,7 @@ export function FloatingGenie() {
           onClick={(e) => {
             e.stopPropagation();
             setIsOpen(false);
+            localStorage.setItem("genie_open", "false");
           }}
           className="p-1 rounded-lg hover:bg-white/10 text-white/90 hover:text-white transition-colors"
         >

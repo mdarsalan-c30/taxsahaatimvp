@@ -163,6 +163,7 @@ class UserInput:
     residential_status: Literal["resident", "nri", "rnor"] = "resident"
     assessment_year: str = "2025-26"
     mode: Literal["estimate", "exact"] = "estimate"
+    late_filing: bool = False
 
     # Income blocks
     salary: SalaryInput = field(default_factory=lambda: SalaryInput(gross_salary=0, basic_salary=0))
@@ -275,6 +276,7 @@ class SlabTaxResult:
     total_tax: float                     # after cess
     tds_and_advance_tax: float
     net_payable: float                   # positive = pay, negative = refund
+    late_filing_fee: float = 0.0
 
 
 @dataclass

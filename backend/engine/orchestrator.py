@@ -161,6 +161,7 @@ def compute_itr(user: UserInput) -> ITRResult:
         age=user.age,
         tds_and_advance=total_tax_paid,
         standard_deduction_delta=std_ded_delta,
+        late_filing=user.late_filing,
     )
 
     income_heads = IncomeHeadsResult(

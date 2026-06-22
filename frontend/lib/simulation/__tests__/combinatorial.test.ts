@@ -133,6 +133,9 @@ describe.skipIf(!PYTHON_OK)("simulation: combinatorial compute", () => {
       },
       expected: { noThrow: true, itrForm: "ITR-1" },
     });
+    if (!result.passed) {
+      console.error("EDGE-FD-ONLY error:", result.error);
+    }
     expect(result.passed).toBe(true);
   });
 
@@ -182,6 +185,9 @@ describe.skipIf(!PYTHON_OK)("simulation: combinatorial compute", () => {
         draftSlice: slice,
         expected: { noThrow: true },
       });
+      if (!result.passed) {
+        console.error("EDGE-SENIOR-80TTB error:", result.error);
+      }
       expect(result.passed).toBe(true);
   });
 });

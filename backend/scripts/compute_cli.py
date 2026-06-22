@@ -47,6 +47,7 @@ def dict_to_user_input(data: dict) -> UserInput:
         residential_status=data.get("residential_status", "resident"),
         assessment_year=data.get("assessment_year", "2025-26"),
         mode=data.get("mode", "estimate"),
+        late_filing=data.get("late_filing", False),
         salary=_build(SalaryInput, data.get("salary")),
         house_property=_build(HousePropertyInput, data.get("house_property")),
         other_income=_build(OtherIncomeInput, data.get("other_income")),

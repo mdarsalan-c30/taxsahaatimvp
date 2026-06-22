@@ -1,36 +1,40 @@
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 import { HOW_IT_WORKS } from "@/lib/content/homepage";
-import { CONTENT_MAX, TYPOGRAPHY_SCALE } from "@/lib/design/layout";
-import { cn } from "@/lib/utils";
 
 export function HowItWorks() {
   return (
-    <section
-      id="how-it-works"
-      className="section-compact border-b border-border/40 bg-muted/20 px-4 sm:px-6 lg:px-8"
-    >
-      <div className={cn("mx-auto w-full min-w-0", CONTENT_MAX)}>
-        <ScrollReveal className="text-center">
-          <p className={cn("font-semibold uppercase tracking-[0.14em] text-primary", TYPOGRAPHY_SCALE.caption)}>
-            {HOW_IT_WORKS.eyebrow}
-          </p>
-          <h2 className={cn("mt-2 font-semibold text-foreground", TYPOGRAPHY_SCALE.headline)}>
+    <section id="how-it-works" className="section-pad-lg px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1180px]">
+        {/* Section header */}
+        <ScrollReveal className="text-center mb-14">
+          <span className="eyebrow-label">{HOW_IT_WORKS.eyebrow}</span>
+          <h2 className="font-manrope mt-3.5 text-[clamp(26px,3vw,36px)] font-bold tracking-[-0.02em] text-[#0B1220] leading-[1.15]">
             {HOW_IT_WORKS.headline}
           </h2>
+          <p className="mt-3.5 text-[16px] text-[#6B7280] leading-relaxed max-w-[600px] mx-auto">
+            No new account to manage your filing — we prep, you submit on incometax.gov.in yourself.
+          </p>
         </ScrollReveal>
-        <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+
+        {/* Step cards */}
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {HOW_IT_WORKS.steps.map((step, i) => (
-            <ScrollReveal key={step.step} delay={1}>
-              <li className="card-premium h-full p-5">
-                <span className="inline-flex size-8 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">
+            <ScrollReveal key={step.step} delay={(i as 0 | 1 | 2)}>
+              <div className="group rounded-[16px] border border-[#E6E8EC] bg-white p-8 transition-all duration-350 hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(11,18,32,.15)]">
+                {/* Number badge */}
+                <div className="mb-5 flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#1D4ED8] font-manrope text-[15px] font-bold text-white">
                   {step.step}
-                </span>
-                <h3 className="mt-3 font-semibold text-foreground">{step.title}</h3>
-                <p className="mt-1.5 text-sm text-muted-foreground">{step.detail}</p>
-              </li>
+                </div>
+                <h3 className="font-manrope text-[18px] font-bold tracking-[-0.01em] text-[#0B1220] mb-2.5">
+                  {step.title}
+                </h3>
+                <p className="text-[14.5px] text-[#6B7280] leading-[1.55]">
+                  {step.detail}
+                </p>
+              </div>
             </ScrollReveal>
           ))}
-        </ol>
+        </div>
       </div>
     </section>
   );

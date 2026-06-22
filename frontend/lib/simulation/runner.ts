@@ -1,4 +1,4 @@
-import { spawn } from "node:child_process";
+import { spawn, execSync } from "node:child_process";
 import path from "node:path";
 import { draftToUserInput } from "@/lib/engine/draftToUserInput";
 import type { ComputeResponse, ITRResult, UserInput } from "@/lib/engine/types";
@@ -11,27 +11,48 @@ import type {
 const ENGINE_UNAVAILABLE = "ENGINE_UNAVAILABLE";
 
 let pythonAvailable: boolean | null = null;
+let pythonCommand = "python3";
 
 export function isPythonEngineAvailable(): boolean {
   if (pythonAvailable !== null) return pythonAvailable;
+  
+  // Try python3 first
   try {
-    const proc = spawn("python3", ["--version"], { stdio: "ignore" });
-    pythonAvailable = true;
-    proc.on("error", () => {
-      pythonAvailable = false;
-    });
+    const out = execSync("python3 --version", { stdio: "pipe" }).toString();
+    if (out.toLowerCase().includes("python")) {
+      pythonCommand = "python3";
+      pythonAvailable = true;
+      return true;
+    }
   } catch {
-    pythonAvailable = false;
+    // Ignore and try python
   }
-  return pythonAvailable ?? true;
+
+  // Try python
+  try {
+    const out = execSync("python --version", { stdio: "pipe" }).toString();
+    if (out.toLowerCase().includes("python")) {
+      pythonCommand = "python";
+      pythonAvailable = true;
+      return true;
+    }
+  } catch {
+    // Both failed
+  }
+
+  pythonAvailable = false;
+  return false;
 }
 
 function spawnCompute(userInput: UserInput): Promise<ComputeResponse> {
-  const scriptPath = path.join(process.cwd(), "scripts", "compute_cli.py");
+  let scriptPath = path.join(process.cwd(), "..", "backend", "scripts", "compute_cli.py");
+  if (!require("fs").existsSync(scriptPath)) {
+    scriptPath = path.join(process.cwd(), "scripts", "compute_cli.py");
+  }
   const payload = JSON.stringify(userInput);
 
   return new Promise((resolve, reject) => {
-    const proc = spawn("python3", [scriptPath], {
+    const proc = spawn(pythonCommand, [scriptPath], {
       cwd: process.cwd(),
       stdio: ["pipe", "pipe", "pipe"],
     });
@@ -116,7 +137,7 @@ export function validateComputeResult(
 
   const rec = rc.recommended_regime;
   const slab = rec === "old" ? rc.old : rc.new;
-  const netDelta = Math.abs(slab.net_payable - (slab.total_tax - slab.tds_and_advance_tax));
+  const netDelta = Math.abs(slab.net_payable - (slab.total_tax + (slab.late_filing_fee ?? 0) - slab.tds_and_advance_tax));
   if (netDelta > 1) {
     return `net_payable mismatch (delta ${netDelta})`;
   }

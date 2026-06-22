@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createApplication } from "@/lib/admin/partners";
+import { hashPassword } from "@/lib/admin/auth";
 
 /** Public CA-firm application intake; lands in the verification queue as pending. */
 export async function POST(request: NextRequest) {
@@ -8,6 +9,8 @@ export async function POST(request: NextRequest) {
       firmName?: string;
       applicantName?: string;
       icaiNo?: string;
+      email?: string;
+      password?: string;
       city?: string;
     };
     if (!body.firmName?.trim()) {
@@ -20,6 +23,8 @@ export async function POST(request: NextRequest) {
       firmName: body.firmName.trim(),
       applicantName: body.applicantName?.trim(),
       icaiNo: body.icaiNo?.trim(),
+      email: body.email?.trim().toLowerCase(),
+      passwordHash: body.password ? hashPassword(body.password) : undefined,
       city: body.city?.trim(),
     });
     return NextResponse.json({ ok: true, id: tenant.id });

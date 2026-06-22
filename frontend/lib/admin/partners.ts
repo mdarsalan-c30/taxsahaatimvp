@@ -11,6 +11,8 @@ export async function createApplication(input: {
   firmName: string;
   applicantName?: string;
   icaiNo?: string;
+  email?: string;
+  passwordHash?: string;
   city?: string;
 }): Promise<Tenant> {
   const tenant: Tenant = {
@@ -18,6 +20,8 @@ export async function createApplication(input: {
     firmName: input.firmName,
     applicantName: input.applicantName,
     icaiNo: input.icaiNo,
+    email: input.email,
+    passwordHash: input.passwordHash,
     city: input.city,
     status: "pending",
     walletBalance: 0,

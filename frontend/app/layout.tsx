@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans, Manrope } from "next/font/google";
 import { AnalyticsProvider } from "@/components/AnalyticsProvider";
 import { HashScrollHandler } from "@/components/navigation/HashScrollHandler";
 import { SessionBootstrap } from "@/components/SessionBootstrap";
@@ -15,6 +15,13 @@ const inter = Inter({
 const display = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-display",
+  display: "swap",
+  weight: ["500", "600", "700", "800"],
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  variable: "--font-manrope",
   display: "swap",
   weight: ["500", "600", "700", "800"],
 });
@@ -61,7 +68,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${display.variable} overflow-x-hidden font-sans`}
+        className={`${inter.variable} ${display.variable} ${manrope.variable} overflow-x-hidden font-sans`}
       >
         <AnalyticsProvider>
           <SessionBootstrap />

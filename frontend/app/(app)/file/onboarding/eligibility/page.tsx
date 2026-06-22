@@ -399,6 +399,12 @@ function EligibilityContent() {
               <Chip label="No business" selected={!hasBusiness} onClick={() => setHasBusiness(false)} />
             </div>
           </FieldGroup>
+          <FieldGroup label="Are you filing after the July 31 due date?" requirement="required">
+            <div className="flex flex-wrap gap-2">
+              <Chip label="Yes, filing late" selected={profile.lateFiling === true} onClick={() => setProfile({ lateFiling: true })} />
+              <Chip label="No, on time" selected={profile.lateFiling !== true} onClick={() => setProfile({ lateFiling: false })} />
+            </div>
+          </FieldGroup>
         </div>
 
         <div className="space-y-4 border-t border-slate-100 pt-4">

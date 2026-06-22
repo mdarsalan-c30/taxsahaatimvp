@@ -24,6 +24,8 @@ def _build_slab_tax_result(
     total_income_for_surcharge,
     age,
     tds_and_advance,
+    late_filing=False,
+    gross_total_income=0.0,
 ) -> SlabTaxResult:
     """Helper: compute full SlabTaxResult for one regime."""
     special_rate_tax = compute_special_rate_tax(
@@ -40,7 +42,24 @@ def _build_slab_tax_result(
         total_income_for_surcharge=total_income_for_surcharge,
     )
 
-    net_payable = round(result["total_tax"] - tds_and_advance, 2)
+    late_filing_fee = 0.0
+    if late_filing:
+        if regime == "new":
+            exemption_limit = 300000.0
+        else:
+            if age >= 80:
+                exemption_limit = 500000.0
+            elif age >= 60:
+                exemption_limit = 300000.0
+            else:
+                exemption_limit = 250000.0
+        if gross_total_income > exemption_limit:
+            if taxable_income <= 500000.0:
+                late_filing_fee = 1000.0
+            else:
+                late_filing_fee = 5000.0
+
+    net_payable = round(result["total_tax"] + late_filing_fee - tds_and_advance, 2)
 
     return SlabTaxResult(
         regime=regime,
@@ -58,6 +77,7 @@ def _build_slab_tax_result(
         total_tax=result["total_tax"],
         tds_and_advance_tax=tds_and_advance,
         net_payable=net_payable,
+        late_filing_fee=late_filing_fee,
     )
 
 
@@ -71,6 +91,7 @@ def compute_regime_comparison(
     age: int,
     tds_and_advance: float,
     standard_deduction_delta: float = 0.0,
+    late_filing: bool = False,
 ) -> RegimeComparisonResult:
     """
     Runs both regime pipelines and returns a full comparison.
@@ -86,6 +107,7 @@ def compute_regime_comparison(
     age                     : taxpayer age
     tds_and_advance         : total tax already paid (TDS + advance + SAT)
     standard_deduction_delta: higher new-regime standard deduction applied in salary head
+    late_filing             : is the return being filed after the deadline
     """
 
     # When gti_new is supplied separately, std-ded/HRA/HP deltas are already in head nets.
@@ -112,6 +134,8 @@ def compute_regime_comparison(
         total_income_for_surcharge=old_surcharge_base,
         age=age,
         tds_and_advance=tds_and_advance,
+        late_filing=late_filing,
+        gross_total_income=gti_old,
     )
 
     # ── NEW REGIME ──
@@ -126,6 +150,8 @@ def compute_regime_comparison(
         total_income_for_surcharge=new_surcharge_base,
         age=age,
         tds_and_advance=tds_and_advance,
+        late_filing=late_filing,
+        gross_total_income=gti_new,
     )
 
     # ── Recommendation ──

@@ -274,6 +274,20 @@ function CompanionContent() {
             </div>
           </div>
 
+          {session?.passkey && (
+            <Banner variant="info">
+              <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between w-full">
+                <div>
+                  <strong className="font-semibold text-slate-800">Chrome Extension Passkey: </strong>
+                  <code className="bg-slate-100 border border-slate-200 px-2 py-1 rounded text-sm font-mono select-all text-primary font-bold">{session.passkey}</code>
+                </div>
+                <div className="text-xs text-slate-500 font-medium">
+                  Valid for 7 days until {new Date(session.expiresAt || "").toLocaleDateString()}
+                </div>
+              </div>
+            </Banner>
+          )}
+
       {justUnlocked && (
         <Banner variant="success">
           Your portal guide is unlocked — copy each value into incometax.gov.in as you

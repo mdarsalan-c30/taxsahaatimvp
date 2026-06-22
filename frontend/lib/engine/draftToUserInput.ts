@@ -182,6 +182,7 @@ export function draftToUserInput(draft: Pick<
     residential_status:
       draft.profile.residentialStatus === "non_resident" ? "nri" : draft.profile.residentialStatus,
     assessment_year: "2025-26",
+    late_filing: draft.profile.lateFiling ?? false,
     salary,
     ...(housePropertyInput ? { house_property: housePropertyInput } : {}),
     ...(capitalGainsInput ? { capital_gains: capitalGainsInput } : {}),

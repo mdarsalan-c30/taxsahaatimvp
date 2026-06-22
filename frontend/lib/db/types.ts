@@ -114,6 +114,7 @@ export interface CompanionGrant {
   plan?: string;
   expiresAt?: string | null;
   ts: string;
+  passkey?: string;
 }
 
 export type CrmStage =
@@ -201,6 +202,8 @@ export interface Tenant {
   firmName: string;
   applicantName?: string;
   icaiNo?: string;
+  email?: string;
+  passwordHash?: string;
   city?: string;
   status: TenantStatus;
   walletBalance: number;

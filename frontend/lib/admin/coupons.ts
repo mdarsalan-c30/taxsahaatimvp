@@ -103,6 +103,12 @@ export function hashIp(ip: string | null | undefined): string {
     .slice(0, 16);
 }
 
+export function generatePasskey(): string {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  const genPart = () => Array.from({ length: 4 }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
+  return `TS-${genPart()}-${genPart()}`;
+}
+
 /** Record a redemption, grant companion access, and log a ₹0 payment row. */
 export async function recordRedemption(
   coupon: Coupon,
@@ -120,12 +126,16 @@ export async function recordRedemption(
   await insert("couponRedemptions", redemption);
 
   if (input.sessionId) {
+    const passkey = generatePasskey();
+    const expiresAt = new Date(Date.now() + 7 * 86_400_000).toISOString();
     const grant: CompanionGrant = {
       id: genId("grant"),
       sessionId: input.sessionId,
       source: "coupon",
       plan: input.planId,
       ts: new Date().toISOString(),
+      expiresAt,
+      passkey,
     };
     await insert("companionGrants", grant);
   }

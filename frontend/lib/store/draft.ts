@@ -18,6 +18,7 @@ export interface Profile {
   assessmentYear: string;
   residentialStatus: "resident" | "non_resident" | "rnor";
   ageBand: "under_60" | "senior" | "super_senior";
+  lateFiling?: boolean;
 }
 
 export interface IncomeDraft {
@@ -176,6 +177,7 @@ const defaultProfile: Profile = {
   assessmentYear: "AY 2026-27 (FY 2025-26)",
   residentialStatus: "resident",
   ageBand: "under_60",
+  lateFiling: false,
 };
 
 const defaultIncome: IncomeDraft = {

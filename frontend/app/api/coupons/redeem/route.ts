@@ -30,14 +30,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: result.reason }, { status: 400 });
     }
 
-    // Amount-off coupons are applied at Razorpay checkout, not redeemed here.
-    if (result.coupon.discount === "amount") {
-      return NextResponse.json({
-        unlocked: false,
-        discount: "amount",
-        amountOff: result.coupon.amountOff ?? 0,
-      });
-    }
+
 
     const ip =
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
@@ -54,6 +47,7 @@ export async function POST(request: NextRequest) {
         orderId: `order_coupon_${Date.now()}`,
         paymentId: `pay_coupon_${result.coupon.code}`,
         mock: true,
+        sessionId: body.sessionId,
       })
     );
     response.cookies.set(

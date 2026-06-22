@@ -19,7 +19,10 @@ import {
   Card,
   FilingActions,
   ScreenTitle,
+  Button,
 } from "@/components/filing/ui";
+import { getBrowserSessionId } from "@/lib/store/sessionInit";
+import { triggerConfetti } from "@/components/filing/Confetti";
 
 export default function PaymentPage() {
   const router = useRouter();
@@ -39,6 +42,45 @@ export default function PaymentPage() {
   const effectivePrice = getEffectivePrice(plan);
   const displayPricing = getDisplayPricing(plan);
   const [paymentError, setPaymentError] = useState<string | null>(null);
+
+  const [couponCode, setCouponCode] = useState("");
+  const [applyingCoupon, setApplyingCoupon] = useState(false);
+  const [couponSuccess, setCouponSuccess] = useState<string | null>(null);
+  const [couponError, setCouponError] = useState<string | null>(null);
+
+  const handleApplyCoupon = async () => {
+    if (!couponCode.trim()) return;
+    setApplyingCoupon(true);
+    setCouponError(null);
+    setCouponSuccess(null);
+    try {
+      const sessionId = getBrowserSessionId();
+      const res = await fetch("/api/coupons/redeem", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: couponCode.trim(), planId: plan, sessionId }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error ?? "Failed to apply coupon");
+      }
+      if (data.unlocked) {
+        setCouponSuccess("Coupon applied successfully! Unlocking guide...");
+        setPaymentVerified(plan);
+        await refreshPaymentSession();
+        triggerConfetti();
+        setTimeout(() => {
+          router.push("/file/companion?unlocked=1");
+        }, 1500);
+      } else {
+        setCouponError("Coupon applied but did not unlock filing companion.");
+      }
+    } catch (err) {
+      setCouponError(err instanceof Error ? err.message : "Invalid coupon code");
+    } finally {
+      setApplyingCoupon(false);
+    }
+  };
 
   const effectiveResult = result ?? (useSnapshot ? lastSnapshot : null);
   const rc = effectiveResult?.regime_comparison;
@@ -86,6 +128,13 @@ export default function PaymentPage() {
               <strong>Tax due before filing:</strong>{" "}
               <span className="tabular-nums">{formatINR(taxDue)}</span>
             </p>
+            {effectiveResult?.regime_comparison?.[activeRegime]?.late_filing_fee !== undefined &&
+              effectiveResult.regime_comparison[activeRegime].late_filing_fee > 0 && (
+                <p className="text-sm text-slate-700 mt-1">
+                  <strong>Late Filing Fee (Sec 234F):</strong>{" "}
+                  <span className="tabular-nums">{formatINR(effectiveResult.regime_comparison[activeRegime].late_filing_fee)}</span>
+                </p>
+              )}
             {netPayable !== null && (
               <p className="text-xs text-slate-500 mt-2">
                 Based on your {activeRegime} regime selection. Final amount
@@ -115,6 +164,30 @@ export default function PaymentPage() {
             )}
           </span>
         </p>
+      </Card>
+
+      <Card className="mt-4">
+        <h3 className="text-sm font-semibold text-slate-900 mb-2">Have a coupon code?</h3>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            placeholder="Enter coupon code"
+            value={couponCode}
+            onChange={(e) => setCouponCode(e.target.value.toUpperCase())}
+            className="flex-1 min-h-11 px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary uppercase font-mono bg-white text-slate-800"
+            disabled={applyingCoupon}
+          />
+          <Button
+            variant="secondary"
+            className="min-h-11 px-4 text-xs font-semibold shrink-0"
+            onClick={handleApplyCoupon}
+            disabled={applyingCoupon}
+          >
+            {applyingCoupon ? "Applying..." : "Apply Coupon"}
+          </Button>
+        </div>
+        {couponError && <p className="text-xs text-red-600 mt-1">{couponError}</p>}
+        {couponSuccess && <p className="text-xs text-green-600 mt-1">{couponSuccess}</p>}
       </Card>
 
       <Banner variant="info">

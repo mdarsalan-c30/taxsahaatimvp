@@ -6,6 +6,7 @@ import {
   PAYMENT_SESSION_COOKIE,
   paymentSessionCookieOptions,
 } from "@/lib/payments/session";
+import { all } from "@/lib/db/store";
 
 export async function GET(request: NextRequest) {
   if (isPaymentBypassEnabled()) {
@@ -24,6 +25,22 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ verified: false });
   }
 
+  let passkey: string | undefined;
+  let expiresAt: string | null | undefined;
+  
+  if (session.sessionId) {
+    try {
+      const grants = await all("companionGrants");
+      const match = grants.find((g) => g.sessionId === session.sessionId);
+      if (match) {
+        passkey = match.passkey;
+        expiresAt = match.expiresAt;
+      }
+    } catch (err) {
+      console.error("Failed to fetch companionGrants:", err);
+    }
+  }
+
   return NextResponse.json({
     verified: true,
     planId: session.planId,
@@ -32,6 +49,8 @@ export async function GET(request: NextRequest) {
     verifiedAt: session.verifiedAt,
     mock: session.mock,
     companionAccess: hasServerCompanionAccess(session),
+    passkey,
+    expiresAt,
   });
 }
 

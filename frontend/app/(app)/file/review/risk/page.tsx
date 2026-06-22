@@ -102,6 +102,13 @@ export default function RiskReviewPage() {
             {activeRegime} regime)
           </p>
         )}
+        {effectiveResult?.regime_comparison?.[activeRegime]?.late_filing_fee !== undefined &&
+          effectiveResult.regime_comparison[activeRegime].late_filing_fee > 0 && (
+            <p className="text-sm text-slate-700 mt-1">
+              <strong>Late Filing Fee (Sec 234F):</strong>{" "}
+              <span className="tabular-nums">{formatINR(effectiveResult.regime_comparison[activeRegime].late_filing_fee)}</span>
+            </p>
+          )}
         <p className="text-sm text-slate-700 mt-1">
           <strong>Mismatches:</strong> {mismatchResolved ? "2 resolved · 0 open" : "1 open"}
         </p>

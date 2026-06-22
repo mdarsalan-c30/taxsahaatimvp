@@ -11,6 +11,8 @@ export interface PaymentSessionState {
   verifiedAt?: number;
   mock?: boolean;
   companionAccess?: boolean;
+  passkey?: string;
+  expiresAt?: string | null;
 }
 
 interface UsePaymentSessionResult {

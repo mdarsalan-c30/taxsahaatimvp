@@ -180,5 +180,19 @@
     "text": "Thanks for reaching out. Our team will review your message and respond by email within 1–2 business days. For urgent filing help, continue with your companion guide on incometax.gov.in.",
     "sessionId": "sess_1781359997662_fywysub",
     "createdAt": "2026-06-13T14:13:17.758Z"
+  },
+  {
+    "id": "chat_1781809349840",
+    "role": "user",
+    "text": "hi",
+    "sessionId": "genie_session",
+    "createdAt": "2026-06-18T19:02:29.840Z"
+  },
+  {
+    "id": "chat_1781809351040_reply",
+    "role": "support",
+    "text": "Thanks for reaching out. Our team will review your message and respond by email within 1–2 business days. For urgent filing help, continue with your companion guide on incometax.gov.in.",
+    "sessionId": "genie_session",
+    "createdAt": "2026-06-18T19:02:31.041Z"
   }
 ]
