@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useProfileStore } from "@/lib/store/profile";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -25,13 +26,22 @@ export default function LoginPage() {
         body: JSON.stringify(data),
       });
 
+      const d = await res.json();
+
       if (!res.ok) {
-        const d = await res.json();
         throw new Error(d.error || "Failed to log in");
       }
 
+      // Sync the profile store so headers/navbar update immediately
+      if (d.user) {
+        useProfileStore.getState().setProfile({
+          name: d.user.name,
+          email: d.user.email,
+        });
+      }
+
       // Redirect to getting started
-      router.push("/file");
+      router.push("/file/onboarding/eligibility?step=about-you");
     } catch (err: any) {
       setError(err.message);
       setLoading(false);

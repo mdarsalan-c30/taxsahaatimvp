@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     const cookieStore = await cookies();
     cookieStore.set(B2C_SESSION_COOKIE, token, b2cCookieOptions());
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, user: { name: user.name, email: user.email } });
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 });
   }
