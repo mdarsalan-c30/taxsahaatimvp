@@ -518,12 +518,12 @@ export function FilingLayout({
         {/* 3. Main Workspace Grid */}
         <div
           className={cn(
-            "grid w-full flex-1 content-start items-start gap-6 p-4 sm:p-6 lg:p-8 min-w-0 pb-[calc(5rem+env(safe-area-inset-bottom,0px))]",
+            "grid w-full flex-1 content-start items-start gap-4 p-4 sm:p-6 lg:p-6 min-w-0 pb-[calc(5rem+env(safe-area-inset-bottom,0px))]",
             isWideLayout
               ? "grid-cols-1"
               : isCompanionLayout
                 ? "grid-cols-1"
-                : "grid-cols-1 xl:grid-cols-[1fr_20rem]"
+                : "grid-cols-1 xl:grid-cols-[1fr_16rem] max-w-[90rem] mx-auto"
           )}
         >
           {/* Main workspace card */}

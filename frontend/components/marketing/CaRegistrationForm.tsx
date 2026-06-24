@@ -191,6 +191,13 @@ export function CaRegistrationForm() {
         <p className="mt-2 text-center text-[12px] text-[#9CA3AF]">
           By applying, you agree to our B2B Terms of Service.
         </p>
+
+        <p className="mt-4 text-center text-[13px] text-[#6B7280]">
+          Already registered?{" "}
+          <a href="/auth/ca-login" className="font-semibold text-[#1D4ED8] hover:underline">
+            Log in here
+          </a>
+        </p>
       </form>
     </div>
   );

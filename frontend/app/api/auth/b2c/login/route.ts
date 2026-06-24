@@ -26,11 +26,22 @@ export async function POST(request: NextRequest) {
     const users = await all("b2cUsers");
     const user = users.find((u) => u.email === normalizedEmail);
     if (!user) {
+      // Check if they are a CA partner
+      const tenants = await all("tenants");
+      const isTenant = tenants.some((t) => t.email?.toLowerCase() === normalizedEmail);
+      if (isTenant) {
+        return NextResponse.json(
+          { error: "This email is registered as a CA Partner. Please log in through the CA Partner Login page." },
+          { status: 401 }
+        );
+      }
+
       return NextResponse.json(
         { error: "Invalid email or password" },
         { status: 401 }
       );
     }
+
 
     const candidateHash = hashPassword(password);
     const a = Buffer.from(candidateHash);
