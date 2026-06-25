@@ -13,7 +13,7 @@ export function HeroSection() {
   return (
     <header
       className="relative overflow-hidden"
-      style={{ padding: "32px 0 64px", background: "#FAFAFB" }}
+      style={{ padding: "32px 0 16px", background: "#FAFAFB" }}
     >
       {/* Background orbs */}
       <div

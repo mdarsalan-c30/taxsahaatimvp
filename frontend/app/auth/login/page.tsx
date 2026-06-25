@@ -1,13 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useProfileStore } from "@/lib/store/profile";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const initialName = searchParams.get("name") || "";
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -53,7 +56,7 @@ export default function LoginPage() {
       <div className="w-full max-w-[420px] rounded-[24px] bg-white p-8" style={{ border: "1px solid #E6E8EC", boxShadow: "0 24px 60px -24px rgba(11,18,32,.16)" }}>
         <div className="mb-8 text-center">
           <h1 className="font-manrope text-2xl font-bold tracking-tight text-[#0B1220]">
-            Welcome back
+            {initialName ? `Welcome back, ${initialName}` : "Welcome back"}
           </h1>
           <p className="mt-2 text-[14px] text-[#6B7280]">
             Log in to continue your tax filing
@@ -110,7 +113,7 @@ export default function LoginPage() {
         <p className="mt-8 text-center text-sm text-slate-500">
           Don&apos;t have an account?{" "}
           <Link
-            href="/auth/register"
+            href={initialName ? `/auth/register?name=${encodeURIComponent(initialName)}` : "/auth/register"}
             className="font-semibold text-[#0e5f63] hover:underline"
           >
             Sign up
@@ -118,5 +121,13 @@ export default function LoginPage() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#FAFAFB]" />}>
+      <LoginForm />
+    </Suspense>
   );
 }

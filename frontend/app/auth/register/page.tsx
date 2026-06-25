@@ -56,7 +56,7 @@ function RegisterForm() {
       <div className="w-full max-w-[420px] rounded-[24px] bg-white p-8" style={{ border: "1px solid #E6E8EC", boxShadow: "0 24px 60px -24px rgba(11,18,32,.16)" }}>
         <div className="mb-8 text-center">
           <h1 className="font-manrope text-2xl font-bold tracking-tight text-[#0B1220]">
-            Create an account
+            {initialName ? `Continue, ${initialName}` : "Create an account"}
           </h1>
           <p className="mt-2 text-[14px] text-[#6B7280]">
             Let&apos;s get started with your tax filing
@@ -127,7 +127,7 @@ function RegisterForm() {
 
         <p className="mt-6 text-center text-[13px] text-[#6B7280]">
           Already have an account?{" "}
-          <Link href="/auth/login" className="font-semibold text-[#0e5f63] hover:underline">
+          <Link href={initialName ? `/auth/login?name=${encodeURIComponent(initialName)}` : "/auth/login"} className="font-semibold text-[#0e5f63] hover:underline">
             Log in
           </Link>
         </p>
