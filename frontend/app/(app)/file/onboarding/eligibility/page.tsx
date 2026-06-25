@@ -3,6 +3,7 @@
 import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDraftStore } from "@/lib/store/draft";
+import { useProfileStore } from "@/lib/store/profile";
 import { FilingLayout } from "@/components/filing/FilingLayout";
 import {
   getItrPathReasons,
@@ -93,6 +94,7 @@ function EligibilityContent() {
   const form16FastPath = isForm16FastPath(searchParams);
   const aboutYouStep = searchParams.get("step") === "about-you";
   const showIdentity = aboutYouStep || !form16FastPath;
+  const { profile: userProfile } = useProfileStore();
   const {
     matrix,
     incomeChips,
@@ -114,6 +116,9 @@ function EligibilityContent() {
     resetEligibilityStep,
     resetOnboardingProfile,
   } = useDraftStore();
+
+  const userName = userProfile?.name || name || "";
+  const firstName = userName ? userName.split(" ")[0] : "";
 
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -219,7 +224,7 @@ function EligibilityContent() {
   if (showIdentity) {
     slides.push({
       id: "identity",
-      title: "Your details",
+      title: firstName ? `Hi ${firstName}, let's get your details` : "Your details",
       subtitle: "Secure your filing journey.",
       icon: User,
       render: () => (
@@ -274,7 +279,7 @@ function EligibilityContent() {
 
   slides.push({
     id: "salary",
-    title: "Is your income mostly from salary?",
+    title: firstName ? `${firstName}, is your income mostly from salary?` : "Is your income mostly from salary?",
     subtitle: "We use this to determine the complexity of your ITR.",
     icon: Wallet,
     render: () => (

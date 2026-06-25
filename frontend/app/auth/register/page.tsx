@@ -69,6 +69,7 @@ function RegisterForm() {
               What should we call you?
             </label>
             <input
+              key={`name-input-${initialName}`}
               id="name"
               name="name"
               type="text"
