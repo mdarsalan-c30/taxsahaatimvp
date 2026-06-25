@@ -36,7 +36,7 @@ export function HeroCharacterIllustration({ className }: HeroCharacterIllustrati
         <path d="M84 64c4 4 12 4 16 0" stroke="#1E3A5F" strokeWidth="2" strokeLinecap="round" />
         <path
           d="M68 88c4-14 18-22 25-22s21 8 25 22"
-          fill="#1D4ED8"
+          fill="#0e5f63"
         />
         <path
           d="M78 88h30v18c0 4-6 8-15 8s-15-4-15-8V88z"
@@ -51,8 +51,8 @@ export function HeroCharacterIllustration({ className }: HeroCharacterIllustrati
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        <rect x="52" y="104" width="82" height="10" rx="5" fill="#1D4ED8" opacity="0.15" />
-        <text x="93" y="112" textAnchor="middle" fill="#1D4ED8" fontSize="8" fontWeight="600">
+        <rect x="52" y="104" width="82" height="10" rx="5" fill="#0e5f63" opacity="0.15" />
+        <text x="93" y="112" textAnchor="middle" fill="#0e5f63" fontSize="8" fontWeight="600">
           Ready to file!
         </text>
 
@@ -68,7 +68,7 @@ export function HeroCharacterIllustration({ className }: HeroCharacterIllustrati
         />
         <rect x="292" y="88" width="30" height="20" rx="4" fill="#FFFFFF" stroke="#FDBA74" />
         <path d="M297 94h20M297 100h14" stroke="#CBD5E1" strokeWidth="2" strokeLinecap="round" />
-        <circle cx="338" cy="78" r="10" fill="#1D4ED8" />
+        <circle cx="338" cy="78" r="10" fill="#0e5f63" />
         <path
           d="M334 78l3 3 6-7"
           stroke="#FFFFFF"

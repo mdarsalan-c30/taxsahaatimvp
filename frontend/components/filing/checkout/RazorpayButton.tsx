@@ -179,7 +179,7 @@ export default function RazorpayButton({
             );
           }
         },
-        theme: { color: "#1d4ed8" },
+        theme: { color: "#0e5f63" },
         modal: {
           ondismiss: () => setLoading(false),
         },

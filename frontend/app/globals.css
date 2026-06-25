@@ -89,7 +89,7 @@
   --radius: 0.75rem;
   --sidebar: #ffffff;
   --sidebar-foreground: #0c1222;
-  --sidebar-primary: #1d4ed8;
+  --sidebar-primary: #0e5f63;
   --sidebar-primary-foreground: #ffffff;
   --sidebar-accent: #eff6ff;
   --sidebar-accent-foreground: #1e40af;
@@ -247,7 +247,7 @@
   text-decoration: none;
 }
 .btn-pill-primary:hover {
-  background: var(--cobalt-dark, #1639A8);
+  background: var(--cobalt-dark, #0a4346);
   transform: translateY(-1px);
   box-shadow: 0 12px 24px -8px rgba(29,78,216,.55);
 }

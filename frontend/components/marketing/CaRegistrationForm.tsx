@@ -95,7 +95,7 @@ export function CaRegistrationForm() {
             type="text"
             required
             placeholder="e.g. Sharma & Associates"
-            className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#1D4ED8]"
+            className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#0e5f63]"
           />
         </div>
 
@@ -110,7 +110,7 @@ export function CaRegistrationForm() {
               type="text"
               required
               placeholder="e.g. CA Rahul Sharma"
-              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#1D4ED8]"
+              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#0e5f63]"
             />
           </div>
           <div>
@@ -123,7 +123,7 @@ export function CaRegistrationForm() {
               type="text"
               required
               placeholder="e.g. 504312"
-              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#1D4ED8]"
+              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#0e5f63]"
             />
           </div>
         </div>
@@ -138,7 +138,7 @@ export function CaRegistrationForm() {
             type="email"
             required
             placeholder="e.g. rahul@sharma-associates.in"
-            className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#1D4ED8]"
+            className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#0e5f63]"
           />
         </div>
 
@@ -153,7 +153,7 @@ export function CaRegistrationForm() {
               type="password"
               required
               placeholder="Create a password"
-              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#1D4ED8]"
+              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#0e5f63]"
             />
           </div>
           <div>
@@ -166,7 +166,7 @@ export function CaRegistrationForm() {
               type="text"
               required
               placeholder="e.g. Mumbai"
-              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#1D4ED8]"
+              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#0e5f63]"
             />
           </div>
         </div>
@@ -194,7 +194,7 @@ export function CaRegistrationForm() {
 
         <p className="mt-4 text-center text-[13px] text-[#6B7280]">
           Already registered?{" "}
-          <a href="/auth/ca-login" className="font-semibold text-[#1D4ED8] hover:underline">
+          <a href="/auth/ca-login" className="font-semibold text-[#0e5f63] hover:underline">
             Log in here
           </a>
         </p>

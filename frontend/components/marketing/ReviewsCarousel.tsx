@@ -25,7 +25,7 @@ function ReviewCard({
     <article
       className={cn(
         "flex h-full flex-col rounded-[16px] border bg-white p-5 transition-all duration-300",
-        active ? "border-[#1D4ED8]/50 shadow-[0_8px_24px_-8px_rgba(29,78,216,0.2)]" : "border-[#E6E8EC]"
+        active ? "border-[#0e5f63]/50 shadow-[0_8px_24px_-8px_rgba(29,78,216,0.2)]" : "border-[#E6E8EC]"
       )}
     >
       <StarRow rating={testimonial.rating} />
@@ -38,12 +38,12 @@ function ReviewCard({
       </div>
       <div className="flex flex-wrap gap-1.5">
         {testimonial.plan && (
-          <span className="rounded-[6px] bg-[#EEF3FF] px-2 py-0.5 text-[10.5px] font-semibold text-[#1D4ED8]">
+          <span className="rounded-[6px] bg-[#EEF3FF] px-2 py-0.5 text-[10.5px] font-semibold text-[#0e5f63]">
             {testimonial.plan}
           </span>
         )}
         {testimonial.outcomeTag && (
-          <span className="rounded-[6px] bg-[#EEF3FF] px-2 py-0.5 text-[10.5px] font-semibold text-[#1D4ED8]">
+          <span className="rounded-[6px] bg-[#EEF3FF] px-2 py-0.5 text-[10.5px] font-semibold text-[#0e5f63]">
             {testimonial.outcomeTag}
           </span>
         )}
@@ -118,18 +118,18 @@ export function ReviewsCarousel() {
                 onClick={() => setIndex(i)}
                 className={cn(
                   "h-2 min-w-[8px] rounded-full transition-all",
-                  i === index ? "w-5 bg-[#1D4ED8]" : "w-2 bg-[#6B7280]/25"
+                  i === index ? "w-5 bg-[#0e5f63]" : "w-2 bg-[#6B7280]/25"
                 )}
               />
             ))}
           </div>
-          <Link href="/reviews" className="text-[12.5px] font-semibold text-[#1D4ED8] hover:underline">
+          <Link href="/reviews" className="text-[12.5px] font-semibold text-[#0e5f63] hover:underline">
             Read all reviews →
           </Link>
         </div>
 
         <div className="mt-5 hidden justify-end lg:flex">
-          <Link href="/reviews" className="text-[12.5px] font-semibold text-[#1D4ED8] hover:underline">
+          <Link href="/reviews" className="text-[12.5px] font-semibold text-[#0e5f63] hover:underline">
             Read all reviews →
           </Link>
         </div>

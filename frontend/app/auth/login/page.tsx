@@ -71,7 +71,7 @@ export default function LoginPage() {
               type="email"
               required
               placeholder="you@example.com"
-              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#1D4ED8]"
+              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#0e5f63]"
             />
           </div>
 
@@ -85,7 +85,7 @@ export default function LoginPage() {
               type="password"
               required
               placeholder="Enter your password"
-              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#1D4ED8]"
+              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#0e5f63]"
             />
           </div>
 
@@ -111,7 +111,7 @@ export default function LoginPage() {
           Don&apos;t have an account?{" "}
           <Link
             href="/auth/register"
-            className="font-semibold text-[#1D4ED8] hover:underline"
+            className="font-semibold text-[#0e5f63] hover:underline"
           >
             Sign up
           </Link>

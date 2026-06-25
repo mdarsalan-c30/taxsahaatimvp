@@ -35,7 +35,7 @@ export function ExpandedFaq({ maxItems }: { maxItems?: number } = {}) {
                 >
                   <button
                     type="button"
-                    className="flex w-full items-center justify-between py-5 px-1 text-left text-[15.5px] font-semibold text-[#0B1220] hover:text-[#1D4ED8] transition-colors"
+                    className="flex w-full items-center justify-between py-5 px-1 text-left text-[15.5px] font-semibold text-[#0B1220] hover:text-[#0e5f63] transition-colors"
                     onClick={() => setOpenIndex(isOpen ? null : i)}
                     aria-expanded={isOpen}
                   >

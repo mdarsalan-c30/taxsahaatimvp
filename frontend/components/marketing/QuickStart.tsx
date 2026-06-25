@@ -14,26 +14,26 @@ const CONNECTOR_STATUS: Record<string, { label: string; dotClass: string }> = {
 const DOC_ICONS: Record<string, React.ReactNode> = {
   form16: (
     <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <path d="M4 1.5h6l2.5 2.5v9a1 1 0 01-1 1h-7.5a1 1 0 01-1-1V2.5a1 1 0 011-1z" stroke="#06C6D4" strokeWidth="1.3"/>
-      <path d="M5.5 7h5M5.5 9.5h5" stroke="#06C6D4" strokeWidth="1.2" strokeLinecap="round"/>
+      <path d="M4 1.5h6l2.5 2.5v9a1 1 0 01-1 1h-7.5a1 1 0 01-1-1V2.5a1 1 0 011-1z" stroke="#bfe9e0" strokeWidth="1.3"/>
+      <path d="M5.5 7h5M5.5 9.5h5" stroke="#bfe9e0" strokeWidth="1.2" strokeLinecap="round"/>
     </svg>
   ),
   ais: (
     <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <path d="M2 13.5V6.5l5.5-4 5.5 4v7" stroke="#06C6D4" strokeWidth="1.3" strokeLinejoin="round"/>
-      <path d="M6 13.5v-4h3v4" stroke="#06C6D4" strokeWidth="1.2"/>
+      <path d="M2 13.5V6.5l5.5-4 5.5 4v7" stroke="#bfe9e0" strokeWidth="1.3" strokeLinejoin="round"/>
+      <path d="M6 13.5v-4h3v4" stroke="#bfe9e0" strokeWidth="1.2"/>
     </svg>
   ),
   groww: (
     <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <path d="M2 13.5h12M3 13.5V7l4-3 4 3v6.5" stroke="#06C6D4" strokeWidth="1.3" strokeLinejoin="round"/>
-      <path d="M6 6l1.5 1.5L10 5" stroke="#06C6D4" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M2 13.5h12M3 13.5V7l4-3 4 3v6.5" stroke="#bfe9e0" strokeWidth="1.3" strokeLinejoin="round"/>
+      <path d="M6 6l1.5 1.5L10 5" stroke="#bfe9e0" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   ),
   mfcentral: (
     <svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden>
-      <rect x="2.5" y="2.5" width="11" height="11" rx="1.5" stroke="#06C6D4" strokeWidth="1.3"/>
-      <path d="M5.5 6h5M5.5 8.5h5M5.5 11h3" stroke="#06C6D4" strokeWidth="1.2" strokeLinecap="round"/>
+      <rect x="2.5" y="2.5" width="11" height="11" rx="1.5" stroke="#bfe9e0" strokeWidth="1.3"/>
+      <path d="M5.5 6h5M5.5 8.5h5M5.5 11h3" stroke="#bfe9e0" strokeWidth="1.2" strokeLinecap="round"/>
     </svg>
   ),
 };
@@ -46,14 +46,14 @@ export function QuickStart() {
           {/* Background aqua orb */}
           <div
             className="hero-orb opacity-25"
-            style={{ width: 380, height: 380, background: "radial-gradient(circle, #06C6D4, transparent 70%)", bottom: -160, left: -100 }}
+            style={{ width: 380, height: 380, background: "radial-gradient(circle, #bfe9e0, transparent 70%)", bottom: -160, left: -100 }}
             aria-hidden
           />
 
           <div className="relative z-10 grid items-center gap-14 lg:grid-cols-2 max-[900px]:grid-cols-1 max-[900px]:gap-9">
             {/* Left */}
             <div>
-              <span className="eyebrow-label" style={{ color: "#06C6D4" }}>
+              <span className="eyebrow-label" style={{ color: "#bfe9e0" }}>
                 {IMPORT_STRIP.eyebrow}
               </span>
               <h2 className="font-manrope mt-3.5 text-[clamp(24px,3vw,32px)] font-bold tracking-[-0.02em] text-white leading-[1.2] mb-4">

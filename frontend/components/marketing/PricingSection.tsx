@@ -38,14 +38,14 @@ export function PricingSection() {
             <ScrollReveal key={plan.id} delay={3}>
               <div className={`relative flex h-full flex-col rounded-[16px] p-7 transition-all duration-300 hover:-translate-y-1 ${
                 plan.id === "ai_smart"
-                  ? "border-[1.5px] border-[#1D4ED8] bg-gradient-to-b from-[#F5F8FF] to-white shadow-[0_24px_48px_-24px_rgba(11,18,32,.18)]"
+                  ? "border-[1.5px] border-[#0e5f63] bg-gradient-to-b from-[#F5F8FF] to-white shadow-[0_24px_48px_-24px_rgba(11,18,32,.18)]"
                   : "border-[1.5px] border-[#E6E8EC] bg-white hover:shadow-[0_24px_48px_-24px_rgba(11,18,32,.18)]"
               }`}>
                 {/* Popular badge */}
                 {plan.id === "ai_smart" && (
                   <span
                     className="absolute -top-3 right-5 rounded-full px-3 py-1 text-[11px] font-bold text-white"
-                    style={{ background: "#1D4ED8" }}
+                    style={{ background: "#0e5f63" }}
                   >
                     Popular
                   </span>
@@ -87,7 +87,7 @@ export function PricingSection() {
           <p>{PRICING_SECTION.helperLine}</p>
           <p className="flex flex-wrap items-center justify-center gap-3">
             <span>Prices shown in Indian Rupees (₹), inclusive unless noted at checkout.</span>
-            <Link href="/refund-policy" className="font-medium text-[#1D4ED8] hover:underline">
+            <Link href="/refund-policy" className="font-medium text-[#0e5f63] hover:underline">
               See refund policy
             </Link>
           </p>

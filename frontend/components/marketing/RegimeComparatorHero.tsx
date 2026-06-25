@@ -112,14 +112,14 @@ export function RegimeComparatorHero() {
         <div
           className="relative rounded-[16px] border-[1.5px] px-4 py-4.5 text-center transition-all duration-300"
           style={{
-            borderColor: newWins ? "#E6E8EC" : "#1D4ED8",
+            borderColor: newWins ? "#E6E8EC" : "#0e5f63",
             background: newWins ? "#fff" : "linear-gradient(180deg, #EEF3FF, #fff)",
           }}
         >
           {!newWins && (
             <span
               className="absolute -top-2.5 right-3 rounded-full px-2 py-0.5 text-[10.5px] font-bold text-white"
-              style={{ background: "#1D4ED8" }}
+              style={{ background: "#0e5f63" }}
             >
               CHEAPER
             </span>
@@ -127,7 +127,7 @@ export function RegimeComparatorHero() {
           <div className="text-[12px] font-semibold uppercase tracking-[0.04em] text-[#6B7280]">Old regime</div>
           <div
             className="font-manrope my-2 text-[clamp(20px,5vw,26px)] font-extrabold transition-colors"
-            style={{ color: newWins ? "#0B1220" : "#1D4ED8" }}
+            style={{ color: newWins ? "#0B1220" : "#0e5f63" }}
           >
             {fmtINR(ot)}
           </div>
@@ -138,14 +138,14 @@ export function RegimeComparatorHero() {
         <div
           className="relative rounded-[16px] border-[1.5px] px-4 py-4.5 text-center transition-all duration-300"
           style={{
-            borderColor: newWins ? "#1D4ED8" : "#E6E8EC",
+            borderColor: newWins ? "#0e5f63" : "#E6E8EC",
             background: newWins ? "linear-gradient(180deg, #EEF3FF, #fff)" : "#fff",
           }}
         >
           {newWins && (
             <span
               className="absolute -top-2.5 right-3 rounded-full px-2 py-0.5 text-[10.5px] font-bold text-white"
-              style={{ background: "#1D4ED8" }}
+              style={{ background: "#0e5f63" }}
             >
               CHEAPER
             </span>
@@ -153,7 +153,7 @@ export function RegimeComparatorHero() {
           <div className="text-[12px] font-semibold uppercase tracking-[0.04em] text-[#6B7280]">New regime</div>
           <div
             className="font-manrope my-2 text-[clamp(20px,5vw,26px)] font-extrabold transition-colors"
-            style={{ color: newWins ? "#1D4ED8" : "#0B1220" }}
+            style={{ color: newWins ? "#0e5f63" : "#0B1220" }}
           >
             {fmtINR(nt)}
           </div>

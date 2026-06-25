@@ -22,7 +22,7 @@ export function HowItWorks() {
             <ScrollReveal key={step.step} delay={(i as 0 | 1 | 2)}>
               <div className="group rounded-[16px] border border-[#E6E8EC] bg-white p-8 transition-all duration-350 hover:-translate-y-1 hover:shadow-[0_20px_40px_-20px_rgba(11,18,32,.15)]">
                 {/* Number badge */}
-                <div className="mb-5 flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#1D4ED8] font-manrope text-[15px] font-bold text-white">
+                <div className="mb-5 flex h-9 w-9 items-center justify-center rounded-[10px] bg-[#0e5f63] font-manrope text-[15px] font-bold text-white">
                   {step.step}
                 </div>
                 <h3 className="font-manrope text-[18px] font-bold tracking-[-0.01em] text-[#0B1220] mb-2.5">

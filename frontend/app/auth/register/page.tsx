@@ -75,7 +75,7 @@ function RegisterForm() {
               required
               defaultValue={initialName}
               placeholder="e.g. Rahul"
-              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#1D4ED8]"
+              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#0e5f63]"
             />
           </div>
 
@@ -89,7 +89,7 @@ function RegisterForm() {
               type="email"
               required
               placeholder="you@example.com"
-              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#1D4ED8]"
+              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#0e5f63]"
             />
           </div>
 
@@ -103,7 +103,7 @@ function RegisterForm() {
               type="password"
               required
               placeholder="Create a password"
-              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#1D4ED8]"
+              className="w-full rounded-[10px] border border-[#E6E8EC] px-3.5 py-2.5 text-[14px] outline-none transition-colors focus:border-[#0e5f63]"
             />
           </div>
 
@@ -127,7 +127,7 @@ function RegisterForm() {
 
         <p className="mt-6 text-center text-[13px] text-[#6B7280]">
           Already have an account?{" "}
-          <Link href="/auth/login" className="font-semibold text-[#1D4ED8] hover:underline">
+          <Link href="/auth/login" className="font-semibold text-[#0e5f63] hover:underline">
             Log in
           </Link>
         </p>

@@ -49,17 +49,17 @@ export function SiteHeader() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 font-manrope font-extrabold text-[18px] tracking-[-0.01em] text-[#0B1220] max-[560px]:text-base">
           <svg className="size-[30px] max-[560px]:size-[26px] flex-shrink-0" viewBox="0 0 48 48" fill="none" aria-hidden>
-            <path d="M14 6h12l8 8v6H14V6z" fill="#06C6D4"/>
-            <path d="M10 14h13v9h13l-13 13-13-13h9v-9z" fill="#1D4ED8"/>
+            <path d="M14 6h12l8 8v6H14V6z" fill="#bfe9e0"/>
+            <path d="M10 14h13v9h13l-13 13-13-13h9v-9z" fill="#0e5f63"/>
           </svg>
-          <span>Lastminute<span className="text-[#1D4ED8]">ITR</span></span>
+          <span>Lastminute<span className="text-[#0e5f63]">ITR</span></span>
         </Link>
 
         {/* Desktop Nav */}
         <nav className="hidden items-center gap-9 lg:flex" aria-label="Main navigation">
-          <NavMenu label="Products" items={PRODUCTS_LINKS} triggerClassName="text-[14.5px] font-medium text-[#2B3344] hover:text-[#1D4ED8]" />
-          <NavMenu label="Resources" items={RESOURCES_LINKS} triggerClassName="text-[14.5px] font-medium text-[#2B3344] hover:text-[#1D4ED8]" />
-          <NavMenu label="Company" items={COMPANY_LINKS} triggerClassName="text-[14.5px] font-medium text-[#2B3344] hover:text-[#1D4ED8]" />
+          <NavMenu label="Products" items={PRODUCTS_LINKS} triggerClassName="text-[14.5px] font-medium text-[#2B3344] hover:text-[#0e5f63]" />
+          <NavMenu label="Resources" items={RESOURCES_LINKS} triggerClassName="text-[14.5px] font-medium text-[#2B3344] hover:text-[#0e5f63]" />
+          <NavMenu label="Company" items={COMPANY_LINKS} triggerClassName="text-[14.5px] font-medium text-[#2B3344] hover:text-[#0e5f63]" />
         </nav>
 
         {/* CTA cluster */}

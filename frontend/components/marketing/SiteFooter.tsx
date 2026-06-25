@@ -14,10 +14,10 @@ export function SiteFooter() {
           <div>
             <div className="flex items-center gap-2.5 font-manrope font-extrabold text-[18px] tracking-[-0.01em] text-[#0B1220]">
               <svg className="size-[30px] flex-shrink-0" viewBox="0 0 48 48" fill="none" aria-hidden>
-                <path d="M14 6h12l8 8v6H14V6z" fill="#06C6D4"/>
-                <path d="M10 14h13v9h13l-13 13-13-13h9v-9z" fill="#1D4ED8"/>
+                <path d="M14 6h12l8 8v6H14V6z" fill="#bfe9e0"/>
+                <path d="M10 14h13v9h13l-13 13-13-13h9v-9z" fill="#0e5f63"/>
               </svg>
-              <span>Lastminute<span className="text-[#1D4ED8]">ITR</span></span>
+              <span>Lastminute<span className="text-[#0e5f63]">ITR</span></span>
             </div>
             <p className="mt-4 mb-4 text-[13.5px] text-[#6B7280] leading-[1.6] max-w-[280px]">
               AI-assisted ITR prep with mismatch and regime checks — you submit on incometax.gov.in.
@@ -25,11 +25,11 @@ export function SiteFooter() {
             </p>
             <a
               href={`mailto:${SUPPORT_EMAIL}`}
-              className="inline-flex items-center gap-1.5 text-[13.5px] text-[#1D4ED8] hover:underline"
+              className="inline-flex items-center gap-1.5 text-[13.5px] text-[#0e5f63] hover:underline"
             >
               <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
-                <rect x="1.5" y="3" width="13" height="10" rx="1.5" stroke="#1D4ED8" strokeWidth="1.2"/>
-                <path d="M2 4l6 5 6-5" stroke="#1D4ED8" strokeWidth="1.2"/>
+                <rect x="1.5" y="3" width="13" height="10" rx="1.5" stroke="#0e5f63" strokeWidth="1.2"/>
+                <path d="M2 4l6 5 6-5" stroke="#0e5f63" strokeWidth="1.2"/>
               </svg>
               {SUPPORT_EMAIL}
             </a>
@@ -39,9 +39,9 @@ export function SiteFooter() {
           <div>
             <h5 className="mb-4 text-[13px] font-bold uppercase tracking-[0.04em] text-[#6B7280]">Learn</h5>
             <ul className="space-y-2.5 text-[14px] text-[#2B3344]">
-              <li><Link href="/blogs" className="hover:text-[#1D4ED8] transition-colors">Blogs</Link></li>
-              <li><Link href="/learn" className="hover:text-[#1D4ED8] transition-colors">Guides</Link></li>
-              <li><Link href="/glossary" className="hover:text-[#1D4ED8] transition-colors">Glossary</Link></li>
+              <li><Link href="/blogs" className="hover:text-[#0e5f63] transition-colors">Blogs</Link></li>
+              <li><Link href="/learn" className="hover:text-[#0e5f63] transition-colors">Guides</Link></li>
+              <li><Link href="/glossary" className="hover:text-[#0e5f63] transition-colors">Glossary</Link></li>
             </ul>
           </div>
 
@@ -49,10 +49,10 @@ export function SiteFooter() {
           <div>
             <h5 className="mb-4 text-[13px] font-bold uppercase tracking-[0.04em] text-[#6B7280]">Product</h5>
             <ul className="space-y-2.5 text-[14px] text-[#2B3344]">
-              <li><Link href="/#pricing" className="hover:text-[#1D4ED8] transition-colors">Pricing</Link></li>
-              <li><Link href="/reviews" className="hover:text-[#1D4ED8] transition-colors">Reviews</Link></li>
-              <li><Link href="/chat" className="hover:text-[#1D4ED8] transition-colors">Support chat</Link></li>
-              <li><Link href="/file/onboarding/eligibility?step=about-you" className="hover:text-[#1D4ED8] transition-colors">Start filing</Link></li>
+              <li><Link href="/#pricing" className="hover:text-[#0e5f63] transition-colors">Pricing</Link></li>
+              <li><Link href="/reviews" className="hover:text-[#0e5f63] transition-colors">Reviews</Link></li>
+              <li><Link href="/chat" className="hover:text-[#0e5f63] transition-colors">Support chat</Link></li>
+              <li><Link href="/file/onboarding/eligibility?step=about-you" className="hover:text-[#0e5f63] transition-colors">Start filing</Link></li>
             </ul>
           </div>
 
@@ -60,10 +60,10 @@ export function SiteFooter() {
           <div>
             <h5 className="mb-4 text-[13px] font-bold uppercase tracking-[0.04em] text-[#6B7280]">Legal</h5>
             <ul className="space-y-2.5 text-[14px] text-[#2B3344]">
-              <li><Link href="/privacy" className="hover:text-[#1D4ED8] transition-colors">Privacy policy</Link></li>
-              <li><Link href="/terms" className="hover:text-[#1D4ED8] transition-colors">Terms of service</Link></li>
-              <li><Link href="/refund-policy" className="hover:text-[#1D4ED8] transition-colors">Refund policy</Link></li>
-              <li><Link href="/disclaimer" className="hover:text-[#1D4ED8] transition-colors">Disclaimer</Link></li>
+              <li><Link href="/privacy" className="hover:text-[#0e5f63] transition-colors">Privacy policy</Link></li>
+              <li><Link href="/terms" className="hover:text-[#0e5f63] transition-colors">Terms of service</Link></li>
+              <li><Link href="/refund-policy" className="hover:text-[#0e5f63] transition-colors">Refund policy</Link></li>
+              <li><Link href="/disclaimer" className="hover:text-[#0e5f63] transition-colors">Disclaimer</Link></li>
             </ul>
           </div>
         </div>
@@ -75,7 +75,7 @@ export function SiteFooter() {
         >
           <strong className="text-[#2B3344]">Compliance notice —</strong>{" "}
           {SITE_NAME} is independently operated; you file on incometax.gov.in.{" "}
-          <Link href="/disclaimer" className="text-[#1D4ED8] underline">
+          <Link href="/disclaimer" className="text-[#0e5f63] underline">
             Full disclaimer
           </Link>
         </div>

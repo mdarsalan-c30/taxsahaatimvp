@@ -21,7 +21,7 @@ export function HeroSection() {
         style={{
           width: 520,
           height: 520,
-          background: "radial-gradient(circle, #06C6D4, transparent 70%)",
+          background: "radial-gradient(circle, #bfe9e0, transparent 70%)",
           top: -180,
           right: -160,
           opacity: 0.35,
@@ -33,7 +33,7 @@ export function HeroSection() {
         style={{
           width: 420,
           height: 420,
-          background: "radial-gradient(circle, #1D4ED8, transparent 70%)",
+          background: "radial-gradient(circle, #0e5f63, transparent 70%)",
           bottom: -200,
           left: -180,
           opacity: 0.18,
@@ -51,7 +51,7 @@ export function HeroSection() {
               className={cn(
                 "relative z-10 rounded-full px-5 py-2.5 text-[14.5px] font-semibold transition-all duration-300",
                 mode === "b2c"
-                  ? "bg-[#1D4ED8] text-white shadow-sm"
+                  ? "bg-[#0e5f63] text-white shadow-sm"
                   : "text-[#6B7280] hover:text-[#0B1220]"
               )}
             >
@@ -62,7 +62,7 @@ export function HeroSection() {
               className={cn(
                 "relative z-10 rounded-full px-5 py-2.5 text-[14.5px] font-semibold transition-all duration-300",
                 mode === "b2b"
-                  ? "bg-[#1D4ED8] text-white shadow-sm"
+                  ? "bg-[#0e5f63] text-white shadow-sm"
                   : "text-[#6B7280] hover:text-[#0B1220]"
               )}
             >
@@ -99,7 +99,7 @@ export function HeroSection() {
                   }}
                 >
                   File your ITR before the deadline —{" "}
-                  <span style={{ color: "#1D4ED8" }}>without the guesswork.</span>
+                  <span style={{ color: "#0e5f63" }}>without the guesswork.</span>
                 </h1>
 
                 <p
@@ -136,7 +136,7 @@ export function HeroSection() {
                       type="text"
                       required
                       placeholder="What should we call you? (e.g. Rahul)"
-                      className="w-full rounded-[10px] border border-[#E6E8EC] px-4 py-3 text-[15px] outline-none transition-colors focus:border-[#1D4ED8] focus:ring-1 focus:ring-[#1D4ED8]"
+                      className="w-full rounded-[10px] border border-[#E6E8EC] px-4 py-3 text-[15px] outline-none transition-colors focus:border-[#0e5f63] focus:ring-1 focus:ring-[#0e5f63]"
                     />
                   </div>
                   <button type="submit" className="btn-pill-primary w-full justify-center">
@@ -146,7 +146,7 @@ export function HeroSection() {
                     </svg>
                   </button>
                   <p className="text-center text-[12.5px] text-[#6B7280]">
-                    Already have an account? <Link href="/auth/login" className="font-semibold text-[#1D4ED8] hover:underline">Log in</Link>
+                    Already have an account? <Link href="/auth/login" className="font-semibold text-[#0e5f63] hover:underline">Log in</Link>
                   </p>
                 </form>
 
@@ -155,7 +155,7 @@ export function HeroSection() {
                     {
                       icon: (
                         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
-                          <path d="M8 1l5.5 2.2v4.3c0 4-2.5 6.6-5.5 7.5-3-0.9-5.5-3.5-5.5-7.5V3.2L8 1z" stroke="#1D4ED8" strokeWidth="1.3"/>
+                          <path d="M8 1l5.5 2.2v4.3c0 4-2.5 6.6-5.5 7.5-3-0.9-5.5-3.5-5.5-7.5V3.2L8 1z" stroke="#0e5f63" strokeWidth="1.3"/>
                         </svg>
                       ),
                       label: "Lawful optimisation",
@@ -163,8 +163,8 @@ export function HeroSection() {
                     {
                       icon: (
                         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
-                          <rect x="2" y="6" width="12" height="8" rx="1.5" stroke="#1D4ED8" strokeWidth="1.3"/>
-                          <path d="M5 6V4a3 3 0 016 0v2" stroke="#1D4ED8" strokeWidth="1.3"/>
+                          <rect x="2" y="6" width="12" height="8" rx="1.5" stroke="#0e5f63" strokeWidth="1.3"/>
+                          <path d="M5 6V4a3 3 0 016 0v2" stroke="#0e5f63" strokeWidth="1.3"/>
                         </svg>
                       ),
                       label: "DPDP compliant",
@@ -172,8 +172,8 @@ export function HeroSection() {
                     {
                       icon: (
                         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden>
-                          <circle cx="8" cy="8" r="6.5" stroke="#1D4ED8" strokeWidth="1.3"/>
-                          <path d="M5 8h6M11 8l-2-2M11 8l-2 2" stroke="#1D4ED8" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+                          <circle cx="8" cy="8" r="6.5" stroke="#0e5f63" strokeWidth="1.3"/>
+                          <path d="M5 8h6M11 8l-2-2M11 8l-2 2" stroke="#0e5f63" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
                         </svg>
                       ),
                       label: "No auto-submit",
@@ -216,7 +216,7 @@ export function HeroSection() {
                   }}
                 >
                   Scale your tax practice —{" "}
-                  <span style={{ color: "#1D4ED8" }}>automate the heavy lifting.</span>
+                  <span style={{ color: "#0e5f63" }}>automate the heavy lifting.</span>
                 </h1>
 
                 <p
