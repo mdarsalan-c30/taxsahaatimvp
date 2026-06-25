@@ -94,7 +94,7 @@ function EligibilityContent() {
   const form16FastPath = isForm16FastPath(searchParams);
   const aboutYouStep = searchParams.get("step") === "about-you";
   const showIdentity = aboutYouStep || !form16FastPath;
-  const { profile: userProfile } = useProfileStore();
+  const { name: storeName } = useProfileStore();
   const {
     matrix,
     incomeChips,
@@ -117,7 +117,7 @@ function EligibilityContent() {
     resetOnboardingProfile,
   } = useDraftStore();
 
-  const userName = userProfile?.name || name || "";
+  const userName = storeName || name || "";
   const firstName = userName ? userName.split(" ")[0] : "";
 
   const [activeSlide, setActiveSlide] = useState(0);
