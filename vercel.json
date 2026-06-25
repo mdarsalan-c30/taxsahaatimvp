@@ -18,7 +18,7 @@
     "backend": {
       "root": "backend",
       "routePrefix": "/_/backend",
-      "entrypoint": "api/py-compute.py",
+      "entrypoint": "api/compute.py",
       "runtime": "python"
     }
   }
