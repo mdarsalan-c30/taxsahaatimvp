@@ -38,7 +38,8 @@ export async function POST(request: NextRequest) {
       adminCookieOptions()
     );
     return response;
-  } catch {
+  } catch (error) {
+    console.error("Login Error:", error);
     return NextResponse.json({ error: "Login failed" }, { status: 500 });
   }
 }

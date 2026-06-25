@@ -11,13 +11,13 @@ import { NavMenu } from "@/components/nav/NavMenu";
 
 const PRODUCTS_LINKS = [
   { href: "/#", label: "Individual Tax Filing" },
-  { href: "/#b2b", label: "For Tax Professionals" },
+  { href: "/#b2b", label: "B2B Model For CAs" },
   { href: "/#pricing", label: "Pricing" },
 ];
 
 const RESOURCES_LINKS = [
+  { href: "/blogs", label: "Blog" },
   { href: "/tools", label: "Free Tax Tools" },
-  { href: "/blogs", label: "Blogs" },
   { href: "/guides", label: "Filing Guides" },
   { href: "/glossary", label: "Tax Glossary" },
   { href: "/news", label: "News & Updates" },
@@ -61,6 +61,7 @@ export function SiteHeader() {
           <NavMenu label="Products" items={PRODUCTS_LINKS} triggerClassName="text-[14.5px] font-medium text-[#2B3344] hover:text-[#0e5f63]" />
           <NavMenu label="Resources" items={RESOURCES_LINKS} triggerClassName="text-[14.5px] font-medium text-[#2B3344] hover:text-[#0e5f63]" />
           <NavMenu label="Company" items={COMPANY_LINKS} triggerClassName="text-[14.5px] font-medium text-[#2B3344] hover:text-[#0e5f63]" />
+          <Link href="/blogs" className="text-[14.5px] font-medium text-[#2B3344] hover:text-[#0e5f63]">Blog</Link>
         </nav>
 
         {/* CTA cluster */}

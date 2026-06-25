@@ -45,11 +45,11 @@ export function HeroSection() {
         
         {/* Toggle Switch */}
         <div className="mb-6 flex justify-center">
-          <div className="inline-flex rounded-full bg-white p-1.5 shadow-[0_2px_12px_rgba(11,18,32,0.06)] border border-[#E6E8EC]">
+          <div className="inline-flex rounded-full bg-white p-1.5 shadow-[0_2px_12px_rgba(11,18,32,0.06)] border border-[#E6E8EC] grid grid-cols-2 w-[400px] max-w-full">
             <button
               onClick={() => setMode("b2c")}
               className={cn(
-                "relative z-10 rounded-full px-5 py-2.5 text-[14.5px] font-semibold transition-all duration-300",
+                "relative z-10 flex w-full items-center justify-center rounded-full px-4 py-2.5 text-[14.5px] font-semibold transition-all duration-300",
                 mode === "b2c"
                   ? "bg-[#0e5f63] text-white shadow-sm"
                   : "text-[#6B7280] hover:text-[#0B1220]"
@@ -60,13 +60,13 @@ export function HeroSection() {
             <button
               onClick={() => setMode("b2b")}
               className={cn(
-                "relative z-10 rounded-full px-5 py-2.5 text-[14.5px] font-semibold transition-all duration-300",
+                "relative z-10 flex w-full items-center justify-center rounded-full px-4 py-2.5 text-[14.5px] font-semibold transition-all duration-300",
                 mode === "b2b"
                   ? "bg-[#0e5f63] text-white shadow-sm"
                   : "text-[#6B7280] hover:text-[#0B1220]"
               )}
             >
-              For Tax Professionals
+              B2B Model For CAs
             </button>
           </div>
         </div>
@@ -197,15 +197,6 @@ export function HeroSection() {
             ) : (
               <>
                 {/* B2B Content */}
-                <div className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-[#E6E8EC] bg-white px-4 py-1.5 text-[13px] font-medium text-[#2B3344] shadow-sm">
-                  <span
-                    className="rounded-full px-2 py-0.5 text-[11px] font-bold text-white"
-                    style={{ background: "#0B1220" }}
-                  >
-                    B2B PARTNER
-                  </span>
-                  Exclusive CA Portal Access
-                </div>
 
                 <h1
                   className="font-manrope font-bold tracking-[-0.02em] text-[#0B1220]"
