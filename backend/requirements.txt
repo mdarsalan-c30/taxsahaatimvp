@@ -1,1 +1,2 @@
-# Python engine uses stdlib only — no third-party packages required.
+# Python engine uses stdlib mostly. Adding requests to bypass Vercel uv cache bug.
+requests==2.31.0
