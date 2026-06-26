@@ -1,0 +1,232 @@
+"""
+regime_compare.py
+=================
+Runs the full tax pipeline for OLD and NEW regimes, then compares results.
+
+Outputs
+-------
+- SlabTaxResult for each regime (with net payable / refund)
+- Recommended regime (lower net payable)
+- Tax saving vs the worse regime
+- Breakeven deduction level (at what Chapter VI-A total does old regime = new regime)
+- Effective tax rates on GTI
+"""
+
+from __future__ import annotations
+from models import SlabTaxResult, RegimeComparisonResult
+from tax_slabs import compute_slab_tax, compute_special_rate_tax
+
+
+def _build_slab_tax_result(
+    regime,
+    taxable_income,
+    special_rate_components,
+    total_income_for_surcharge,
+    age,
+    tds_and_advance,
+    late_filing=False,
+    gross_total_income=0.0,
+) -> SlabTaxResult:
+    """Helper: compute full SlabTaxResult for one regime."""
+    special_rate_tax = compute_special_rate_tax(
+        stcg_111a=special_rate_components["stcg_111a_net"],
+        ltcg_112a=special_rate_components["ltcg_112a_net"],   # raw net; exemption applied inside
+        ltcg_other=special_rate_components["ltcg_other_net"],
+    )
+
+    result = compute_slab_tax(
+        taxable_income=taxable_income,
+        regime=regime,
+        age=age,
+        special_rate_tax=special_rate_tax,
+        total_income_for_surcharge=total_income_for_surcharge,
+    )
+
+    late_filing_fee = 0.0
+    if late_filing:
+        if regime == "new":
+            exemption_limit = 300000.0
+        else:
+            if age >= 80:
+                exemption_limit = 500000.0
+            elif age >= 60:
+                exemption_limit = 300000.0
+            else:
+                exemption_limit = 250000.0
+        if gross_total_income > exemption_limit:
+            if taxable_income <= 500000.0:
+                late_filing_fee = 1000.0
+            else:
+                late_filing_fee = 5000.0
+
+    net_payable = round(result["total_tax"] + late_filing_fee - tds_and_advance, 2)
+
+    return SlabTaxResult(
+        regime=regime,
+        taxable_income=result["taxable_income"],
+        slab_tax=result["slab_tax"],
+        special_rate_tax=result["special_rate_tax"],
+        gross_tax=result["gross_tax"],
+        rebate_87a=result["rebate_87a"],
+        tax_after_rebate=result["tax_after_rebate"],
+        surcharge=result["surcharge"],
+        surcharge_rate=result["surcharge_rate"],
+        marginal_relief=result["marginal_relief"],
+        tax_plus_surcharge=result["tax_plus_surcharge"],
+        cess=result["cess"],
+        total_tax=result["total_tax"],
+        tds_and_advance_tax=tds_and_advance,
+        net_payable=net_payable,
+        late_filing_fee=late_filing_fee,
+    )
+
+
+def compute_regime_comparison(
+    gti_old: float,                      # GTI under old-regime income heads
+    gti_new: float,                      # GTI under new-regime income heads
+    chapter_via_deductions: float,       # total old-regime deductions (from deductions.py)
+    new_regime_deductions: float,        # Chapter VI-A allowed in new regime (80CCD(2))
+    special_rate_components: dict,       # from capital_gains.py output
+    stcg_other_slab: float,              # STCG at slab rate (added to normal income)
+    age: int,
+    tds_and_advance: float,
+    standard_deduction_delta: float = 0.0,
+    late_filing: bool = False,
+) -> RegimeComparisonResult:
+    """
+    Runs both regime pipelines and returns a full comparison.
+
+    Parameters
+    ----------
+    gti_old                 : Gross total income using old-regime salary/HP heads
+    gti_new                 : Gross total income using new-regime salary/HP heads
+    chapter_via_deductions  : total old-regime Chapter VI-A deductions
+    new_regime_deductions   : Chapter VI-A deductions valid in new regime (80CCD(2))
+    special_rate_components : dict from capital_gains.compute_capital_gains()
+    stcg_other_slab         : STCG taxable at slab rate (from capital gains)
+    age                     : taxpayer age
+    tds_and_advance         : total tax already paid (TDS + advance + SAT)
+    standard_deduction_delta: higher new-regime standard deduction applied in salary head
+    late_filing             : is the return being filed after the deadline
+    """
+
+    # When gti_new is supplied separately, std-ded/HRA/HP deltas are already in head nets.
+    new_regime_adjustments = new_regime_deductions + (
+        0.0 if gti_new != gti_old else standard_deduction_delta
+    )
+
+    # ── Special-rate CG amounts (excluded from normal slab income) ──
+    special_cg_income = (
+        special_rate_components["stcg_111a_net"]
+        + special_rate_components["ltcg_112a_net"]
+        + special_rate_components["ltcg_other_net"]
+    )
+
+    # ── OLD REGIME ──
+    old_taxable = max(
+        0.0, gti_old - chapter_via_deductions - special_cg_income + stcg_other_slab
+    )
+    old_surcharge_base = max(0.0, gti_old - chapter_via_deductions)
+    old_result = _build_slab_tax_result(
+        regime="old",
+        taxable_income=old_taxable,
+        special_rate_components=special_rate_components,
+        total_income_for_surcharge=old_surcharge_base,
+        age=age,
+        tds_and_advance=tds_and_advance,
+        late_filing=late_filing,
+        gross_total_income=gti_old,
+    )
+
+    # ── NEW REGIME ──
+    new_taxable = max(
+        0.0, gti_new - new_regime_adjustments - special_cg_income + stcg_other_slab
+    )
+    new_surcharge_base = max(0.0, gti_new - new_regime_adjustments)
+    new_result = _build_slab_tax_result(
+        regime="new",
+        taxable_income=new_taxable,
+        special_rate_components=special_rate_components,
+        total_income_for_surcharge=new_surcharge_base,
+        age=age,
+        tds_and_advance=tds_and_advance,
+        late_filing=late_filing,
+        gross_total_income=gti_new,
+    )
+
+    # ── Recommendation ──
+    recommended = "old" if old_result.total_tax <= new_result.total_tax else "new"
+    tax_saving = abs(old_result.total_tax - new_result.total_tax)
+
+    # ── Effective rates ──
+    old_eff = round((old_result.total_tax / gti_old * 100), 2) if gti_old > 0 else 0.0
+    new_eff = round((new_result.total_tax / gti_new * 100), 2) if gti_new > 0 else 0.0
+
+    # ── Breakeven deduction level ──
+    # At what total old-regime deduction does old_tax = new_tax?
+    # We approximate with a binary search over Chapter VI-A total.
+    breakeven = _compute_breakeven(
+        gti=gti_old,
+        new_regime_deductions=new_regime_deductions,
+        special_rate_components=special_rate_components,
+        stcg_other_slab=stcg_other_slab,
+        age=age,
+        new_total_tax=new_result.total_tax,
+    )
+
+    # Chapter VI-A forfeited in new regime (exclude salary standard-deduction delta).
+    deductions_lost = max(0.0, chapter_via_deductions - new_regime_deductions)
+
+    return RegimeComparisonResult(
+        old=old_result,
+        new=new_result,
+        recommended_regime=recommended,
+        tax_saving=round(tax_saving, 2),
+        breakeven_deductions=round(breakeven, 2),
+        deductions_lost_in_new=round(deductions_lost, 2),
+        old_effective_rate=old_eff,
+        new_effective_rate=new_eff,
+    )
+
+
+def _compute_breakeven(
+    gti, new_regime_deductions, special_rate_components,
+    stcg_other_slab, age, new_total_tax,
+) -> float:
+    """
+    Binary search: find chapter_via_deduction level where old tax = new tax.
+    Returns 0 if old regime is always worse, or cap (1.5L+50k+2L+more) if always better.
+    """
+    from tax_slabs import compute_slab_tax, compute_special_rate_tax
+
+    special_cg = (
+        special_rate_components["stcg_111a_net"]
+        + special_rate_components["ltcg_112a_net"]
+        + special_rate_components["ltcg_other_net"]
+    )
+    special_tax = compute_special_rate_tax(
+        stcg_111a=special_rate_components["stcg_111a_net"],
+        ltcg_112a=special_rate_components["ltcg_112a_net"],
+        ltcg_other=special_rate_components["ltcg_other_net"],
+    )
+
+    def old_tax_at(deduction: float) -> float:
+        taxable = max(0.0, gti - deduction - special_cg + stcg_other_slab)
+        surcharge_base = max(0.0, gti - deduction)
+        r = compute_slab_tax(
+            taxable_income=taxable,
+            regime="old",
+            age=age,
+            special_rate_tax=special_tax,
+            total_income_for_surcharge=surcharge_base,
+        )
+        return r["total_tax"]
+
+    lo, hi = 0.0, gti
+    for _ in range(60):   # ~60 bisection steps → precision ~₹1 on any income
+        mid = (lo + hi) / 2
+        if old_tax_at(mid) > new_total_tax:
+            lo = mid
+        else:
+            hi = mid
+    return hi

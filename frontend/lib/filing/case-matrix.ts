@@ -38,42 +38,57 @@ export function resolveRecommendedForm(
       ? higherIncomeBand(income, incomeBandFromGross(grossSalary))
       : income;
 
-  if (age === "e") {
-    return {
-      form: "BLOCK",
-      caseId: `BLOCK-${income}${age}-${business}`,
-      expert: true,
-      reason: "Minor — income clubbed with parent",
-    };
-  }
-  if (business === "v") {
-    return {
-      form: "ITR-3",
-      caseId: `ITR3-${income}${age}-${business}`,
-      expert: true,
-      reason: "Business with books / audit",
-    };
-  }
-  if (
+  const hasBusiness =
+    business === "v" ||
     business === "w" ||
     chips.has("business_presumptive") ||
-    chips.has("freelance")
-  ) {
-    return {
-      form: "ITR-4",
-      caseId: `ITR4-${income}${age}-${business}`,
-      expert: false,
-      reason: "Presumptive taxation — Section 44AD/44ADA may apply",
-    };
-  }
-  if (
+    chips.has("freelance");
+
+  const hasComplexNonBusiness =
     chips.has("capital_gains") ||
     chips.has("foreign") ||
     chips.has("director") ||
     business === "z" ||
     effectiveIncome === "5" ||
-    (grossSalary !== undefined && grossSalary > 50_00_000)
-  ) {
+    (grossSalary !== undefined && grossSalary > 50_00_000);
+
+  if (age === "e") {
+    return {
+      form: "BLOCK",
+      caseId: `BLOCK-${effectiveIncome}${age}-${business}`,
+      expert: true,
+      reason: "Minor — income clubbed with parent",
+    };
+  }
+  
+  if (business === "v") {
+    return {
+      form: "ITR-3",
+      caseId: `ITR3-${effectiveIncome}${age}-${business}`,
+      expert: true,
+      reason: "Business with books / audit",
+    };
+  }
+
+  if (hasBusiness && hasComplexNonBusiness) {
+    return {
+      form: "ITR-3",
+      caseId: `ITR3-${effectiveIncome}${age}-${business}-complex`,
+      expert: true,
+      reason: "Business income plus capital gains/foreign income/large income requires ITR-3",
+    };
+  }
+
+  if (hasBusiness) {
+    return {
+      form: "ITR-4",
+      caseId: `ITR4-${effectiveIncome}${age}-${business}`,
+      expert: false,
+      reason: "Presumptive taxation — Section 44AD/44ADA may apply",
+    };
+  }
+
+  if (hasComplexNonBusiness) {
     return {
       form: "ITR-2",
       caseId: `ITR2-${effectiveIncome}${age}-${business}`,
@@ -81,6 +96,7 @@ export function resolveRecommendedForm(
       reason: "Capital gains, foreign income, or income above ₹50L",
     };
   }
+
   return {
     form: "ITR-1",
     caseId: `ITR1-${effectiveIncome}${age}-${business}`,

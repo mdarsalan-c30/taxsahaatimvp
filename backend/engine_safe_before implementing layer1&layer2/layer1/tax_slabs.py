@@ -60,11 +60,12 @@ _OLD_SUPER_SENIOR = [     # age ≥ 80
 ]
 
 _NEW_REGIME = [
-    (300_000,  0.00),
-    (700_000,  0.05),
-    (1_000_000, 0.10),
-    (1_200_000, 0.15),
-    (1_500_000, 0.20),
+    (400_000,  0.00),
+    (800_000,  0.05),
+    (1_200_000, 0.10),
+    (1_600_000, 0.15),
+    (2_000_000, 0.20),
+    (2_400_000, 0.25),
     (None,     0.30),
 ]
 
@@ -215,27 +216,9 @@ def compute_87a_rebate(
             return min(slab_tax, 12_500)
         return 0.0
     else:  # new
-        if taxable_income <= 700_000:
-            return slab_tax  # full rebate → effectively nil tax up to 7L
+        if taxable_income <= 1_200_000:
+            return slab_tax  # full rebate → effectively nil tax
         return 0.0
-
-
-def _apply_87a_marginal_relief_new_regime(
-    taxable_income: float,
-    tax_after_rebate: float,
-) -> tuple[float, float]:
-    """
-    FY 2025-26 new regime: when taxable income exceeds ₹7,00,000, income tax
-    payable shall not exceed the amount by which income exceeds ₹7,00,000.
-    Returns (adjusted_tax_after_rebate, relief_amount).
-    """
-    if taxable_income <= 700_000:
-        return tax_after_rebate, 0.0
-    max_tax = taxable_income - 700_000
-    if tax_after_rebate <= max_tax:
-        return tax_after_rebate, 0.0
-    relief = round(tax_after_rebate - max_tax, 2)
-    return round(max_tax, 2), relief
 
 
 # ─────────────────────────────────────────────────────────────
@@ -274,14 +257,6 @@ def compute_slab_tax(
     # 2. 87A rebate (on slab tax only)
     rebate = compute_87a_rebate(taxable_income, slab_tax, regime)
     tax_after_rebate = max(0.0, slab_tax - rebate)
-
-    # 2b. New regime marginal relief above ₹12L (FY 2025-26)
-    rebate_marginal_87a = 0.0
-    if regime == "new":
-        tax_after_rebate, rebate_marginal_87a = _apply_87a_marginal_relief_new_regime(
-            taxable_income, tax_after_rebate
-        )
-    rebate = rebate + rebate_marginal_87a
 
     # 3. Gross tax (slab + special rate)
     gross_tax = tax_after_rebate + special_rate_tax
