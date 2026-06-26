@@ -1,2 +1,4 @@
 # Python engine uses stdlib mostly. Adding requests to bypass Vercel uv cache bug.
 requests==2.32.3
+groq==0.9.0  
+ 
