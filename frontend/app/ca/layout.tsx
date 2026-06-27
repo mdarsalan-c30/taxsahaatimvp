@@ -26,6 +26,15 @@ export default async function CALayout({ children }: { children: React.ReactNode
           </div>
         </div>
 
+        <nav className="hidden md:flex items-center gap-6 absolute left-1/2 -translate-x-1/2">
+          <Link href="/ca/dashboard" className="text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors">
+            Clients Dashboard
+          </Link>
+          <Link href="/ca/dashboard/billing" className="text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors">
+            Billing & Packages
+          </Link>
+        </nav>
+
         <div className="flex items-center gap-4">
           <span className="text-sm font-medium text-slate-700 hidden sm:block">
             {session.email}

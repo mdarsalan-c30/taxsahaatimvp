@@ -241,6 +241,8 @@ export function ActiveAiCompanion() {
     ]);
   }, [currentStep, activeField]);
 
+  const { handoff, result } = useDraftTaxCompute({ readOnly: true });
+
   // Scroll to bottom of chat when new message arrives
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -253,7 +255,7 @@ export function ActiveAiCompanion() {
     if (currentStep === "income") return ["What is Section 17(1)?", "What is Standard Deduction?"];
     if (currentStep === "deductions") return ["What is 80C limit?", "Can I claim rent without rent receipt?"];
     if (currentStep === "regime") return ["Old vs New regime differences?", "What is surcharge?"];
-    if (currentStep === "review") return ["What if there is a mismatch?", "How to avoid notices?"];
+    if (currentStep === "review" || currentStep === "checkout") return ["Get Expert CA Advice", "What if there is a mismatch?", "How to avoid notices?"];
     return ["Is my data safe?", "What is Standard Deduction?"];
   })();
 
@@ -287,6 +289,54 @@ export function ActiveAiCompanion() {
       return;
     }
 
+    if (normalizedQuestion === "get expert ca advice") {
+      if (!handoff) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: `genie_${Date.now()}`,
+            role: "assistant",
+            text: "I need to compute your taxes first before I can give you expert CA advice. Please fill in your income details.",
+          },
+        ]);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const res = await fetch("/api/layer2", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(handoff),
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setMessages((prev) => [
+            ...prev,
+            {
+              id: `genie_${Date.now()}`,
+              role: "assistant",
+              text: data.advice || "No advice returned.",
+            },
+          ]);
+        } else {
+          throw new Error("Failed to fetch CA advice");
+        }
+      } catch {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: `genie_${Date.now()}`,
+            role: "assistant",
+            text: "Sorry, the AI CA brain is temporarily unavailable. Please try again later.",
+          },
+        ]);
+      } finally {
+        setLoading(false);
+      }
+      return;
+    }
+
     // Call API fallback for other/custom questions
     try {
       const res = await fetch("/api/chat", {
@@ -296,7 +346,6 @@ export function ActiveAiCompanion() {
       });
       if (res.ok) {
         const data = await res.json();
-        // Take last response from message array
         const responseText = data.messages?.[data.messages.length - 1]?.text ?? "I'm checking that for you.";
         setMessages((prev) => [
           ...prev,

@@ -1,4 +1,4 @@
-export type PlanId = "free" | "diy" | "ai_smart" | "ca";
+export type PlanId = "free" | "normal" | "pro" | "b2b_20" | "b2b_40" | "b2b_100" | "ai_smart" | "ca" | "diy";
 
 export function formatINR(amount: number): string {
   return new Intl.NumberFormat("en-IN", {

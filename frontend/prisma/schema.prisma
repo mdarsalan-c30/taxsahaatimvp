@@ -1,0 +1,199 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model AdminUser {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  role         String
+  status       String   // "active" | "disabled"
+  createdBy    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model AdminRole {
+  id          String   @id @default(uuid())
+  key         String   @unique
+  label       String
+  builtin     Boolean
+  permissions String[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  adminEmail String
+  action     String
+  entity     String
+  entityId   String?
+  before     Json?
+  after      Json?
+  ts         DateTime @default(now())
+}
+
+model PricingConfig {
+  id            String    @id @default(uuid())
+  planId        String
+  basePriceInr  Int
+  offerPriceInr Int?
+  offerEndsAt   DateTime?
+  publishedAt   DateTime  @default(now())
+}
+
+model PricingRevision {
+  id             String   @id @default(uuid())
+  configSnapshot Json
+  adminEmail     String
+  ts             DateTime @default(now())
+}
+
+model Coupon {
+  id         String   @id @default(uuid())
+  code       String   @unique
+  planScope  String
+  lane       String
+  discount   String
+  amountOff  Int?
+  maxUses    Int
+  usedCount  Int      @default(0)
+  status     String
+  expiresAt  DateTime
+  createdBy  String?
+  createdAt  DateTime @default(now())
+}
+
+model CouponRedemption {
+  id        String   @id @default(uuid())
+  couponId  String
+  sessionId String?
+  tenantId  String?
+  ipHash    String?
+  ts        DateTime @default(now())
+}
+
+model Payment {
+  id                String   @id @default(uuid())
+  razorpayOrderId   String?
+  razorpayPaymentId String?
+  amount            Int
+  plan              String
+  status            String
+  source            String
+  sessionId         String?
+  couponId          String?
+  refundReason      String?
+  ts                DateTime @default(now())
+}
+
+model CompanionGrant {
+  id        String    @id @default(uuid())
+  sessionId String
+  source    String
+  plan      String?
+  expiresAt DateTime?
+  ts        DateTime  @default(now())
+  passkey   String?
+}
+
+model CrmContact {
+  id               String   @id @default(uuid())
+  sessionId        String?
+  tenantId         String?
+  email            String?
+  lane             String
+  stage            String
+  assignee         String?
+  aiStatus         String?
+  customFeeCharged Int?
+  paymentStatus    String?
+  createdAt        DateTime @default(now())
+}
+
+model CrmTask {
+  id        String    @id @default(uuid())
+  contactId String?
+  title     String
+  dueAt     DateTime?
+  status    String
+  assignee  String?
+  createdAt DateTime  @default(now())
+}
+
+model CrmNote {
+  id         String   @id @default(uuid())
+  contactId  String
+  adminEmail String
+  body       String
+  ts         DateTime @default(now())
+}
+
+model Document {
+  id          String    @id @default(uuid())
+  sessionId   String?
+  connector   String?
+  parseStatus String
+  error       String?
+  uploadedAt  DateTime  @default(now())
+  deletedAt   DateTime?
+}
+
+model DeletionRequest {
+  id          String    @id @default(uuid())
+  sessionId   String?
+  email       String?
+  status      String
+  requestedAt DateTime  @default(now())
+  completedAt DateTime?
+}
+
+model SupportTicket {
+  id        String   @id @default(uuid())
+  lane      String
+  sessionId String?
+  subject   String
+  body      String?
+  rating    Int?
+  tag       String?
+  status    String
+  assignee  String?
+  ts        DateTime @default(now())
+}
+
+model Tenant {
+  id               String   @id @default(uuid())
+  firmName         String
+  applicantName    String?
+  icaiNo           String?
+  email            String?
+  passwordHash     String?
+  city             String?
+  status           String
+  walletBalance    Int      @default(0)
+  creditsAvailable Int?
+  reviewedBy       String?
+  reviewReason     String?
+  createdAt        DateTime @default(now())
+}
+
+model B2CUser {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model SessionEvent {
+  id        String   @id @default(uuid())
+  sessionId String
+  eventName String
+  payload   Json?
+  ts        DateTime @default(now())
+}

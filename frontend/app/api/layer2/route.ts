@@ -1,8 +1,6 @@
 import { spawn } from "child_process";
 import path from "path";
 import { NextResponse } from "next/server";
-import type { UserInput } from "@/lib/engine/types";
-import { trackComputeLatency, trackEngineEvent } from "@/lib/monitoring/events";
 
 export const runtime = "nodejs";
 
@@ -10,21 +8,18 @@ async function proxyToPythonServerless(
   request: Request,
   payload: string
 ): Promise<NextResponse> {
-  const RAILWAY_URL = process.env.NEXT_PUBLIC_ENGINE_URL;
   const origin = new URL(request.url).origin;
-  const targetUrl = RAILWAY_URL ? `${RAILWAY_URL}/api/compute` : `${origin}/_/backend/api/py-compute`;
-
-  const res = await fetch(targetUrl, {
+  const res = await fetch(`${origin}/_/backend/api/layer2`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: payload,
   });
-  const data = (await res.json()) as Record<string, unknown>;
+  const data = await res.json();
   return NextResponse.json(data, { status: res.status });
 }
 
 function spawnLocalPython(payload: string): Promise<string> {
-  const scriptPath = path.join(process.cwd(), "..", "backend", "scripts", "compute_cli.py");
+  const scriptPath = path.join(process.cwd(), "..", "backend", "scripts", "layer2_cli.py");
 
   return new Promise<string>((resolve, reject) => {
     const proc = spawn("python", [scriptPath], {
@@ -51,7 +46,7 @@ function spawnLocalPython(payload: string): Promise<string> {
     });
     proc.on("close", (code) => {
       if (code !== 0 && !stdout.trim()) {
-        reject(new Error(stderr || `compute_cli exited with code ${code}`));
+        reject(new Error(stderr || `layer2_cli exited with code ${code}`));
       } else {
         resolve(stdout);
       }
@@ -63,18 +58,9 @@ function spawnLocalPython(payload: string): Promise<string> {
 }
 
 export async function POST(request: Request) {
-  const startedAt = Date.now();
   try {
-    const userInput = (await request.json()) as UserInput;
-
-    if (typeof userInput.age !== "number") {
-      return NextResponse.json(
-        { ok: false, error: "age is required (number)" },
-        { status: 400 }
-      );
-    }
-
-    const payload = JSON.stringify(userInput);
+    const payloadObj = await request.json();
+    const payload = JSON.stringify(payloadObj);
 
     let output: string;
     try {
@@ -87,36 +73,19 @@ export async function POST(request: Request) {
       throw err;
     }
 
-    const parsed = JSON.parse(output) as { ok: boolean };
+    const parsed = JSON.parse(output);
     if (!parsed.ok) {
-      trackEngineEvent("compute_failure", {
-        source: "server",
-        error: "Compute returned ok:false",
-        durationMs: Date.now() - startedAt,
-      });
       return NextResponse.json(parsed, { status: 422 });
     }
-    trackComputeLatency(Date.now() - startedAt, { source: "server" });
     return NextResponse.json(parsed);
   } catch (err) {
     const message = err instanceof Error ? err.message : "Compute failed";
     if (message === "ENGINE_UNAVAILABLE") {
-      trackEngineEvent("compute_failure", {
-        source: "server",
-        error: message,
-        engineUnavailable: true,
-        durationMs: Date.now() - startedAt,
-      });
       return NextResponse.json(
         { ok: false, error: "Tax engine unavailable", code: "ENGINE_UNAVAILABLE" },
         { status: 503 }
       );
     }
-    trackEngineEvent("compute_failure", {
-      source: "server",
-      error: message,
-      durationMs: Date.now() - startedAt,
-    });
     return NextResponse.json({ ok: false, error: message }, { status: 500 });
   }
 }

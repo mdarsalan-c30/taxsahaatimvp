@@ -43,6 +43,7 @@ const NAV: NavGroup[] = [
     items: [
       { href: "/admin/compliance", label: "Compliance" },
       { href: "/admin/settings", label: "Team & roles" },
+      { href: "/admin/credentials", label: "Credentials (Dev)" },
     ],
   },
 ];

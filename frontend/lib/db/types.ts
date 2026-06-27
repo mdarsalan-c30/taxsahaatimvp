@@ -142,6 +142,9 @@ export interface CrmContact {
   lane: "b2c" | "b2b";
   stage: CrmStage | string;
   assignee?: string;
+  aiStatus?: "pending" | "processed";
+  customFeeCharged?: number;
+  paymentStatus?: "pending" | "paid";
   createdAt: string;
 }
 
@@ -207,6 +210,7 @@ export interface Tenant {
   city?: string;
   status: TenantStatus;
   walletBalance: number;
+  creditsAvailable?: number;
   reviewedBy?: string;
   reviewReason?: string;
   createdAt: string;

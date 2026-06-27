@@ -223,7 +223,7 @@ const initialState = {
   deductions: defaultDeductions,
   regime: null as "old" | "new" | null,
   profession: null as string | null,
-  plan: "ai_smart" as PlanId,
+  plan: "normal" as PlanId,
   paidPlanId: null as PlanId | null,
   paymentVerifiedAt: null as number | null,
   mismatchResolved: false,

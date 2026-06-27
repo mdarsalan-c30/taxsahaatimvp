@@ -458,7 +458,7 @@ export function FilingLayout({
   return (
     <div className="flex min-h-screen bg-slate-50/50">
       {/* 1. Desktop Sidebar Navigation (lg & up) */}
-      <aside className="hidden lg:flex lg:flex-col lg:w-64 lg:h-screen lg:sticky lg:top-0 lg:border-r lg:border-slate-100/80 lg:shrink-0">
+      <aside className="hidden lg:flex lg:flex-col lg:w-56 lg:h-screen lg:sticky lg:top-0 lg:border-r lg:border-slate-100/80 lg:shrink-0">
         {sidebarContent}
       </aside>
 
@@ -488,7 +488,7 @@ export function FilingLayout({
           {/* Desktop Breadcrumbs */}
           <nav className="hidden lg:flex items-center gap-1.5 text-xs text-slate-500" aria-label="Breadcrumb">
             {breadcrumbs.map((crumb, i) => (
-              <span key={crumb.href} className="flex items-center gap-1.5">
+              <span key={`${crumb.href}-${i}`} className="flex items-center gap-1.5">
                 {i > 0 && <ChevronRight className="size-3 text-slate-300" />}
                 <Link
                   href={crumb.href}
@@ -518,12 +518,12 @@ export function FilingLayout({
         {/* 3. Main Workspace Grid */}
         <div
           className={cn(
-            "grid w-full flex-1 content-start items-start gap-4 p-4 sm:p-6 lg:p-6 min-w-0 pb-[calc(5rem+env(safe-area-inset-bottom,0px))]",
+            "grid w-full flex-1 content-start items-start gap-3 p-4 sm:p-5 lg:p-5 min-w-0 pb-[calc(5rem+env(safe-area-inset-bottom,0px))]",
             isWideLayout
               ? "grid-cols-1"
               : isCompanionLayout
                 ? "grid-cols-1"
-                : "grid-cols-1 xl:grid-cols-[1fr_16rem] max-w-[90rem] mx-auto"
+                : "grid-cols-1 xl:grid-cols-[1fr_20rem] max-w-[90rem] mx-auto"
           )}
         >
           {/* Main workspace card */}

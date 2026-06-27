@@ -24,7 +24,9 @@ function LoginForm() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Login failed");
-      router.push(next.startsWith("/admin") ? next : "/admin");
+      let redirectUrl = next.startsWith("/admin") ? next : "/admin";
+      if (redirectUrl.includes(".html")) redirectUrl = "/admin";
+      router.push(redirectUrl);
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");

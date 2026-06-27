@@ -24,6 +24,19 @@ export async function fetchCompute(userInput: UserInput): Promise<ComputeRespons
   return data;
 }
 
+export async function fetchLayer2Advice(handoffPayload: Record<string, unknown>): Promise<string> {
+  const res = await fetch("/api/layer2", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(handoffPayload),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(data.error ?? "Failed to fetch AI advice");
+  }
+  return data.advice;
+}
+
 export async function fetchPortalGuide(
   form: PortalForm,
   computeResult?: unknown,

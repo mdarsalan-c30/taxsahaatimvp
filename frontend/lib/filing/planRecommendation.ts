@@ -1,12 +1,23 @@
 import type { ConfidenceResult } from "@/lib/engine/types";
 import type { PlanId } from "@/lib/filing/types";
 
-/** Map engine confidence → checkout plan highlight (TRUST_CONVERSION §9). */
 export function recommendPlanFromConfidence(
-  confidence: Pick<ConfidenceResult, "ca_escalation_recommended">
+  confidence: ConfidenceResult & { mismatch_detected?: boolean }
 ): PlanId {
-  if (confidence.ca_escalation_recommended) {
-    return "ca";
+  // Free plan logic if everything is 0
+  if (
+    confidence.completeness_score === 100 &&
+    confidence.missing_documents.length === 0 &&
+    confidence.mismatch_detected === false
+  ) {
+    return "free";
   }
-  return "ai_smart";
+
+  // If there are mismatches or missing docs, recommend the Pro plan
+  if (confidence.mismatch_detected || confidence.missing_documents.length > 0) {
+    return "pro";
+  }
+
+  // Otherwise, default to Normal plan
+  return "normal";
 }

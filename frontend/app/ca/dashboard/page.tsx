@@ -2,7 +2,9 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { CA_SESSION_COOKIE, readCASession } from "@/lib/auth/ca";
 import { all } from "@/lib/db/store";
-import { Users, FileText, CheckCircle2, Clock } from "lucide-react";
+import { Users, FileText, CheckCircle2, Clock, BrainCircuit } from "lucide-react";
+import { CAClientActions } from "./ClientActionButtons";
+import { AddClientHeader } from "./AddClientHeader";
 
 export default async function CADashboardPage() {
   const cookieStore = await cookies();
@@ -13,23 +15,32 @@ export default async function CADashboardPage() {
     redirect("/auth/ca-login");
   }
 
+  // Fetch tenant details for credits
+  const tenants = await all("tenants");
+  const tenant = tenants.find((t) => t.id === session.tenantId);
+  const creditsAvailable = tenant?.creditsAvailable || 0;
+
   // Fetch clients assigned to this CA
   const allContacts = await all("crmContacts");
   const myClients = allContacts.filter((c) => c.tenantId === session.tenantId);
 
   const pendingClients = myClients.filter((c) => c.stage === "active" || c.stage === "started");
   const completedClients = myClients.filter((c) => c.stage === "won");
+  const aiProcessedClients = myClients.filter((c) => c.aiStatus === "processed");
+
+  const totalEarnings = completedClients.reduce((sum, c) => sum + (c.customFeeCharged || 0), 0);
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h2 className="text-2xl font-bold tracking-tight text-slate-900">Dashboard Overview</h2>
           <p className="text-sm text-slate-500 mt-1">Manage your clients and review tax filings.</p>
         </div>
+        <AddClientHeader />
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
         <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
           <div className="flex items-center gap-4">
             <div className="flex size-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
@@ -65,6 +76,30 @@ export default async function CADashboardPage() {
             </div>
           </div>
         </div>
+
+        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+          <div className="flex items-center gap-4">
+            <div className="flex size-12 items-center justify-center rounded-xl bg-purple-50 text-purple-600">
+              <BrainCircuit className="size-6" />
+            </div>
+            <div>
+              <p className="text-sm font-medium text-slate-500">AI Processed</p>
+              <h3 className="text-2xl font-bold text-slate-900">{aiProcessedClients.length}</h3>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-slate-900 rounded-2xl border border-slate-800 p-6 shadow-sm text-white">
+          <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <p className="text-sm font-medium text-slate-400">Total Earnings</p>
+            <span className="text-xs font-semibold px-2 py-1 bg-slate-800 rounded-md text-emerald-400">
+              {creditsAvailable} credits left
+            </span>
+          </div>
+          <h3 className="text-3xl font-black tabular-nums">
+            ₹{totalEarnings.toLocaleString("en-IN")}
+          </h3>
+        </div>
       </div>
 
       <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
@@ -87,10 +122,12 @@ export default async function CADashboardPage() {
             <table className="w-full text-left text-sm">
               <thead className="bg-white border-b border-slate-100 text-slate-500 text-xs uppercase tracking-wider">
                 <tr>
-                  <th className="px-6 py-4 font-semibold">Client Details</th>
-                  <th className="px-6 py-4 font-semibold">Status / Stage</th>
-                  <th className="px-6 py-4 font-semibold">Assigned On</th>
-                  <th className="px-6 py-4 font-semibold text-right">Action</th>
+                  <th className="px-6 py-4 font-semibold whitespace-nowrap">Client Details</th>
+                  <th className="px-6 py-4 font-semibold whitespace-nowrap">Status / Stage</th>
+                  <th className="px-6 py-4 font-semibold whitespace-nowrap">AI Status</th>
+                  <th className="px-6 py-4 font-semibold whitespace-nowrap">Fee Charged</th>
+                  <th className="px-6 py-4 font-semibold whitespace-nowrap">Assigned On</th>
+                  <th className="px-6 py-4 font-semibold text-right whitespace-nowrap">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
@@ -105,13 +142,26 @@ export default async function CADashboardPage() {
                         {client.stage.toUpperCase()}
                       </span>
                     </td>
+                    <td className="px-6 py-4">
+                      {client.aiStatus === "processed" ? (
+                        <span className="inline-flex items-center gap-1 text-xs font-semibold text-purple-600 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-100">
+                          <BrainCircuit className="size-3" />
+                          Verified
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center text-xs font-medium text-slate-500 bg-slate-50 px-2.5 py-0.5 rounded-full border border-slate-200">
+                          Pending
+                        </span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 font-medium text-slate-700">
+                      ₹{client.customFeeCharged ? client.customFeeCharged.toLocaleString("en-IN") : "0"}
+                    </td>
                     <td className="px-6 py-4 text-slate-500 text-xs">
                       {new Date(client.createdAt).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <button className="text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors">
-                        Review Filing
-                      </button>
+                      <CAClientActions contactId={client.id} currentStage={client.stage} aiStatus={client.aiStatus || "pending"} />
                     </td>
                   </tr>
                 ))}
