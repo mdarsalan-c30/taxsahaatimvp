@@ -39,13 +39,13 @@ export default async function CALayout({ children }: { children: React.ReactNode
           <span className="text-sm font-medium text-slate-700 hidden sm:block">
             {session.email}
           </span>
-          <Link
+          <a
             href="/api/auth/ca/logout"
             className="flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-colors"
           >
             <LogOut className="size-3.5" />
             Sign Out
-          </Link>
+          </a>
         </div>
       </header>
       <main className="flex-1 w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
