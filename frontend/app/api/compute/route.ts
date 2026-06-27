@@ -14,13 +14,28 @@ async function proxyToPythonServerless(
   const origin = new URL(request.url).origin;
   const targetUrl = RAILWAY_URL ? `${RAILWAY_URL}/api/compute` : `${origin}/_/backend/api/py-compute`;
 
-  const res = await fetch(targetUrl, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: payload,
-  });
-  const data = (await res.json()) as Record<string, unknown>;
-  return NextResponse.json(data, { status: res.status });
+  console.log(`[proxyToPythonServerless] targetUrl: ${targetUrl}, RAILWAY_URL: ${RAILWAY_URL}`);
+
+  try {
+    const res = await fetch(targetUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: payload,
+    });
+    
+    const contentType = res.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      const text = await res.text();
+      console.error(`[proxyToPythonServerless] Expected JSON, got ${contentType}: ${text.substring(0, 200)}`);
+      return NextResponse.json({ ok: false, error: `Invalid proxy response from ${targetUrl}: ${res.status}` }, { status: 502 });
+    }
+
+    const data = (await res.json()) as Record<string, unknown>;
+    return NextResponse.json(data, { status: res.status });
+  } catch (error) {
+    console.error("[proxyToPythonServerless] Fetch failed:", error);
+    return NextResponse.json({ ok: false, error: "Failed to reach compute engine" }, { status: 502 });
+  }
 }
 
 function spawnLocalPython(payload: string): Promise<string> {
