@@ -78,6 +78,9 @@ export async function POST(request: Request) {
 
     let output: string;
     try {
+      if (process.env.NEXT_PUBLIC_ENGINE_URL || process.env.NODE_ENV === "production") {
+        return proxyToPythonServerless(request, payload);
+      }
       output = await spawnLocalPython(payload);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Compute failed";
