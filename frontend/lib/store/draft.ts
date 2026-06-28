@@ -37,6 +37,7 @@ export interface IncomeDraft {
    * Per-employer Form 16 entries for job-change scenarios. When non-empty,
    * grossSalary and tds above hold the aggregate across all employers.
    * Optional so older persisted drafts and fixtures remain valid.
+   */
   employers?: EmployerForm16[];
   
   /** Business / Freelance Fields */
