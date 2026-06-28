@@ -41,11 +41,11 @@ export interface IncomeDraft {
   employers?: EmployerForm16[];
   
   /** Business / Freelance Fields */
-  businessRevenue: number;
-  businessExpenses: number;
-  freelanceRevenue: number;
-  freelanceExpenses: number;
-  otherIncome: number;
+  businessRevenue?: number;
+  businessExpenses?: number;
+  freelanceRevenue?: number;
+  freelanceExpenses?: number;
+  otherIncome?: number;
 }
 
 export interface HousePropertyDraft {

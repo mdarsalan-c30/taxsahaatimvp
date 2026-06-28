@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import { ArrowLeft, Save, Upload, Activity, CheckCircle, AlertTriangle, PlayCircle } from "lucide-react";
 import Link from "next/link";
 import "@uiw/react-md-editor/markdown-editor.css";
@@ -210,7 +211,7 @@ export default function BlogEditorPage() {
             <Textarea 
               placeholder="Meta snippet summary..." 
               value={seoDescription} 
-              onChange={e => setSeoDescription(e.target.value)} 
+              onChange={(e: any) => setSeoDescription(e.target.value)} 
               className="mt-1 resize-none"
               rows={4}
             />

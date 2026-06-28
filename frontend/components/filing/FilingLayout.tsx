@@ -7,7 +7,7 @@ import { useDraftStore } from "@/lib/store/draft";
 import { useDraftTaxCompute } from "@/lib/hooks/useDraftTaxCompute";
 import { formatINR } from "@/lib/format";
 import { cn } from "@/lib/utils";
-import { getIncomeSectionStatuses, statusDotClass } from "@/lib/filing/navStatus";
+import { getIncomeSectionStatuses, statusDotClass, type IncomeSectionId } from "@/lib/filing/navStatus";
 import { ProfileNavLink } from "@/components/marketing/ProfileNavLink";
 import { ActiveAiCompanion } from "./ActiveAiCompanion";
 import { FloatingGenie } from "./FloatingGenie";
@@ -32,7 +32,16 @@ import {
   Sparkles,
 } from "lucide-react";
 
-const SIDEBAR_STEPS = [
+type SidebarStep = {
+  id: string;
+  label: string;
+  href: string;
+  match: string[];
+  icon: any;
+  subItems?: { id: string; label: string; href: string; statusKey: IncomeSectionId }[];
+};
+
+const SIDEBAR_STEPS: SidebarStep[] = [
   {
     id: "onboarding",
     label: "Get Started",
