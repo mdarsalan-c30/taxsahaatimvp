@@ -38,9 +38,13 @@ export async function POST(request: NextRequest) {
       const result = await validateCoupon(body.couponCode, planId);
       if (result.valid) {
         valid = true;
-        discountType = result.coupon!.discount === "percentage" ? "percentage" : "fixed";
-        amountOff = result.coupon!.amountOff ?? 0;
-        percentageOff = result.coupon!.percentageOff ?? 0;
+        if (result.coupon!.discount === "full") {
+          discountType = "percentage";
+          percentageOff = 100;
+        } else {
+          discountType = "fixed";
+          amountOff = result.coupon!.amountOff ?? 0;
+        }
       } else {
         const refResult = await validateReferralCode(body.couponCode, planId);
         if (refResult.valid) {
