@@ -15,7 +15,7 @@
       "routePrefix": "/",
       "framework": "nextjs"
     },
-    "python_engine": {
+    "api_engine": {
       "root": "backend",
       "routePrefix": "/_/backend",
       "entrypoint": "api/compute.py",
